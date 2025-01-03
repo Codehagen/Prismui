@@ -1,0 +1,146 @@
+---
+title: Button Group
+publishedAt: 2025-01-02
+summary: A versatile button group component for organizing related actions with consistent spacing and visual connection.
+author: motormary
+slug: components/button-group
+related: ["introduction"]
+---
+
+<ComponentPreview name="button-group-basic" />
+
+<Note variant="info">
+  The Button Group component provides an elegant way to group related buttons together with consistent spacing and visual connection. Perfect for navigation, toolbars, and multi-step forms.
+</Note>
+
+## Examples
+
+<ComponentPreview name="button-group-demo" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+    ```bash
+    npx prismui@latest add button-group
+    ```
+  </TabsContent>
+  <TabsContent value="manual">
+    <Steps>
+      <Step>Install the required dependencies.</Step>
+      ```bash
+      npm install class-variance-authority
+      # or
+      yarn add class-variance-authority
+      # or
+      pnpm add class-variance-authority
+      ```
+      <Step>Copy the component to your project.</Step>
+      ```tsx
+      import { ButtonGroup } from "@/components/prismui/button-group"
+      ```
+    </Steps>
+  </TabsContent>
+</Tabs>
+
+## Props
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| size | "default" \| "sm" \| "lg" \| "icon" | The size of the button group |
+| separated | boolean | Whether to add spacing between buttons |
+| className | string | Additional CSS classes |
+| children | React.ReactNode | The buttons to be grouped |
+
+## Usage
+
+### Basic Usage
+
+```tsx
+import { Button } from "@/components/ui/button"
+import { ButtonGroup } from "@/components/prismui/button-group"
+
+export default function Example() {
+  return (
+    <ButtonGroup>
+      <Button>Previous</Button>
+      <Button>Next</Button>
+    </ButtonGroup>
+  )
+}
+```
+
+### With Icons
+
+```tsx
+import { Button } from "@/components/ui/button"
+import { ButtonGroup } from "@/components/prismui/button-group"
+import { Grid, List } from "lucide-react"
+
+export default function Example() {
+  return (
+    <ButtonGroup size="icon">
+      <Button variant="outline">
+        <Grid className="h-4 w-4" />
+      </Button>
+      <Button variant="outline">
+        <List className="h-4 w-4" />
+      </Button>
+    </ButtonGroup>
+  )
+}
+```
+
+## Customization
+
+<Steps>
+  <Step>Different Sizes</Step>
+  ```tsx
+  <ButtonGroup size="sm">
+    <Button>Small</Button>
+    <Button>Buttons</Button>
+  </ButtonGroup>
+  ```
+
+  <Step>Separated Buttons</Step>
+  ```tsx
+  <ButtonGroup separated>
+    <Button variant="outline">With</Button>
+    <Button variant="outline">Gaps</Button>
+  </ButtonGroup>
+  ```
+
+  <Step>Custom Styling</Step>
+  ```tsx
+  <ButtonGroup className="shadow-lg">
+    <Button className="font-bold">Custom</Button>
+    <Button className="font-bold">Styles</Button>
+  </ButtonGroup>
+  ```
+</Steps>
+
+## Notes
+
+- Built with class-variance-authority for type-safe variants
+- Responsive design with mobile-first approach
+- Supports all button variants from Shadcn UI
+- Maintains proper focus states and accessibility
+- Handles touch devices with appropriate spacing
+- Supports vertical stacking on mobile
+- TypeScript support with proper types
+- Customizable through Tailwind classes
+
+## Features
+
+- Multiple size variants
+- Optional button separation
+- Icon-only mode support
+- Responsive layout
+- Mobile-friendly design
+- Focus management
+- Keyboard navigation
+- Consistent spacing

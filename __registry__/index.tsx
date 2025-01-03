@@ -82,5 +82,16 @@ export const Index: Record<string, any> = {
       subcategory: "display",
       chunks: []
     },
+    "action-button": {
+      name: "action-button",
+      type: "registry:ui",
+      registryDependencies: undefined,
+      files: ["src/components/prismui/action-button.tsx"],
+      component: React.lazy(() => import("@/components/prismui/action-button.tsx")),
+      source: "",
+      category: "components",
+      subcategory: "form",
+      chunks: []
+    },
   },
 }

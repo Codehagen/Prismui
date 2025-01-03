@@ -18,10 +18,10 @@ export default async function Author({
       image:
         "https://imagedelivery.net/r-6-yk-gGPtjfbIST9-8uA/addc4b60-4c8f-47d7-10ab-6f9048432500/public",
     },
-    vsoraas: {
-      name: "Vegard Søraas",
+    motormary: {
+      name: "Mathias Moen",
       image:
-        "https://imagedelivery.net/r-6-yk-gGPtjfbIST9-8uA/76037f97-384f-4681-176e-5b8a0ba71300/public",
+        "https://imagedelivery.net/r-6-yk-gGPtjfbIST9-8uA/4ee5b8c7-29a6-484a-844d-d99c52a49300/public",
     },
   };
 

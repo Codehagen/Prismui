@@ -60,6 +60,18 @@ import HeroBadgeBasic, {
 import HeroBadgeDemo, {
   demoSource as HeroBadgeDemoSource,
 } from "./example/hero-badge-demo";
+import ActionButtonBasic, {
+  demoSource as ActionButtonBasicSource,
+} from "./example/action-button-basic";
+import ActionButtonDemo, {
+  demoSource as ActionButtonDemoSource,
+} from "./example/action-button-demo";
+import ButtonGroupBasic, {
+  demoSource as ButtonGroupBasicSource,
+} from "./example/button-group-basic";
+import ButtonGroupDemo, {
+  demoSource as ButtonGroupDemoSource,
+} from "./example/button-group-demo";
 
 export const examples: RegistryItem[] = [
   {
@@ -179,5 +191,45 @@ export const examples: RegistryItem[] = [
     component: HeroBadgeDemo,
     code: HeroBadgeDemoSource,
     dependencies: ["@/components/prismui/hero-badge", "@/components/icons"],
+  },
+  {
+    name: "action-button-basic",
+    type: "examples",
+    component: ActionButtonBasic,
+    code: ActionButtonBasicSource,
+    dependencies: ["@/components/prismui/action-button"],
+  },
+  {
+    name: "action-button-demo",
+    type: "examples",
+    component: ActionButtonDemo,
+    code: ActionButtonDemoSource,
+    dependencies: [
+      "@/components/prismui/action-button",
+      "@/components/ui/card",
+    ],
+  },
+  {
+    name: "button-group-basic",
+    type: "examples",
+    component: ButtonGroupBasic,
+    code: ButtonGroupBasicSource,
+    dependencies: [
+      "@/components/prismui/button-group",
+      "@/components/ui/button",
+      "lucide-react",
+    ],
+  },
+  {
+    name: "button-group-demo",
+    type: "examples",
+    component: ButtonGroupDemo,
+    code: ButtonGroupDemoSource,
+    dependencies: [
+      "@/components/prismui/button-group",
+      "@/components/ui/button",
+      "@/components/ui/card",
+      "lucide-react",
+    ],
   },
 ];

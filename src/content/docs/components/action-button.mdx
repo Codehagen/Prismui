@@ -1,0 +1,157 @@
+---
+title: Action Button
+publishedAt: 2025-01-02
+summary: A versatile button component with built-in loading state and smooth transitions for handling asynchronous actions.
+author: motormary
+slug: components/action-button
+related: ["introduction"]
+---
+
+<ComponentPreview name="action-button-basic" />
+
+<Note variant="info">
+  The Action Button component provides a seamless way to handle loading states in forms and async operations. Perfect for form submissions, data fetching, and any action that requires user feedback.
+</Note>
+
+## Examples
+
+<ComponentPreview name="action-button-demo" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+    ```bash
+    npx prismui@latest add action-button
+    ```
+  </TabsContent>
+  <TabsContent value="manual">
+    <Steps>
+      <Step>Install the required dependencies.</Step>
+      ```bash
+      npm install lucide-react class-variance-authority
+      # or
+      yarn add lucide-react class-variance-authority
+      # or
+      pnpm add lucide-react class-variance-authority
+      ```
+      <Step>Copy the component to your project.</Step>
+      ```tsx
+      import { ActionButton } from "@/components/prismui/action-button"
+      ```
+    </Steps>
+  </TabsContent>
+</Tabs>
+
+## Props
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| isPending | boolean | Whether the button is in a loading state |
+| onClick | () => void | Optional click handler that prevents default form submission |
+| variant | "default" \| "destructive" \| "outline" \| "secondary" \| "ghost" \| "link" | The visual variant of the button |
+| size | "default" \| "sm" \| "lg" \| "icon" | The size of the button |
+| children | React.ReactNode | The content to display inside the button |
+
+## Usage
+
+### Basic Usage
+
+```tsx
+import { ActionButton } from "@/components/prismui/action-button"
+import { useState } from "react"
+
+export default function Example() {
+  const [isPending, setIsPending] = useState(false)
+
+  async function handleSubmit() {
+    setIsPending(true)
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 1500))
+    setIsPending(false)
+  }
+
+  return (
+    <ActionButton onClick={handleSubmit} isPending={isPending}>
+      Submit Form
+    </ActionButton>
+  )
+}
+```
+
+### Form Integration
+
+```tsx
+import { ActionButton } from "@/components/prismui/action-button"
+import { useFormStatus } from "react-dom"
+
+export default function SubmitButton() {
+  const { pending } = useFormStatus()
+
+  return (
+    <ActionButton isPending={pending} type="submit">
+      Save Changes
+    </ActionButton>
+  )
+}
+```
+
+## Customization
+
+<Steps>
+  <Step>Custom Loading Indicator</Step>
+  ```tsx
+  <ActionButton
+    isPending={isPending}
+    className="[--spinner-size:1.5rem]"
+  >
+    Process
+  </ActionButton>
+  ```
+
+  <Step>Custom Variants</Step>
+  ```tsx
+  <ActionButton
+    variant="destructive"
+    size="lg"
+    className="font-bold"
+    isPending={isPending}
+  >
+    Delete Account
+  </ActionButton>
+  ```
+
+  <Step>With Icon</Step>
+  ```tsx
+  <ActionButton isPending={isPending}>
+    <Save className="mr-2 h-4 w-4" />
+    Save Changes
+  </ActionButton>
+  ```
+</Steps>
+
+## Notes
+
+- Built on top of the base Button component
+- Uses Lucide React for loading spinner
+- TypeScript support with proper types
+- Maintains width during loading state
+- Prevents accidental double submissions
+- Supports all button variants and sizes
+- Integrates with Shadcn UI components
+- Optimized for form submissions
+
+## Features
+
+- Smooth loading state transitions
+- Consistent button width
+- Prevents form resubmission
+- Multiple button variants
+- Responsive sizing options
+- Accessible loading states
+- Form integration support
+- Server actions compatibility

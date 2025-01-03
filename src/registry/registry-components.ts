@@ -836,4 +836,158 @@ export default function HeroBadge({
     },
     dependencies: ["@/lib/utils", "framer-motion"],
   },
+  {
+    name: "action-button",
+    type: "registry:ui",
+    category: "components",
+    subcategory: "form",
+    code: `"use client";
+
+import { LoaderCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { VariantProps } from "class-variance-authority";
+import { Button } from "../ui/button";
+import { buttonVariants } from "../ui/button";
+
+interface props
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  children: React.ReactNode;
+  isPending: boolean;
+  onClick?: () => void;
+}
+
+export default function ActionButton({
+  children,
+  isPending,
+  variant,
+  size,
+  className,
+  onClick,
+}: props) {
+  return (
+    <Button
+      onClick={
+        onClick
+          ? (e: React.MouseEvent<HTMLButtonElement>) => {
+              e.preventDefault();
+              onClick();
+            }
+          : undefined
+      }
+      type="submit"
+      disabled={isPending}
+      variant={variant}
+      size={size}
+      className={cn(
+        className,
+        "inline-grid place-items-center [grid-template-areas:'stack']"
+      )}
+    >
+      <span
+        className={cn(
+          isPending && "invisible",
+          "flex items-center gap-2 [grid-area:stack]"
+        )}
+      >
+        {children}
+      </span>
+      <LoaderCircle
+        aria-label="Submitting"
+        className={cn(
+          isPending ? "visible" : "invisible",
+          "size-5 animate-spin transition-opacity [grid-area:stack]"
+        )}
+      />
+    </Button>
+  );
+}`,
+    files: [
+      {
+        path: "components/prismui/action-button.tsx",
+        type: "registry:ui",
+      },
+    ],
+    cli: {
+      npm: "npx prismui@latest add action-button",
+      pnpm: "pnpm dlx prismui@latest add action-button",
+      yarn: "yarn dlx prismui@latest add action-button",
+      bun: "bunx prismui@latest add action-button",
+    },
+    dependencies: [
+      "@/lib/utils",
+      "lucide-react",
+      "class-variance-authority",
+      "@/components/ui/button",
+    ],
+  },
+  {
+    name: "button-group",
+    type: "registry:ui",
+    category: "components",
+    subcategory: "form",
+    code: `"use client";
+
+import { cn } from "@/lib/utils";
+import { cva, VariantProps } from "class-variance-authority";
+import React from "react";
+
+const buttonGroupVariants = cva(
+  "flex sm:items-center max-sm:gap-1 max-sm:flex-col [&>*:focus-within]:ring-1 [&>*:focus-within]:z-10 [&>*]:ring-offset-0 sm:[&>*:not(:first-child)]:rounded-l-none sm:[&>*:not(:last-child)]:rounded-r-none",
+  {
+    variants: {
+      size: {
+        default: "[&>*]:h-10 [&>*]:px-4 [&>*]:py-2",
+        sm: "[&>*]:h-9 [&>*]:rounded-md [&>*]:px-3",
+        lg: "[&>*]:h-11 [&>*]:rounded-md [&>*]:px-8",
+        icon: "[&>*]:h-10 [&>*]:w-10",
+      },
+      separated: {
+        true: "[&>*]:outline [&>*]:outline-1 [&>*]:outline-zinc-500 gap-0.5 [&>*:focus-within]:ring-offset-2",
+        false: "[&>*:focus-within]:ring-offset-1",
+      },
+    },
+    defaultVariants: {
+      separated: false,
+      size: "default",
+    },
+  }
+);
+
+export interface ButtonGroupProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof buttonGroupVariants> {
+  separated?: boolean;
+}
+
+const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
+  ({ children, className, size, separated = false, ...props }, ref) => {
+    return (
+      <div
+        className={cn(buttonGroupVariants({ size, className, separated }))}
+        ref={ref}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+ButtonGroup.displayName = "ButtonGroup";
+
+export { ButtonGroup };`,
+    files: [
+      {
+        path: "components/prismui/button-group.tsx",
+        type: "registry:ui",
+      },
+    ],
+    cli: {
+      npm: "npx prismui@latest add button-group",
+      pnpm: "pnpm dlx prismui@latest add button-group",
+      yarn: "yarn dlx prismui@latest add button-group",
+      bun: "bunx prismui@latest add button-group",
+    },
+    dependencies: ["@/lib/utils", "class-variance-authority"],
+  },
 ];

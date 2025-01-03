@@ -85,5 +85,24 @@
     ],
     "category": "components",
     "subcategory": "display"
+  },
+  {
+    "name": "action-button",
+    "type": "registry:ui",
+    "code": "\"use client\";\n\nimport { LoaderCircle } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport { VariantProps } from \"class-variance-authority\";\nimport { Button } from \"../ui/button\";\nimport { buttonVariants } from \"../ui/button\";\n\ninterface props\n  extends React.ButtonHTMLAttributes<HTMLButtonElement>,\n    VariantProps<typeof buttonVariants> {\n  children: React.ReactNode;\n  isPending: boolean;\n  onClick?: () => void;\n}\n\nexport default function ActionButton({\n  children,\n  isPending,\n  variant,\n  size,\n  className,\n  onClick,\n}: props) {\n  return (\n    <Button\n      onClick={\n        onClick\n          ? (e: React.MouseEvent<HTMLButtonElement>) => {\n              e.preventDefault();\n              onClick();\n            }\n          : undefined\n      }\n      type=\"submit\"\n      disabled={isPending}\n      variant={variant}\n      size={size}\n      className={cn(\n        className,\n        \"inline-grid place-items-center [grid-template-areas:'stack']\"\n      )}\n    >\n      <span\n        className={cn(\n          isPending && \"invisible\",\n          \"flex items-center gap-2 [grid-area:stack]\"\n        )}\n      >\n        {children}\n      </span>\n      <LoaderCircle\n        aria-label=\"Submitting\"\n        className={cn(\n          isPending ? \"visible\" : \"invisible\",\n          \"size-5 animate-spin transition-opacity [grid-area:stack]\"\n        )}\n      />\n    </Button>\n  );\n}",
+    "files": [
+      {
+        "path": "components/prismui/action-button.tsx",
+        "type": "registry:ui"
+      }
+    ],
+    "dependencies": [
+      "@/lib/utils",
+      "lucide-react",
+      "class-variance-authority",
+      "@/components/ui/button"
+    ],
+    "category": "components",
+    "subcategory": "form"
   }
 ]

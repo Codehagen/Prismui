@@ -72,6 +72,19 @@ export const docsConfig: DocsConfig = {
         },
       ],
     },
+    {
+      title: "Buttons",
+      items: [
+        {
+          title: "Action Button",
+          href: "/docs/components/action-button",
+        },
+        {
+          title: "Button Group",
+          href: "/docs/components/button-group",
+        },
+      ],
+    },
 
     {
       title: "Text Animations",
