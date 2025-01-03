@@ -58,14 +58,17 @@ function HeroContent() {
         Beautiful, accessible, and ready for production.
       </motion.p>
       <motion.div
-        className="flex gap-4 pt-4"
+        className="flex flex-col sm:flex-row gap-4 pt-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.8, ease }}
       >
         <Link
           href="/docs"
-          className={cn(buttonVariants({ size: "lg" }), "gap-2")}
+          className={cn(
+            buttonVariants({ size: "lg" }),
+            "gap-2 w-full sm:w-auto justify-center"
+          )}
         >
           <Icons.book className="h-4 w-4" />
           Documentation
@@ -74,7 +77,7 @@ function HeroContent() {
           href="/docs"
           className={cn(
             buttonVariants({ variant: "outline", size: "lg" }),
-            "gap-2"
+            "gap-2 w-full sm:w-auto justify-center"
           )}
         >
           <Icons.component className="h-4 w-4" />
@@ -87,13 +90,13 @@ function HeroContent() {
 
 export default function Hero() {
   return (
-    <div className="container relative">
-      <div className="flex min-h-[calc(100vh-64px)] items-center py-8 px-6 md:px-8 lg:px-12">
-        <div className="flex flex-col gap-4 w-full max-w-2xl">
+    <div className="container relative overflow-hidden">
+      <div className="flex min-h-[calc(100vh-64px)] flex-col lg:flex-row items-center py-8 px-4 md:px-8 lg:px-12">
+        <div className="flex flex-col gap-4 w-full lg:max-w-2xl">
           <HeroPill />
           <HeroContent />
         </div>
-        <div className="hidden lg:block w-full max-w-xl pl-16">
+        <div className="w-full lg:max-w-xl lg:pl-16 mt-12 lg:mt-0">
           <ComponentPreview />
         </div>
       </div>

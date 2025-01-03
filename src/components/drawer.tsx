@@ -47,14 +47,11 @@ export default function drawerDemo() {
           </nav>
         </DrawerHeader>
         <DrawerFooter>
-          <Link
-            href="/login"
-            className={buttonVariants({ variant: "outline" })}
-          >
-            Login
+          <Link href="/docs" className={buttonVariants({ variant: "outline" })}>
+            Docs
           </Link>
           <Link
-            href="/signup"
+            href="/docs"
             className={cn(
               buttonVariants({ variant: "default" }),
               "w-full sm:w-auto text-background flex gap-2"
