@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 
 export default function useCurrentAnchor() {
-  const [currentAnchor, setCurrentAnchor] = useState<string | null>(null);
+  const [currentAnchor, setCurrentAnchor] = useState<string>("");
 
   useEffect(() => {
-    const mdxContainer = document.querySelector("[data-mdx-container]");
-    if (!mdxContainer) return;
+    if (typeof window === "undefined") return;
 
-    // Get all h2 elements within the MDX container
-    const headings = Array.from(mdxContainer.querySelectorAll("h2"));
+    const headings = document.querySelectorAll("h2[id], h3[id], h4[id]");
     if (headings.length === 0) return;
 
     const getActiveHeading = () => {
@@ -29,10 +27,30 @@ export default function useCurrentAnchor() {
       return headings[0].id;
     };
 
+    // Update active section on scroll
     const onScroll = () => {
       const activeHeading = getActiveHeading();
-      setCurrentAnchor(activeHeading);
+      if (activeHeading) setCurrentAnchor(activeHeading);
     };
+
+    // Also use IntersectionObserver for more precise detection when headings come into view
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio > 0) {
+            const id = entry.target.getAttribute("id");
+            if (id) setCurrentAnchor(id);
+          }
+        });
+      },
+      {
+        rootMargin: "-20% 0% -35% 0%",
+        threshold: [0, 1],
+      }
+    );
+
+    // Observe all headings
+    headings.forEach((heading) => observer.observe(heading));
 
     // Initial check
     onScroll();
@@ -41,6 +59,7 @@ export default function useCurrentAnchor() {
     window.addEventListener("scroll", onScroll, { passive: true });
 
     return () => {
+      headings.forEach((heading) => observer.unobserve(heading));
       window.removeEventListener("scroll", onScroll);
     };
   }, []);
