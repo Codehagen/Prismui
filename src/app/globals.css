@@ -114,4 +114,12 @@
   .sidebar-menu-button[data-active="true"] {
     @apply bg-accent text-accent-foreground font-medium;
   }
+
+  .docs-sidebar-nav {
+    @apply flex flex-col gap-6;
+  }
+
+  .docs-sidebar-nav-mobile {
+    @apply py-2;
+  }
 }

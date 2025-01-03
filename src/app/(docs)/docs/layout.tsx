@@ -1,5 +1,6 @@
 import { DocsNav } from "@/components/docs-nav";
 import { docsConfig } from "@/config/docs";
+import { DocsSidebar } from "@/components/docs-sidebar";
 
 interface DocsLayoutProps {
   children: React.ReactNode;
@@ -14,6 +15,11 @@ export default function DocsLayout({ children }: DocsLayoutProps) {
             <DocsNav config={docsConfig} />
           </div>
         </aside>
+
+        <div className="md:hidden">
+          <DocsSidebar />
+        </div>
+
         {children}
       </div>
     </div>

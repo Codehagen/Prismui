@@ -20,7 +20,7 @@ export default async function DocsPage() {
 
   return (
     <div className="bg-background/50 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur-lg dark:shadow-[inset_10px_-50px_94px_0_rgba(0,0,0,0.2)]">
-      <div className="grid grid-cols-4 gap-10 py-10">
+      <div className="grid grid-cols-4 gap-10 py-10 px-4 md:px-10">
         <div className="col-span-4 flex flex-col space-y-8 md:col-span-3 md:pr-10">
           <div className="flex flex-col space-y-4">
             <h1 className="font-display text-3xl font-bold !leading-snug text-foreground sm:text-4xl">
