@@ -105,7 +105,10 @@ export default async function DocsPage({
             )}
           </div>
           <div className="sticky top-20 col-span-1 hidden flex-col space-y-10 divide-y divide-border self-start md:flex">
-            <TableOfContents items={data.tableOfContents} />
+            <TableOfContents
+              items={data.tableOfContents}
+              currentPageSlug={`/docs/${params.slug.join("/")}`}
+            />
           </div>
         </div>
       </div>

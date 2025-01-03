@@ -5,15 +5,20 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Bug, Github, Pencil } from "lucide-react";
+import { getDocsGitHubUrl, getDocsIssueUrl } from "@/lib/github-url";
 
 interface TableOfContentsProps {
   items: {
     title: string;
     slug: string;
   }[];
+  currentPageSlug: string;
 }
 
-export function TableOfContents({ items }: TableOfContentsProps) {
+export function TableOfContents({
+  items,
+  currentPageSlug,
+}: TableOfContentsProps) {
   const [activeSlug, setActiveSlug] = useState<string>("");
 
   useEffect(() => {
@@ -99,11 +104,14 @@ export function TableOfContents({ items }: TableOfContentsProps) {
           </div>
         </div>
       </div>
-      <div className="space-y-4">
+      <div className="pt-6 space-y-4">
         <h4 className="text-sm font-medium">Contribute</h4>
         <div className="flex flex-col gap-2">
           <Link
-            href="https://github.com/your-repo/issues/new"
+            href={getDocsIssueUrl(
+              `Issue: ${currentPageSlug}`,
+              `Issue found on: ${currentPageSlug}\n\nDescription:\n`
+            )}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
@@ -112,7 +120,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
             Report an issue
           </Link>
           <Link
-            href="https://github.com/your-repo/edit/main/content/docs"
+            href={getDocsGitHubUrl(currentPageSlug)}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
@@ -121,7 +129,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
             Edit this page
           </Link>
           <Link
-            href="https://github.com/your-repo"
+            href="https://github.com/codehagen/prismui"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
