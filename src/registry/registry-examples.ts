@@ -72,6 +72,12 @@ import ButtonGroupBasic, {
 import ButtonGroupDemo, {
   demoSource as ButtonGroupDemoSource,
 } from "./example/button-group-demo";
+import DisplayCardsBasic, {
+  demoSource as DisplayCardsBasicSource,
+} from "./example/display-cards-basic";
+import DisplayCardsDemo, {
+  demoSource as DisplayCardsDemoSource,
+} from "./example/display-cards-demo";
 
 export const examples: RegistryItem[] = [
   {
@@ -228,6 +234,24 @@ export const examples: RegistryItem[] = [
     dependencies: [
       "@/components/prismui/button-group",
       "@/components/ui/button",
+      "@/components/ui/card",
+      "lucide-react",
+    ],
+  },
+  {
+    name: "display-cards-basic",
+    type: "examples",
+    component: DisplayCardsBasic,
+    code: DisplayCardsBasicSource,
+    dependencies: ["@/components/prismui/display-cards"],
+  },
+  {
+    name: "display-cards-demo",
+    type: "examples",
+    component: DisplayCardsDemo,
+    code: DisplayCardsDemoSource,
+    dependencies: [
+      "@/components/prismui/display-cards",
       "@/components/ui/card",
       "lucide-react",
     ],

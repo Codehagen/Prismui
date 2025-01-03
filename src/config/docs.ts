@@ -51,6 +51,10 @@ export const docsConfig: DocsConfig = {
           title: "Hero Badge",
           href: "/docs/components/hero-badge",
         },
+        {
+          title: "Display Cards",
+          href: "/docs/components/display-cards",
+        },
       ],
     },
     {

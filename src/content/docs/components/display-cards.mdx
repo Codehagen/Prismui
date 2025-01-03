@@ -1,0 +1,169 @@
+---
+title: Display Cards
+publishedAt: 2025-01-02
+summary: A visually appealing stacked card layout with hover animations and grayscale effects.
+author: motormary
+slug: components/display-cards
+related: ["introduction"]
+---
+
+<ComponentPreview name="display-cards-basic" />
+
+<Note variant="info">
+  The Display Cards component creates an engaging visual hierarchy with stacked cards that respond to hover interactions. Perfect for showcasing featured content, portfolios, or highlighting key information.
+</Note>
+
+## Examples
+
+<ComponentPreview name="display-cards-demo" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+    <ComponentSource name="display-cards" isCli />
+  </TabsContent>
+  <TabsContent value="manual">
+    <Steps>
+      <Step>Install the required dependencies.</Step>
+      ```bash
+      npm install lucide-react
+      # or
+      yarn add lucide-react
+      # or
+      pnpm add lucide-react
+      ```
+      <Step>Copy the component to your project.</Step>
+      ```tsx
+      import { DisplayCards } from "@/components/prismui/display-cards"
+      ```
+    </Steps>
+  </TabsContent>
+</Tabs>
+
+## Props
+
+### DisplayCards Props
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| cards | DisplayCardProps[] | Array of card configurations to display |
+
+### DisplayCard Props
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| className | string | Additional CSS classes for the card |
+| icon | React.ReactNode | Icon component to display |
+| title | string | Card title |
+| description | string | Card description |
+| date | string | Date or timestamp |
+| iconClassName | string | Additional CSS classes for the icon container |
+| titleClassName | string | Additional CSS classes for the title |
+
+## Usage
+
+### Basic Usage
+
+```tsx
+import { DisplayCards } from "@/components/prismui/display-cards"
+
+export default function Example() {
+  return <DisplayCards />
+}
+```
+
+### Custom Cards
+
+```tsx
+import { DisplayCards } from "@/components/prismui/display-cards"
+import { Star } from "lucide-react"
+
+export default function Example() {
+  const customCards = [
+    {
+      icon: <Star className="size-4 text-yellow-300" />,
+      title: "Featured",
+      description: "Top rated content",
+      date: "Today",
+      iconClassName: "text-yellow-500",
+      titleClassName: "text-yellow-500",
+    },
+    // Add more cards...
+  ]
+
+  return <DisplayCards cards={customCards} />
+}
+```
+
+## Customization
+
+<Steps>
+  <Step>Custom Styling</Step>
+  ```tsx
+  <DisplayCards
+    cards={[
+      {
+        className: "hover:scale-105 dark:bg-zinc-900",
+        icon: <Star className="size-4" />,
+        title: "Custom Style",
+        description: "With custom transitions",
+      },
+    ]}
+  />
+  ```
+
+  <Step>Custom Colors</Step>
+  ```tsx
+  <DisplayCards
+    cards={[
+      {
+        icon: <Star className="size-4 text-indigo-300" />,
+        iconClassName: "bg-indigo-900",
+        titleClassName: "text-indigo-500",
+        title: "Custom Colors",
+      },
+    ]}
+  />
+  ```
+
+  <Step>Custom Layout</Step>
+  ```tsx
+  <div className="max-w-4xl mx-auto">
+    <DisplayCards
+      cards={[
+        {
+          className: "translate-x-8 translate-y-8",
+          title: "Custom Position",
+        },
+      ]}
+    />
+  </div>
+  ```
+</Steps>
+
+## Notes
+
+- Built with Tailwind CSS for responsive design
+- Uses CSS Grid for stacking cards
+- Implements smooth hover animations
+- Supports custom icons from any library
+- Includes grayscale hover effects
+- Maintains consistent spacing
+- Supports dark mode
+- TypeScript support with proper types
+
+## Features
+
+- Stacked card layout
+- Hover animations
+- Grayscale effects
+- Custom icons
+- Responsive design
+- Dark mode support
+- Customizable styles
+- Accessible markup 

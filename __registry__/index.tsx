@@ -115,5 +115,16 @@ export const Index: Record<string, any> = {
       subcategory: "display",
       chunks: []
     },
+    "display-cards": {
+      name: "display-cards",
+      type: "registry:ui",
+      registryDependencies: undefined,
+      files: ["src/components/prismui/display-cards.tsx"],
+      component: React.lazy(() => import("@/components/prismui/display-cards.tsx")),
+      source: "",
+      category: "components",
+      subcategory: "display",
+      chunks: []
+    },
   },
 }
