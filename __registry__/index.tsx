@@ -159,5 +159,16 @@ export const Index: Record<string, any> = {
       subcategory: "marketing",
       chunks: []
     },
+    "number-flow": {
+      name: "number-flow",
+      type: "registry:ui",
+      registryDependencies: undefined,
+      files: ["src/components/prismui/number-flow.tsx"],
+      component: React.lazy(() => import("@/components/prismui/number-flow.tsx")),
+      source: "",
+      category: "components",
+      subcategory: "animation",
+      chunks: []
+    },
   },
 }

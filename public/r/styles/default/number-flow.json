@@ -1,0 +1,15 @@
+{
+  "name": "number-flow",
+  "type": "registry:ui",
+  "code": "\"use client\";\n\nimport NumberFlow from \"@number-flow/react\";\nimport { type Format } from \"@number-flow/react\";\n\ninterface NumberFlowProps {\n  value: number;\n  format?: Format;\n  locales?: string | string[];\n  prefix?: string;\n  suffix?: string;\n  spinTiming?: EffectTiming;\n  willChange?: boolean;\n  continuous?: boolean;\n}\n\nexport default function NumberFlowWrapper({\n  value,\n  format = {},\n  locales,\n  prefix,\n  suffix,\n  spinTiming,\n  willChange = false,\n  continuous = false,\n}: NumberFlowProps) {\n  return (\n    <NumberFlow\n      value={value}\n      format={format}\n      locales={locales}\n      prefix={prefix}\n      suffix={suffix}\n      spinTiming={spinTiming}\n      willChange={willChange}\n      continuous={continuous}\n    />\n  );\n}",
+  "files": [
+    {
+      "path": "components/prismui/number-flow.tsx",
+      "type": "registry:ui",
+      "content": "\"use client\";\n\nimport NumberFlow from \"@number-flow/react\";\nimport { type Format } from \"@number-flow/react\";\n\ninterface NumberFlowProps {\n  value: number;\n  format?: Format;\n  locales?: string | string[];\n  prefix?: string;\n  suffix?: string;\n  spinTiming?: EffectTiming;\n  willChange?: boolean;\n  continuous?: boolean;\n}\n\nexport default function NumberFlowWrapper({\n  value,\n  format = {},\n  locales,\n  prefix,\n  suffix,\n  spinTiming,\n  willChange = false,\n  continuous = false,\n}: NumberFlowProps) {\n  return (\n    <NumberFlow\n      value={value}\n      format={format}\n      locales={locales}\n      prefix={prefix}\n      suffix={suffix}\n      spinTiming={spinTiming}\n      willChange={willChange}\n      continuous={continuous}\n    />\n  );\n}\n"
+    }
+  ],
+  "dependencies": [
+    "@number-flow/react"
+  ]
+}
