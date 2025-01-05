@@ -30,7 +30,7 @@ export default function BlogLayoutHero() {
             {data?.description || "Latest insights and updates from Prism UI."}
           </p>
           <nav className="mt-6 hidden w-fit items-center space-x-2 rounded-full border border-border bg-background p-2 md:flex">
-            <CategoryLink title="Overview" href="/blog" active={!slug} />
+            <CategoryLink title="Latest Posts" href="/blog" active={!slug} />
             {BLOG_CATEGORIES.map((category) => (
               <CategoryLink
                 key={category.slug}
@@ -46,7 +46,7 @@ export default function BlogLayoutHero() {
         content={
           <div className="w-full p-4">
             <CategoryLink
-              title="Overview"
+              title="Latest Posts"
               href="/blog"
               active={!slug}
               mobile
