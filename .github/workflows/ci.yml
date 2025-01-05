@@ -1,4 +1,4 @@
-name: CI
+name: 🚀 CI
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: 🏗️ Build Registry
+    name: 🛠️ Build and Test
     timeout-minutes: 15
     runs-on: ubuntu-latest
 
@@ -29,7 +29,7 @@ jobs:
           version: 8
           run_install: false
 
-      - name: 🗄️ Get pnpm store directory
+      - name: 📂 Get pnpm store directory
         shell: bash
         run: |
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
@@ -45,5 +45,5 @@ jobs:
       - name: 📥 Install dependencies
         run: pnpm install
 
-      - name: 🚀 Build Registry
-        run: pnpm build:registry
+      - name: 🏗️ Build
+        run: pnpm build
