@@ -86,6 +86,24 @@ import OpenSourceBasic, {
 import OpenSourceDemo, {
   demoSource as OpenSourceDemoSource,
 } from "./example/open-source-demo";
+import PopoverBasic, {
+  demoSource as PopoverBasicSource,
+} from "./example/popover-basic";
+import PopoverDemo, {
+  demoSource as PopoverDemoSource,
+} from "./example/popover-demo";
+import PopoverMenu, {
+  demoSource as PopoverMenuSource,
+} from "./example/popover-menu";
+import PopoverCommand, {
+  demoSource as PopoverCommandSource,
+} from "./example/popover-command";
+import PopoverForm, {
+  demoSource as PopoverFormSource,
+} from "./example/popover-form";
+import PopoverProject, {
+  demoSource as PopoverProjectSource,
+} from "./example/popover-project";
 
 export const examples: RegistryItem[] = [
   {
@@ -296,5 +314,72 @@ export const examples: RegistryItem[] = [
     component: OpenSourceDemo,
     code: OpenSourceDemoSource,
     dependencies: ["@/components/prismui/open-source", "@/components/ui/card"],
+  },
+  {
+    name: "popover-basic",
+    type: "examples",
+    component: PopoverBasic,
+    code: PopoverBasicSource,
+    dependencies: ["@/components/prismui/popover"],
+  },
+  {
+    name: "popover-demo",
+    type: "examples",
+    component: PopoverDemo,
+    code: PopoverDemoSource,
+    dependencies: [
+      "@/components/prismui/popover",
+      "@/components/ui/card",
+      "@/components/ui/badge",
+      "@/components/ui/input",
+      "@/components/ui/button",
+      "@/components/ui/separator",
+      "@/components/ui/progress",
+      "@/components/ui/avatar",
+      "@/components/ui/tooltip",
+      "lucide-react",
+    ],
+  },
+  {
+    name: "popover-menu",
+    type: "examples",
+    component: PopoverMenu,
+    code: PopoverMenuSource,
+    dependencies: ["@/components/prismui/popover", "lucide-react"],
+  },
+  {
+    name: "popover-command",
+    type: "examples",
+    component: PopoverCommand,
+    code: PopoverCommandSource,
+    dependencies: [
+      "@/components/prismui/popover",
+      "@/components/ui/input",
+      "@/components/ui/badge",
+      "@/components/ui/separator",
+      "lucide-react",
+    ],
+  },
+  {
+    name: "popover-form",
+    type: "examples",
+    component: PopoverForm,
+    code: PopoverFormSource,
+    dependencies: ["@/components/prismui/popover"],
+  },
+  {
+    name: "popover-project",
+    type: "examples",
+    component: PopoverProject,
+    code: PopoverProjectSource,
+    dependencies: [
+      "@/components/prismui/popover",
+      "@/components/ui/badge",
+      "@/components/ui/button",
+      "@/components/ui/progress",
+      "@/components/ui/avatar",
+      "@/components/ui/tooltip",
+      "lucide-react",
+    ],
   },
 ];

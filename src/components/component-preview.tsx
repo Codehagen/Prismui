@@ -17,6 +17,7 @@ interface ComponentPreviewProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
   align?: "center" | "start" | "end";
   preview?: boolean;
+  height?: "sm" | "md" | "lg" | "xl" | string;
 }
 
 async function formatCode(code: string, language = "tsx") {
@@ -56,6 +57,7 @@ export function ComponentPreview({
   className,
   align = "center",
   preview = false,
+  height = "md",
   ...props
 }: ComponentPreviewProps) {
   const [key, setKey] = React.useState(0);
@@ -70,6 +72,21 @@ export function ComponentPreview({
       formatCode(registryItem.code).then(setFormattedCode);
     }
   }, [registryItem?.code]);
+
+  const getHeight = React.useMemo(() => {
+    switch (height) {
+      case "sm":
+        return "min-h-[250px]";
+      case "md":
+        return "min-h-[350px]";
+      case "lg":
+        return "min-h-[450px]";
+      case "xl":
+        return "min-h-[550px]";
+      default:
+        return height.startsWith("min-h-") ? height : `min-h-[${height}]`;
+    }
+  }, [height]);
 
   return (
     <div
@@ -109,7 +126,7 @@ export function ComponentPreview({
             </div>
             <div className="overflow-hidden rounded-lg p-8">
               <div
-                className={cn("flex min-h-[350px] w-full", {
+                className={cn("flex w-full", getHeight, {
                   "justify-center": align === "center",
                   "justify-start": align === "start",
                   "justify-end": align === "end",

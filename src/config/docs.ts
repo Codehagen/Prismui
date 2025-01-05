@@ -41,7 +41,6 @@ export const docsConfig: DocsConfig = {
         {
           title: "Expandable Card",
           href: "/docs/components/expandable-card",
-          isNew: true,
         },
         {
           title: "Floating Action Panel",
@@ -54,6 +53,11 @@ export const docsConfig: DocsConfig = {
         {
           title: "Display Cards",
           href: "/docs/components/display-cards",
+        },
+        {
+          title: "Popover",
+          href: "/docs/components/popover",
+          isNew: true,
         },
       ],
     },

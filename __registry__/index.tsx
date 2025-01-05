@@ -170,5 +170,16 @@ export const Index: Record<string, any> = {
       subcategory: "animation",
       chunks: []
     },
+    "popover": {
+      name: "popover",
+      type: "registry:ui",
+      registryDependencies: undefined,
+      files: ["src/components/prismui/popover.tsx"],
+      component: React.lazy(() => import("@/components/prismui/popover.tsx")),
+      source: "",
+      category: "components",
+      subcategory: "overlay",
+      chunks: []
+    },
   },
 }

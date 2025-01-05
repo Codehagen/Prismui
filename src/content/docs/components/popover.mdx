@@ -1,0 +1,236 @@
+---
+title: Popover
+publishedAt: 2024-01-05
+summary: A versatile popover component for displaying contextual content, forms, and interactive menus with smooth animations.
+author: codehagen
+slug: components/popover
+related: ["introduction"]
+---
+
+<ComponentPreview name="popover-form" />
+
+<Note variant="info">
+  The Popover component provides a flexible way to display contextual content, forms, and interactive menus. Perfect for note-taking interfaces, command palettes, and project status displays.
+</Note>
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+    <ComponentSource name="popover" isCli />
+  </TabsContent>
+  <TabsContent value="manual">
+    <Steps>
+      <Step>Copy and paste the following code into your project.</Step>
+      <ComponentSource name="popover" />
+      <Step>Update the import paths to match your project setup.</Step>
+    </Steps>
+  </TabsContent>
+</Tabs>
+
+## Examples
+
+### Menu Popover
+
+<ComponentPreview name="popover-menu" />
+
+
+### Command Palette
+
+<ComponentPreview name="popover-command" height="lg" />
+
+
+### Project Status
+
+<ComponentPreview name="popover-project" height="xl" />
+
+
+## Usage
+
+### Basic Menu
+
+```tsx
+import {
+  PopoverRoot,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverButton,
+} from "@/components/prismui/popover"
+import { Settings, Share, MessageSquare } from "lucide-react"
+
+export default function Example() {
+  return (
+    <PopoverRoot>
+      <PopoverTrigger variant="outline">More options</PopoverTrigger>
+      <PopoverContent>
+        <PopoverHeader>Options</PopoverHeader>
+        <PopoverBody>
+          <PopoverButton onClick={() => console.log("Settings clicked")}>
+            <Settings className="h-4 w-4" />
+            Settings
+          </PopoverButton>
+          <PopoverButton onClick={() => console.log("Share clicked")}>
+            <Share className="h-4 w-4" />
+            Share
+          </PopoverButton>
+          <PopoverButton onClick={() => console.log("Message clicked")}>
+            <MessageSquare className="h-4 w-4" />
+            Send Message
+          </PopoverButton>
+        </PopoverBody>
+      </PopoverContent>
+    </PopoverRoot>
+  )
+}
+```
+
+### Form Input
+
+```tsx
+import {
+  PopoverRoot,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverForm,
+  PopoverLabel,
+  PopoverTextarea,
+  PopoverFooter,
+  PopoverCloseButton,
+  PopoverSubmitButton,
+} from "@/components/prismui/popover"
+
+export default function Example() {
+  return (
+    <PopoverRoot>
+      <PopoverTrigger>Add Note</PopoverTrigger>
+      <PopoverContent className="h-[200px] w-[364px]">
+        <PopoverForm onSubmit={(note) => console.log("Note submitted:", note)}>
+          <PopoverLabel>Add Note</PopoverLabel>
+          <PopoverTextarea />
+          <PopoverFooter>
+            <PopoverCloseButton />
+            <PopoverSubmitButton>Submit Note</PopoverSubmitButton>
+          </PopoverFooter>
+        </PopoverForm>
+      </PopoverContent>
+    </PopoverRoot>
+  )
+}
+```
+
+### Types
+
+```tsx
+interface PopoverRootProps {
+  children: React.ReactNode;
+}
+
+interface PopoverTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "default" | "outline" | "secondary" | "ghost";
+}
+
+interface PopoverContentProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+interface PopoverFormProps {
+  children: React.ReactNode;
+  onSubmit?: (note: string) => void;
+}
+
+interface PopoverButtonProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+  className?: string;
+}
+```
+
+## Customization
+
+<Steps>
+  <Step>Custom Animation Settings</Step>
+  ```tsx
+  <PopoverContent
+    initial={{ opacity: 0, y: -8 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -8 }}
+    transition={{ duration: 0.2 }}
+  >
+    {/* ... */}
+  </PopoverContent>
+  ```
+
+  <Step>Custom Trigger Styles</Step>
+  ```tsx
+  <PopoverTrigger
+    variant="outline"
+    className="flex items-center gap-2 px-4 py-2"
+  >
+    <Icon className="h-4 w-4" />
+    <span>Custom Trigger</span>
+  </PopoverTrigger>
+  ```
+
+  <Step>Custom Content Layout</Step>
+  ```tsx
+  <PopoverContent className="w-[400px] p-0">
+    <div className="border-b px-3 py-2">
+      <h3 className="font-medium">Custom Header</h3>
+    </div>
+    <PopoverBody className="p-4">
+      {/* Custom content */}
+    </PopoverBody>
+    <div className="border-t p-2">
+      {/* Custom footer */}
+    </div>
+  </PopoverContent>
+  ```
+</Steps>
+
+## Notes
+
+- Built with Framer Motion for smooth animations
+- Uses React Context for state management
+- Handles click outside and escape key events
+- Responsive design with mobile-first approach
+- TypeScript support with proper types
+- Integrates with Shadcn UI components
+- Supports custom styling and theming
+- Optimized performance with proper hooks usage
+
+## Features
+
+- Smooth open/close animations
+- Form handling with textarea
+- Menu-style interactions
+- Command palette functionality
+- Project status displays
+- Click outside detection
+- Keyboard navigation
+- Dark mode support
+- Custom trigger variants
+- Flexible content layouts
+- Compound component pattern
+- Accessibility features
+
+## Props
+
+| Component | Prop | Type | Description |
+| --- | --- | --- | --- |
+| PopoverRoot | children | React.ReactNode | The popover trigger and content |
+| PopoverTrigger | variant | "default" \| "outline" \| "secondary" \| "ghost" | The style variant of the trigger button |
+| PopoverContent | className | string | Additional classes for the content |
+| PopoverForm | onSubmit | (note: string) => void | Callback when form is submitted |
+| PopoverButton | onClick | () => void | Callback when button is clicked |
+| PopoverTextarea | value | string | The current value of the textarea |
+| PopoverLabel | children | React.ReactNode | The label text |
+| PopoverHeader | children | React.ReactNode | The header content |
+| PopoverBody | children | React.ReactNode | The main content |
+| PopoverFooter | children | React.ReactNode | The footer content |
