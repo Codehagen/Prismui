@@ -64,7 +64,7 @@ export default function BlogLayoutHero() {
             ))}
             <CategoryLink
               title="Updates"
-              href="/changelog"
+              href="/updates"
               mobile
               setOpenPopover={setOpenPopover}
             />
