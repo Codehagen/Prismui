@@ -243,7 +243,6 @@ const FloatingActionPanelButton = React.forwardRef<
         className
       )}
       onClick={onClick}
-      whileHover={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
       whileTap={{ scale: 0.98 }}
     >
       {children}
