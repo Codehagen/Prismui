@@ -16,11 +16,6 @@ export default function DocsLayout({ children }: DocsLayoutProps) {
             <DocsNav config={docsConfig} />
           </ScrollArea>
         </aside>
-
-        <div className="md:hidden">
-          <DocsSidebar />
-        </div>
-
         {children}
       </div>
     </div>

@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { IoMenuSharp } from "react-icons/io5";
 
-export default function drawerDemo() {
+export default function tempDrawer() {
   return (
     <Drawer>
       <DrawerTrigger>

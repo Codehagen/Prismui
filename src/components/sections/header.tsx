@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { DocsSidebar } from "../docs-sidebar";
 
 export default function Header() {
   const [addBorder, setAddBorder] = useState(false);
@@ -60,7 +61,8 @@ export default function Header() {
           </Link>
           <ThemeToggle />
           <div className="lg:hidden">
-            <Drawer />
+            {/* <Drawer /> */}
+            <DocsSidebar />
           </div>
         </div>
       </div>
