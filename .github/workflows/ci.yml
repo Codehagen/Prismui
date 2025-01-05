@@ -43,7 +43,10 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: 📥 Install dependencies
-        run: pnpm install
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm list ms @types/ms || pnpm add ms @types/ms
 
       - name: 🚀 Build Registry
-        run: pnpm build:registry
+        run: |
+          NODE_ENV=production pnpm build:registry
