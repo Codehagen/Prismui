@@ -126,7 +126,7 @@ We love our contributors! Here's how you can contribute:
 
 Want to contribute? Great! Here's how you can help:
 
-1. 🔍 Find an issue you want to work on in our [issues page](https://github.com/christer-io/prismui/issues)
+1. 🔍 Find an issue you want to work on in our [issues page](https://github.com/Codehagen/Prismui/issues)
 2. 💬 Comment `.take` on the issue you want to work on
 3. 🎉 The issue will be automatically assigned to you
 
