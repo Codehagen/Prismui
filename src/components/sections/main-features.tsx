@@ -13,6 +13,7 @@ import { ProjectStatusCard } from "@/components/prismui/expandable-card";
 import { Plus, Upload, Palette, Share2, BookMarked } from "lucide-react";
 import DisplayCards from "@/components/prismui/display-cards";
 import { LogoCarousel } from "@/components/prismui/logo-carousel";
+import Link from "next/link";
 
 interface FeatureCardProps {
   title: string;
@@ -106,9 +107,11 @@ export function MainFeatures() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
         >
-          <Button variant="outline" className="rounded-full mb-4">
-            Components
-          </Button>
+          <Link href={"/docs"}>
+            <Button variant="outline" className="rounded-full mb-4">
+              Components
+            </Button>
+          </Link>
           <h2 className="text-3xl font-bold tracking-tight sm:text-5xl mb-4">
             Everything you need to build modern apps
           </h2>
