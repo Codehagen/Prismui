@@ -34,15 +34,17 @@ export default function Header() {
     <header
       className={"sticky top-0 z-50 bg-background/60 backdrop-blur border-b"}
     >
-      <div className="flex justify-between items-center container border-x py-2">
+      <div className="flex justify-between items-center ml-8 sm:ml:0 sm:container  py-2">
         <div className="flex items-center">
           <Link
             href="/"
             title="brand-logo"
             className="relative mr-6 flex items-center space-x-2"
           >
-            <Icons.logo className="w-auto h-[40px]" />
-            <span className="font-bold text-xl">{siteConfig.name}</span>
+            <Icons.logo className="w-auto h-[32px] sm:h-[40px]" />
+            <span className="font-bold text-xl  hidden sm:block">
+              {siteConfig.name}
+            </span>
           </Link>
           <nav className="hidden lg:block">
             <Menu />
