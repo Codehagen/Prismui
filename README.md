@@ -119,6 +119,9 @@ We love our contributors! Here's how you can contribute:
 <a href="https://github.com/Codehagen/Prismui/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Codehagen/Prismui" />
 </a>
+<a href="https://github.com/CMs-web">
+  <img src="https://i.ibb.co/7Qf4vWT/picofme.png" />
+</a>
 
 ## Repo Activity
 
