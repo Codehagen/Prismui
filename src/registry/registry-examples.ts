@@ -5,11 +5,34 @@
  *
  * Example Registration Schema:
  * {
- *   name: "component-demo",          // Name of the example (must be unique)
- *   type: "examples",                // Type must be "examples"
- *   component: ComponentDemo,        // The actual React component
- *   code: ComponentDemoSource,       // Import the source code directly from the file
- *   dependencies: ["@/components/prismui/component"] // Required component imports
+ *   name: "example-name",            // Name of the example (must be unique)
+ *   type: "registry:example",        // Type must be "registry:example"
+ *   category: "examples",            // Category for documentation organization
+ *   subcategory: "display",         // Subcategory (display|layout|form|navigation|etc)
+ *   code: `"use client";            // The example source code that will be displayed
+ *
+ *     import { cn } from "@/lib/utils";
+ *
+ *     interface ExampleProps {
+ *       // Props definition
+ *     }
+ *
+ *     export default function Example({ ...props }: ExampleProps) {
+ *       return (
+ *         // Example implementation
+ *       );
+ *     }`,
+ *   files: [{                       // Example file information
+ *     path: "examples/example-name.tsx",
+ *     type: "registry:example"
+ *   }],
+ *   cli: {                          // REQUIRED: CLI installation commands
+ *     npm: "npx prismui@latest add example-name",
+ *     pnpm: "pnpm dlx prismui@latest add example-name",
+ *     yarn: "yarn dlx prismui@latest add example-name",
+ *     bun: "bunx prismui@latest add example-name"
+ *   },
+ *   dependencies: ["@/lib/utils"]    // Required example dependencies
  * }
  *
  * IMPORTANT:
@@ -114,43 +137,49 @@ import LandingPageTest, {
 export const examples: RegistryItem[] = [
   {
     name: "number-flow-basic",
-    type: "examples",
-    component: NumberFlowBasic,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: NumberFlowBasicSource,
     dependencies: ["@/components/ui/card", "@number-flow/react"],
   },
   {
     name: "word-reveal-demo",
-    type: "examples",
-    component: WordRevealDemo,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: WordRevealDemoSource,
     dependencies: ["@/components/prismui/word-reveal"],
   },
   {
     name: "card-demo",
-    type: "examples",
-    component: CardDemo,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: CardDemoSource,
     dependencies: ["@/components/prismui/card", "@/components/prismui/button"],
   },
   {
     name: "word-reveal-hero",
-    type: "examples",
-    component: WordRevealHeroExample,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: WordRevealHeroSource,
     dependencies: ["@/components/prismui/word-reveal"],
   },
   {
     name: "word-reveal-custom",
-    type: "examples",
-    component: WordRevealCustomExample,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: WordRevealCustomSource,
     dependencies: ["@/components/prismui/word-reveal"],
   },
   {
     name: "number-flow-demo",
-    type: "examples",
-    component: NumberFlowDemo,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: NumberFlowDemoSource,
     dependencies: [
       "@/components/ui/card",
@@ -161,8 +190,9 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "logo-carousel-basic",
-    type: "examples",
-    component: LogoCarouselBasic,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: LogoCarouselBasicSource,
     dependencies: [
       "@/components/prismui/logo-carousel",
@@ -172,8 +202,9 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "logo-carousel-demo",
-    type: "examples",
-    component: LogoCarouselDemo,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: LogoCarouselDemoSource,
     dependencies: [
       "@/components/prismui/logo-carousel",
@@ -183,22 +214,25 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "expandable-card-basic",
-    type: "examples",
-    component: ExpandableCardBasic,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: ExpandableCardBasicSource,
     dependencies: ["@/components/prismui/expandable-card"],
   },
   {
     name: "expandable-card-demo",
-    type: "examples",
-    component: ExpandableCardDemo,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: ExpandableCardDemoSource,
     dependencies: ["@/components/prismui/expandable-card"],
   },
   {
     name: "floating-action-panel-basic",
-    type: "examples",
-    component: FloatingActionPanelBasic,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: FloatingActionPanelBasicSource,
     dependencies: [
       "@/components/prismui/floating-action-panel",
@@ -207,8 +241,9 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "floating-action-panel-demo",
-    type: "examples",
-    component: FloatingActionPanelDemo,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: FloatingActionPanelDemoSource,
     dependencies: [
       "@/components/prismui/floating-action-panel",
@@ -218,29 +253,33 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "hero-badge-basic",
-    type: "examples",
-    component: HeroBadgeBasic,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: HeroBadgeBasicSource,
     dependencies: ["@/components/prismui/hero-badge", "@/components/icons"],
   },
   {
     name: "hero-badge-demo",
-    type: "examples",
-    component: HeroBadgeDemo,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: HeroBadgeDemoSource,
     dependencies: ["@/components/prismui/hero-badge", "@/components/icons"],
   },
   {
     name: "action-button-basic",
-    type: "examples",
-    component: ActionButtonBasic,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: ActionButtonBasicSource,
     dependencies: ["@/components/prismui/action-button"],
   },
   {
     name: "action-button-demo",
-    type: "examples",
-    component: ActionButtonDemo,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: ActionButtonDemoSource,
     dependencies: [
       "@/components/prismui/action-button",
@@ -249,8 +288,9 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "button-group-basic",
-    type: "examples",
-    component: ButtonGroupBasic,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: ButtonGroupBasicSource,
     dependencies: [
       "@/components/prismui/button-group",
@@ -260,8 +300,9 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "button-group-demo",
-    type: "examples",
-    component: ButtonGroupDemo,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: ButtonGroupDemoSource,
     dependencies: [
       "@/components/prismui/button-group",
@@ -272,15 +313,17 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "display-cards-basic",
-    type: "examples",
-    component: DisplayCardsBasic,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: DisplayCardsBasicSource,
     dependencies: ["@/components/prismui/display-cards"],
   },
   {
     name: "display-cards-demo",
-    type: "examples",
-    component: DisplayCardsDemo,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: DisplayCardsDemoSource,
     dependencies: [
       "@/components/prismui/display-cards",
@@ -290,15 +333,17 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "hero-basic",
-    type: "examples",
-    component: HeroBasic,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: HeroBasicSource,
     dependencies: ["@/components/prismui/hero", "@/components/icons"],
   },
   {
     name: "hero-demo",
-    type: "examples",
-    component: HeroDemo,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: HeroDemoSource,
     dependencies: [
       "@/components/prismui/hero",
@@ -309,29 +354,33 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "open-source-basic",
-    type: "examples",
-    component: OpenSourceBasic,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: OpenSourceBasicSource,
     dependencies: ["@/components/prismui/open-source"],
   },
   {
     name: "open-source-demo",
-    type: "examples",
-    component: OpenSourceDemo,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: OpenSourceDemoSource,
     dependencies: ["@/components/prismui/open-source", "@/components/ui/card"],
   },
   {
     name: "popover-basic",
-    type: "examples",
-    component: PopoverBasic,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: PopoverBasicSource,
     dependencies: ["@/components/prismui/popover"],
   },
   {
     name: "popover-demo",
-    type: "examples",
-    component: PopoverDemo,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: PopoverDemoSource,
     dependencies: [
       "@/components/prismui/popover",
@@ -348,15 +397,17 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "popover-menu",
-    type: "examples",
-    component: PopoverMenu,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: PopoverMenuSource,
     dependencies: ["@/components/prismui/popover", "lucide-react"],
   },
   {
     name: "popover-command",
-    type: "examples",
-    component: PopoverCommand,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: PopoverCommandSource,
     dependencies: [
       "@/components/prismui/popover",
@@ -368,15 +419,17 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "popover-form",
-    type: "examples",
-    component: PopoverForm,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: PopoverFormSource,
     dependencies: ["@/components/prismui/popover"],
   },
   {
     name: "popover-project",
-    type: "examples",
-    component: PopoverProject,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: PopoverProjectSource,
     dependencies: [
       "@/components/prismui/popover",
@@ -390,8 +443,9 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "pricing-basic",
-    type: "examples",
-    component: PricingBasic,
+    type: "registry:example",
+    category: "examples",
+    subcategory: "display",
     code: PricingBasicSource,
     dependencies: [
       "@/components/section",
@@ -412,13 +466,114 @@ export const examples: RegistryItem[] = [
     description: "A simple landing page template for testing V0 integration",
     files: [
       {
-        path: "app/page.tsx",
+        path: "app/landing-page-test/page.tsx",
         type: "registry:page",
         target: "app/page.tsx",
         content: LandingPageTestSource,
       },
       {
-        path: "app/layout.tsx",
+        path: "app/landing-page-test/layout.tsx",
+        type: "registry:page",
+        target: "app/layout.tsx",
+        content: `import "@/styles/globals.css"
+ 
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  )
+}`,
+      },
+    ],
+    meta: {
+      author: process.env.NEXT_PUBLIC_V0_TEMPLATES_AUTHOR,
+    },
+  },
+  {
+    name: "expandable-card-block",
+    type: "registry:block",
+    title: "Expandable Card Block",
+    description:
+      "A block template showcasing the expandable card component in a full page layout",
+    component: ExpandableCardBasic,
+    code: ExpandableCardBasicSource,
+    files: [
+      {
+        path: "app/expandable-card-block/page.tsx",
+        type: "registry:page",
+        target: "app/page.tsx",
+        content: `export default function ExpandableCardBlockPage() {
+  return (
+    <div className="container mx-auto py-10">
+      <div className="flex flex-col gap-8">
+        <div className="space-y-4">
+          <h1 className="text-3xl font-bold">Project Status</h1>
+          <p className="text-muted-foreground">Track your project progress with our expandable card component.</p>
+        </div>
+        <div className="grid gap-6">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="expandable-card group relative overflow-hidden rounded-lg border bg-background p-6 shadow-md transition-all hover:shadow-lg">
+              <div className="flex items-start justify-between gap-4">
+                <div className="space-y-1">
+                  <h3 className="font-semibold">Project {i + 1}</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Project description and details go here. Click to expand and see more information.
+                  </p>
+                </div>
+                <button className="rounded-full p-2 hover:bg-accent">
+                  <svg
+                    className="h-4 w-4 transition-transform group-data-[state=open]:rotate-180"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </button>
+              </div>
+              <div className="mt-4 grid gap-4">
+                <div className="grid gap-2">
+                  <div className="flex items-center gap-2">
+                    <div className="h-2 w-full rounded-full bg-secondary">
+                      <div
+                        className="h-full rounded-full bg-primary"
+                        style={{
+                          width: \`\${(i + 1) * 25}%\`,
+                        }}
+                      />
+                    </div>
+                    <span className="text-sm font-medium">{(i + 1) * 25}%</span>
+                  </div>
+                </div>
+                <div className="grid gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">Tasks</span>
+                    <span className="text-sm text-muted-foreground">{(i + 1) * 5}/20</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">Due Date</span>
+                    <span className="text-sm text-muted-foreground">Dec {15 + i}, 2023</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}`,
+      },
+      {
+        path: "app/expandable-card-block/layout.tsx",
         type: "registry:page",
         target: "app/layout.tsx",
         content: `import "@/styles/globals.css"
