@@ -1,0 +1,72 @@
+---
+title: Initial Release v1.0.0
+publishedAt: 2024-01-08
+summary: First release of PrismUI components
+author: Shivam Goswami
+image: /images/changelog/expandable-card-hero.jpg
+categories: ["new"]
+---
+
+## New Components
+
+We're excited to introduce our first set of PrismUI components:
+
+### Expandable Card
+A versatile card component that can expand/collapse with smooth animations:
+```tsx
+<ExpandableCard>
+  <ExpandableCardTrigger>Click to expand</ExpandableCardTrigger>
+  <ExpandableCardContent>
+    Your expandable content here
+  </ExpandableCardContent>
+</ExpandableCard>
+```
+
+### Floating Action Panel
+A customizable floating panel for important actions:
+```tsx
+<FloatingActionPanel>
+  <FloatingActionButton icon={<PlusIcon />} onClick={handleAdd} />
+  <FloatingActionButton icon={<EditIcon />} onClick={handleEdit} />
+</FloatingActionPanel>
+```
+
+### Hero Badge
+A prominent badge component for highlighting important information:
+```tsx
+<HeroBadge variant="primary">New Feature</HeroBadge>
+```
+
+### Display Cards
+Beautifully designed cards for showcasing content:
+```tsx
+<DisplayCard
+  title="Feature Card"
+  description="Showcase your features with style"
+  image="/path/to/image.jpg"
+/>
+```
+
+## Additional Features
+
+- Full TypeScript support
+- Dark mode compatibility
+- Responsive design
+- Accessibility features
+- Comprehensive documentation
+
+## Installation
+
+Install PrismUI using your preferred package manager:
+
+```bash
+npm install @prismui/react
+# or
+yarn add @prismui/react
+# or
+pnpm add @prismui/react
+```
+
+## Documentation
+
+Visit our [documentation](/docs) to learn more about using PrismUI components in your projects.

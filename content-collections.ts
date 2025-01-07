@@ -148,8 +148,11 @@ const ChangelogPost = defineCollection({
     title: z.string(),
     publishedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
     summary: z.string(),
-    image: z.string(),
-    author: z.string(),
+    author: z.string().optional(),
+    image: z.string().optional(),
+    categories: z.array(
+      z.enum(["new", "improvement", "fix"])
+    ).default(["new"]),
     slug: z.string().optional(),
   }),
   transform: async (document, context) => {

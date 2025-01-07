@@ -24,6 +24,11 @@ export const docsConfig: DocsConfig = {
           title: "Installation",
           href: "/docs/installation",
         },
+        {
+          title: "Changelog",
+          href: "/docs/changelog",
+          isNew : true
+        },
       ],
     },
     // {
