@@ -107,21 +107,6 @@ import PopoverProject, {
 import PricingBasic, {
   demoSource as PricingBasicSource,
 } from "./example/pricing-basic";
-import TweetCardBasic, {
-  demoSource as TweetCardBasicSource,
-} from "./example/tweet-card-basic";
-import TweetCardDemo, {
-  demoSource as TweetCardDemoSource,
-} from "./example/tweet-card-demo";
-import TweetCardHidden, {
-  demoSource as TweetCardHiddenSource,
-} from "./example/tweet-card-hidden";
-import TweetCardCompact, {
-  demoSource as TweetCardCompactSource,
-} from "./example/tweet-card-compact";
-import TweetCardX, {
-  demoSource as TweetCardXSource,
-} from "./example/tweet-card-x-con";
 
 export const examples: RegistryItem[] = [
   {
@@ -414,40 +399,5 @@ export const examples: RegistryItem[] = [
       "canvas-confetti",
       "@number-flow/react",
     ],
-  },
-  {
-    name: "tweet-card-basic",
-    type: "examples",
-    component: TweetCardBasic,
-    code: TweetCardBasicSource,
-    dependencies: ["@/components/prismui/tweet-card"],
-  },
-  {
-    name: "tweet-card-demo",
-    type: "examples",
-    component: TweetCardDemo,
-    code: TweetCardDemoSource,
-    dependencies: ["@/components/prismui/tweet-card"],
-  },
-  {
-    name: "tweet-card-x-con",
-    type: "examples",
-    component: TweetCardX,
-    code: TweetCardXSource,
-    dependencies: ["@/components/prismui/tweet-card"],
-  },
-  {
-    name: "tweet-card-hidden",
-    type: "examples",
-    component: TweetCardHidden,
-    code: TweetCardHiddenSource,
-    dependencies: ["@/components/prismui/tweet-card"],
-  },
-  {
-    name: "tweet-card-compact",
-    type: "examples",
-    component: TweetCardCompact,
-    code: TweetCardCompactSource,
-    dependencies: ["@/components/prismui/tweet-card"],
   },
 ];

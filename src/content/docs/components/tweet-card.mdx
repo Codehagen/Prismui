@@ -7,7 +7,7 @@ slug: components/tweet-card
 related: ["introduction"]
 ---
 
-<ComponentPreview name="tweet-card-demo" />
+<ComponentPreviewNotRegistry name="tweet-card-demo" />
 
 <Note variant="info">
   The Tweet Card component provides a beautiful way to display Twitter/X posts with support for videos, photos, and interactive elements. Perfect for showcasing social media content with a consistent design.
@@ -15,82 +15,127 @@ related: ["introduction"]
 
 ## Installation
 
-<Tabs defaultValue="cli">
-  <TabsList>
-    <TabsTrigger value="cli">CLI</TabsTrigger>
-    <TabsTrigger value="manual">Manual</TabsTrigger>
-  </TabsList>
-  <TabsContent value="cli">
-    <ComponentSource name="tweet-card" isCli />
-  </TabsContent>
-  <TabsContent value="manual">
-    <Steps>
-      <Step>Copy and paste the following code into your project.</Step>
-      <ComponentSource name="tweet-card" />
-      <Step>Update the import paths to match your project setup.</Step>
-    </Steps>
-  </TabsContent>
-</Tabs>
+### 1. Install Dependencies
+
+<MdxCodeBlock language="bash" code="pnpm add react-tweet" />
+
+### 2. React Server Component Setup (Next.js 13+)
+
+Copy and paste the following code into your project:
+
+<MdxCodeBlock language="tsx" code={`import { Tweet } from "react-tweet";
+import { cn } from "@/lib/utils";
+
+interface TweetCardProps {
+  id: string;
+  className?: string;
+  compact?: boolean;
+  hideMedia?: boolean;
+  iconVariant?: "twitter" | "x";
+}
+
+export function TweetCard({
+  id,
+  className,
+  compact,
+  hideMedia,
+  iconVariant = "twitter",
+}: TweetCardProps) {
+  return (
+    <div className={cn("w-full max-w-xl", className)}>
+      <Tweet
+        id={id}
+        components={{
+          AvatarImg: ({ className, ...props }) => (
+            <img
+              {...props}
+              className={cn("rounded-full", className)}
+              alt={props.alt}
+            />
+          ),
+        }}
+      />
+    </div>
+  );
+}`} />
+
+### 3. Server Action Setup (Optional)
+
+If you want to fetch tweets server-side, create a server action:
+
+<MdxCodeBlock language="tsx" code={`"use server";
+
+import { getTweet } from "react-tweet/api";
+
+export async function fetchTweet(id: string) {
+  try {
+    const tweet = await getTweet(id);
+    if (!tweet) {
+      throw new Error("Tweet not found");
+    }
+    return { tweet };
+  } catch (error) {
+    console.error("Error fetching tweet:", error);
+    return { error: "Failed to fetch tweet" };
+  }
+}`} />
+
+Make sure to update the import paths to match your project structure:
+- The `cn` utility should point to your utils file
+- Place the server action in your `app/actions` directory
+- Adjust the component's location based on your project organization
 
 ## Examples
 
 ### Basic Usage
 
-<ComponentPreview name="tweet-card-demo" />
+<ComponentPreviewNotRegistry name="tweet-card-basic" />
 
 ### X Icon Variant
 
-<ComponentPreview name="tweet-card-x-con" />
+<ComponentPreviewNotRegistry name="tweet-card-x-con" />
 
 ### Hidden Media
 
-<ComponentPreview name="tweet-card-hidden" />
+<ComponentPreviewNotRegistry name="tweet-card-hidden" />
 
 ### Compact Mode
 
-<ComponentPreview name="tweet-card-compact" />
+<ComponentPreviewNotRegistry name="tweet-card-compact" />
 
 ## Usage
 
 ### Basic Tweet Card
 
-```tsx
-import { TweetCard } from "@/components/prismui/tweet-card"
+<MdxCodeBlock language="tsx" code={`import { TweetCard } from "@/components/prismui/tweet-card"
 
 export default function Example() {
   return <TweetCard id="1875639011454361860" />
-}
-```
+}`} />
 
 ### X Icon Variant
 
-```tsx
-import { TweetCard } from "@/components/prismui/tweet-card"
+<MdxCodeBlock language="tsx" code={`import { TweetCard } from "@/components/prismui/tweet-card"
 
 export default function Example() {
   return <TweetCard id="1875639011454361860" iconVariant="x" />
-}
-```
+}`} />
 
 ### Hidden Media
 
-```tsx
-import { TweetCard } from "@/components/prismui/tweet-card"
+<MdxCodeBlock language="tsx" code={`import { TweetCard } from "@/components/prismui/tweet-card"
 
 export default function Example() {
   return <TweetCard id="1875639011454361860" hideMedia />
-}
-```
+}`} />
 
 ### Compact Mode
 
-```tsx
-import { TweetCard } from "@/components/prismui/tweet-card"
+<MdxCodeBlock language="tsx" code={`import { TweetCard } from "@/components/prismui/tweet-card"
 
 export default function Example() {
   return <TweetCard id="1875639011454361860" compact />
-}
-```
+}`} />
 
 ## Props
 
