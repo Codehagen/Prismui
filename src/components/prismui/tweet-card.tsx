@@ -139,7 +139,7 @@ const TweetCardContent = React.memo(function TweetCardContent({
               >
                 <div
                   className={cn(
-                    "overflow-hidden border border-gray-200/50 bg-gradient-to-br from-white to-gray-50 transition-all",
+                    "overflow-hidden border border-gray-200/50 bg-gradient-to-br from-white to-gray-50 transition-all not-prose",
                     {
                       "h-10 w-10": !compact,
                       "h-8 w-8": compact,
@@ -150,14 +150,15 @@ const TweetCardContent = React.memo(function TweetCardContent({
                     }
                   )}
                 >
-                  <Image
-                    alt={user.screen_name}
-                    height={compact ? 32 : 48}
-                    width={compact ? 32 : 48}
-                    src={user.profile_image_url_https}
-                    className="h-full w-full object-cover transition-transform duration-200 hover:scale-110"
-                    unoptimized
-                  />
+                  <div className="relative h-full w-full">
+                    <Image
+                      alt={user.screen_name}
+                      src={user.profile_image_url_https}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
+                  </div>
                 </div>
               </a>
               <div>
@@ -312,7 +313,7 @@ const TweetCardContent = React.memo(function TweetCardContent({
               className="my-3"
             >
               {video && (
-                <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-border">
+                <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-border not-prose">
                   {video.variants.length > 0 && (
                     <video
                       className="h-full w-full"
@@ -337,7 +338,7 @@ const TweetCardContent = React.memo(function TweetCardContent({
               )}
               {photos && !video && (
                 <div
-                  className={cn("grid gap-2", {
+                  className={cn("grid gap-2 not-prose", {
                     "grid-cols-1": photos.length === 1,
                     "grid-cols-2": photos.length > 1,
                   })}
@@ -464,23 +465,43 @@ const TweetCardContent = React.memo(function TweetCardContent({
   );
 });
 
-export function TweetCard(props: TweetCardProps) {
+export function TweetCard({
+  id,
+  className,
+  compact,
+  hideMedia,
+  iconVariant = "twitter",
+}: TweetCardProps) {
   const [tweet, setTweet] = React.useState<Tweet | null>(null);
   const [isLoading, setIsLoading] = React.useState(true);
   const [error, setError] = React.useState<Error | null>(null);
 
   React.useEffect(() => {
+    console.log("TweetCard mounted with ID:", id);
     let mounted = true;
     setIsLoading(true);
 
     async function loadTweet() {
       try {
-        const result = await fetchTweet(props.id);
+        console.log("Fetching tweet data for ID:", id);
+        const result = await fetchTweet(id);
+        console.log("Tweet fetch result:", result);
+
         if (!mounted) return;
 
         if ("error" in result) {
           throw new Error(result.error);
         }
+
+        console.log("Setting tweet data:", {
+          text: result.tweet.text,
+          user: {
+            name: result.tweet.user.name,
+            screen_name: result.tweet.user.screen_name,
+            profile_image: result.tweet.user.profile_image_url_https,
+          },
+        });
+
         setTweet(result.tweet);
       } catch (err) {
         if (!mounted) return;
@@ -491,6 +512,7 @@ export function TweetCard(props: TweetCardProps) {
       } finally {
         if (mounted) {
           setIsLoading(false);
+          console.log("Loading state finished");
         }
       }
     }
@@ -498,25 +520,26 @@ export function TweetCard(props: TweetCardProps) {
     loadTweet();
     return () => {
       mounted = false;
+      console.log("TweetCard cleanup");
     };
-  }, [props.id]);
+  }, [id]);
 
   if (isLoading) {
-    return (
-      <TweetCardSkeleton compact={props.compact} className={props.className} />
-    );
+    console.log("Rendering loading skeleton");
+    return <TweetCardSkeleton compact={compact} className={className} />;
   }
 
   if (error) {
+    console.log("Rendering error state:", error.message);
     return (
       <Card
         className={cn(
           "flex items-center justify-center p-6 text-center",
           {
-            "h-[20rem]": !props.compact,
-            "h-[8rem]": props.compact,
+            "h-[20rem]": !compact,
+            "h-[8rem]": compact,
           },
-          props.className
+          className
         )}
       >
         <div className="space-y-2">
@@ -536,15 +559,24 @@ export function TweetCard(props: TweetCardProps) {
     );
   }
 
-  if (!tweet) return null;
+  if (!tweet) {
+    console.log("No tweet data available");
+    return null;
+  }
+
+  console.log("Rendering TweetCardContent with data:", {
+    hasUser: !!tweet.user,
+    hasProfileImage: !!tweet.user?.profile_image_url_https,
+    profileImageUrl: tweet.user?.profile_image_url_https,
+  });
 
   return (
     <TweetCardContent
       tweet={tweet}
-      className={props.className}
-      compact={props.compact}
-      hideMedia={props.hideMedia}
-      iconVariant={props.iconVariant}
+      className={className}
+      compact={compact}
+      hideMedia={hideMedia}
+      iconVariant={iconVariant}
     />
   );
 }

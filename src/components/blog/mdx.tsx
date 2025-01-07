@@ -308,9 +308,27 @@ interface MDXProps {
   className?: string;
 }
 
+interface MDXImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+  src: string;
+  alt?: string;
+  blurDataURL?: string;
+}
+
 export function MDX({ code, images, className }: MDXProps) {
-  const MDXImage = (props: any) => {
+  const MDXImage = (props: MDXImageProps) => {
     if (!images) return null;
+
+    // Special handling for Twitter profile images
+    if (props.src?.includes("twimg.com")) {
+      return (
+        <img
+          {...props}
+          loading="eager"
+          className={cn(props.className, "h-full w-full object-cover")}
+        />
+      );
+    }
+
     const blurDataURL = images.find(
       (image) => image.src === props.src
     )?.blurDataURL;
@@ -325,6 +343,7 @@ export function MDX({ code, images, className }: MDXProps) {
         components={{
           ...components,
           Image: MDXImage,
+          img: MDXImage,
         }}
       />
     </article>
