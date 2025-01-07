@@ -62,6 +62,7 @@ export const docsConfig: DocsConfig = {
         {
           title: "Tweet Card",
           href: "/docs/components/tweet-card",
+          isNew: true,
         },
       ],
     },

@@ -849,7 +849,7 @@ try {
   await buildStylesIndex();
   await buildThemes();
 
-  console.log("✅ Done!");
+  console.log("✅ All components built!");
 } catch (error) {
   console.error(error);
   process.exit(1);

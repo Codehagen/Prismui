@@ -11,15 +11,31 @@ import { cn } from "@/lib/utils";
 
 interface CodeBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   expandButtonTitle?: string;
+  notBlur?: boolean;
 }
 
 export function CodeBlockWrapper({
   expandButtonTitle = "View Code",
   className,
   children,
+  notBlur = false,
   ...props
 }: CodeBlockProps) {
   const [isOpened, setIsOpened] = React.useState(false);
+
+  if (notBlur) {
+    return (
+      <div
+        className={cn(
+          "[&_pre]:my-0 [&_pre]:max-h-[650px] [&_pre]:overflow-auto",
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  }
 
   return (
     <Collapsible open={isOpened} onOpenChange={setIsOpened}>

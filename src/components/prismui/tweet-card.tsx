@@ -18,7 +18,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Suspense } from "react";
 
 interface TweetCardProps {
   id: string;
