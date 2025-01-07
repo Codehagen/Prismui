@@ -49,6 +49,15 @@ export interface RegistryItem {
     light: Record<string, string>;
     dark: Record<string, string>;
   };
+  meta?: {
+    path?: string;
+    images?: Array<{ url: string; name: string; size: number }>;
+    author?: string;
+    env?: Array<{ name: string; url?: string }>;
+    component?: React.ComponentType;
+  };
+  title?: string;
+  description?: string;
 }
 
 export interface RegistryEntry extends Omit<RegistryItem, "files"> {
@@ -92,8 +101,65 @@ export const registryEntrySchema = z.object({
       }),
     })
     .optional(),
+  meta: z
+    .object({
+      path: z.string().optional(),
+      images: z
+        .array(
+          z.object({
+            url: z.string(),
+            name: z.string(),
+            size: z.number(),
+          })
+        )
+        .optional(),
+      author: z
+        .string()
+        .min(2, "Author is required and must be at least 2 characters long.")
+        .optional(),
+      env: z
+        .array(
+          z.object({
+            name: z.string(),
+            url: z.string().optional(),
+          })
+        )
+        .optional(),
+      component: z.any().optional(),
+    })
+    .optional(),
+  title: z.string().optional(),
+  description: z.string().optional(),
 });
 
 export type Registry = RegistryItem[];
 
 export const registrySchema = z.array(registryEntrySchema);
+
+// V0 Template Schema
+export const templateSchema = registryEntrySchema.extend({
+  meta: z.object({
+    path: z.string().optional(),
+    images: z
+      .array(z.object({ url: z.string(), name: z.string(), size: z.number() }))
+      .optional(),
+    author: z
+      .string()
+      .min(2, "Author is required and must be at least 2 characters long."),
+    env: z
+      .array(
+        z.object({
+          name: z.string(),
+          url: z.string().optional(),
+        })
+      )
+      .optional(),
+  }),
+});
+
+export const templateAssetSchema = z.object({
+  file: z
+    .instanceof(ArrayBuffer)
+    .refine((buffer) => buffer.byteLength > 0)
+    .refine((buffer) => buffer.byteLength / (1024 * 1024) <= 5),
+});
