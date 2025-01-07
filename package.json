@@ -80,6 +80,7 @@
     "tailwindcss-animate": "^1.0.7",
     "unified": "^11.0.5",
     "vaul": "^0.9.9",
+    "vercel": "^39.2.5",
     "zod": "^3.24.1"
   },
   "devDependencies": {
