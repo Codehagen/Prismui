@@ -1,0 +1,155 @@
+---
+title: Tweet Card
+publishedAt: 2024-01-07
+summary: A versatile Tweet card component for displaying Twitter/X posts with support for videos, photos, and interactive elements.
+author: codehagen
+slug: components/tweet-card
+related: ["introduction"]
+---
+
+<ComponentPreview name="tweet-card-demo" />
+
+<Note variant="info">
+  The Tweet Card component provides a beautiful way to display Twitter/X posts with support for videos, photos, and interactive elements. Perfect for showcasing social media content with a consistent design.
+</Note>
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+    <ComponentSource name="tweet-card" isCli />
+  </TabsContent>
+  <TabsContent value="manual">
+    <Steps>
+      <Step>Copy and paste the following code into your project.</Step>
+      <ComponentSource name="tweet-card" />
+      <Step>Update the import paths to match your project setup.</Step>
+    </Steps>
+  </TabsContent>
+</Tabs>
+
+## Examples
+
+### Basic Usage
+
+<ComponentPreview name="tweet-card-basic" />
+
+### Full Demo
+
+<ComponentPreview name="tweet-card-demo" />
+
+## Usage
+
+### Basic Tweet Card
+
+```tsx
+import { TweetCard } from "@/components/prismui/tweet-card"
+
+export default function Example() {
+  return <TweetCard id="1742841889743454616" />
+}
+```
+
+### Compact Mode
+
+```tsx
+import { TweetCard } from "@/components/prismui/tweet-card"
+
+export default function Example() {
+  return (
+    <TweetCard
+      id="1742841889743454616"
+      compact
+      hideMedia
+      iconVariant="x"
+    />
+  )
+}
+```
+
+### Types
+
+```tsx
+interface TweetCardProps {
+  id: string;
+  className?: string;
+  compact?: boolean;
+  hideMedia?: boolean;
+  iconVariant?: "twitter" | "x";
+}
+
+interface VideoVariant {
+  type: string;
+  src: string;
+  bitrate?: number;
+}
+```
+
+## Customization
+
+<Steps>
+  <Step>Custom Styling</Step>
+  ```tsx
+  <TweetCard
+    id="tweet-id"
+    className="max-w-xl mx-auto shadow-lg"
+  />
+  ```
+
+  <Step>Media Control</Step>
+  ```tsx
+  <TweetCard
+    id="tweet-id"
+    hideMedia={true}
+    compact={true}
+  />
+  ```
+
+  <Step>Icon Variants</Step>
+  ```tsx
+  <TweetCard
+    id="tweet-id"
+    iconVariant="x" // or "twitter"
+  />
+  ```
+</Steps>
+
+## Notes
+
+- Built with Framer Motion for smooth animations
+- Uses React Server Actions for data fetching
+- Handles loading and error states gracefully
+- Responsive design with mobile-first approach
+- TypeScript support with proper types
+- Integrates with Shadcn UI components
+- Supports custom styling and theming
+- Optimized performance with proper caching
+
+## Features
+
+- Smooth loading animations
+- Video and photo support
+- Compact mode for space efficiency
+- Twitter/X icon variants
+- Like and reply interactions
+- Loading skeleton states
+- Error handling
+- Dark mode support
+- Responsive layout
+- Verified badge support
+- Media hiding option
+- Interactive hover states
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| id | string | required | The Twitter/X post ID |
+| className | string | undefined | Additional classes for styling |
+| compact | boolean | false | Enable compact mode |
+| hideMedia | boolean | false | Hide photos and videos |
+| iconVariant | "twitter" \| "x" | "twitter" | Choose between Twitter or X icon | 

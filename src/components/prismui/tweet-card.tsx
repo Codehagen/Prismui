@@ -11,6 +11,7 @@ import { fetchTweet } from "@/app/actions/tweet";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { Icons } from "@/components/icons";
 import {
   Tooltip,
   TooltipContent,
@@ -24,6 +25,7 @@ interface TweetCardProps {
   className?: string;
   compact?: boolean;
   hideMedia?: boolean;
+  iconVariant?: "twitter" | "x";
 }
 
 interface VideoVariant {
@@ -82,7 +84,11 @@ const TweetCardContent = React.memo(function TweetCardContent({
   className,
   compact = false,
   hideMedia = false,
+  iconVariant = "twitter",
 }: Omit<TweetCardProps, "id"> & { tweet: Tweet }) {
+  const Icon = iconVariant === "twitter" ? Twitter : Icons.twitter;
+  const iconColor =
+    iconVariant === "twitter" ? "text-[#3BA9EE]" : "text-foreground";
   const enrichedTweet = enrichTweet(tweet);
   const {
     user,
@@ -239,10 +245,13 @@ const TweetCardContent = React.memo(function TweetCardContent({
                       rel="noreferrer"
                       className="inline-flex items-center justify-center"
                     >
-                      <span className="sr-only">View on Twitter</span>
-                      <Twitter
+                      <span className="sr-only">
+                        View on {iconVariant === "twitter" ? "Twitter" : "X"}
+                      </span>
+                      <Icon
                         className={cn(
-                          "text-[#3BA9EE] transition-all duration-200 ease-in-out group-hover:scale-110",
+                          iconColor,
+                          "transition-all duration-200 ease-in-out group-hover:scale-110",
                           {
                             "h-5 w-5": !compact,
                             "h-4 w-4": compact,
@@ -252,7 +261,9 @@ const TweetCardContent = React.memo(function TweetCardContent({
                     </a>
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent>View on Twitter</TooltipContent>
+                <TooltipContent>
+                  View on {iconVariant === "twitter" ? "Twitter" : "X"}
+                </TooltipContent>
               </Tooltip>
             </TooltipProvider>
           </div>
@@ -533,6 +544,7 @@ export function TweetCard(props: TweetCardProps) {
       className={props.className}
       compact={props.compact}
       hideMedia={props.hideMedia}
+      iconVariant={props.iconVariant}
     />
   );
 }

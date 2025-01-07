@@ -1,5 +1,3 @@
-"use client";
-
 import { TweetCard } from "@/components/prismui/tweet-card";
 
 export default function TestPage() {
@@ -14,7 +12,11 @@ export default function TestPage() {
         <TweetCard id="1866221674217312605" hideMedia />
 
         {/* And one more for good measure */}
-        <TweetCard id="1862037209341149322" className="2xl shadow-lg" />
+        <TweetCard
+          id="1862037209341149322"
+          className="2xl shadow-lg"
+          iconVariant="x"
+        />
       </div>
     </div>
   );
