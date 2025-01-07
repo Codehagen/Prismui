@@ -2877,14 +2877,6 @@ export function TweetCard(props: TweetCardProps) {
       yarn: 'yarn dlx shadcn@latest add "https://www.prismui.tech/r/styles/default/tweet-card.json"',
       bun: 'bunx shadcn@latest add "https://www.prismui.tech/r/styles/default/tweet-card.json"',
     },
-    dependencies: [
-      "framer-motion",
-      "lucide-react",
-      "react-tweet",
-      "@/components/ui/card",
-      "@/components/ui/button",
-      "@/components/ui/skeleton",
-      "@/components/ui/tooltip",
-    ],
+    dependencies: ["framer-motion", "lucide-react", "react-tweet"],
   },
 ];

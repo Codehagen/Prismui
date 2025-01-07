@@ -59,6 +59,10 @@ export const docsConfig: DocsConfig = {
           href: "/docs/components/popover",
           isNew: true,
         },
+        {
+          title: "Tweet Card",
+          href: "/docs/components/tweet-card",
+        },
       ],
     },
     {

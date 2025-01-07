@@ -36,11 +36,19 @@ related: ["introduction"]
 
 ### Basic Usage
 
-<ComponentPreview name="tweet-card-basic" />
-
-### Full Demo
-
 <ComponentPreview name="tweet-card-demo" />
+
+### X Icon Variant
+
+<ComponentPreview name="tweet-card-x-con" />
+
+### Hidden Media
+
+<ComponentPreview name="tweet-card-hidden" />
+
+### Compact Mode
+
+<ComponentPreview name="tweet-card-compact" />
 
 ## Usage
 
@@ -50,7 +58,27 @@ related: ["introduction"]
 import { TweetCard } from "@/components/prismui/tweet-card"
 
 export default function Example() {
-  return <TweetCard id="1742841889743454616" />
+  return <TweetCard id="1875639011454361860" />
+}
+```
+
+### X Icon Variant
+
+```tsx
+import { TweetCard } from "@/components/prismui/tweet-card"
+
+export default function Example() {
+  return <TweetCard id="1875639011454361860" iconVariant="x" />
+}
+```
+
+### Hidden Media
+
+```tsx
+import { TweetCard } from "@/components/prismui/tweet-card"
+
+export default function Example() {
+  return <TweetCard id="1875639011454361860" hideMedia />
 }
 ```
 
@@ -60,74 +88,19 @@ export default function Example() {
 import { TweetCard } from "@/components/prismui/tweet-card"
 
 export default function Example() {
-  return (
-    <TweetCard
-      id="1742841889743454616"
-      compact
-      hideMedia
-      iconVariant="x"
-    />
-  )
+  return <TweetCard id="1875639011454361860" compact />
 }
 ```
 
-### Types
+## Props
 
-```tsx
-interface TweetCardProps {
-  id: string;
-  className?: string;
-  compact?: boolean;
-  hideMedia?: boolean;
-  iconVariant?: "twitter" | "x";
-}
-
-interface VideoVariant {
-  type: string;
-  src: string;
-  bitrate?: number;
-}
-```
-
-## Customization
-
-<Steps>
-  <Step>Custom Styling</Step>
-  ```tsx
-  <TweetCard
-    id="tweet-id"
-    className="max-w-xl mx-auto shadow-lg"
-  />
-  ```
-
-  <Step>Media Control</Step>
-  ```tsx
-  <TweetCard
-    id="tweet-id"
-    hideMedia={true}
-    compact={true}
-  />
-  ```
-
-  <Step>Icon Variants</Step>
-  ```tsx
-  <TweetCard
-    id="tweet-id"
-    iconVariant="x" // or "twitter"
-  />
-  ```
-</Steps>
-
-## Notes
-
-- Built with Framer Motion for smooth animations
-- Uses React Server Actions for data fetching
-- Handles loading and error states gracefully
-- Responsive design with mobile-first approach
-- TypeScript support with proper types
-- Integrates with Shadcn UI components
-- Supports custom styling and theming
-- Optimized performance with proper caching
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| id | string | required | The Twitter/X post ID |
+| className | string | undefined | Additional classes for styling |
+| compact | boolean | false | Enable compact mode |
+| hideMedia | boolean | false | Hide photos and videos |
+| iconVariant | "twitter" \| "x" | "twitter" | Choose between Twitter or X icon |
 
 ## Features
 
@@ -142,14 +115,4 @@ interface VideoVariant {
 - Responsive layout
 - Verified badge support
 - Media hiding option
-- Interactive hover states
-
-## Props
-
-| Prop | Type | Default | Description |
-| --- | --- | --- | --- |
-| id | string | required | The Twitter/X post ID |
-| className | string | undefined | Additional classes for styling |
-| compact | boolean | false | Enable compact mode |
-| hideMedia | boolean | false | Hide photos and videos |
-| iconVariant | "twitter" \| "x" | "twitter" | Choose between Twitter or X icon | 
+- Interactive hover states 

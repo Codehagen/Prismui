@@ -113,6 +113,15 @@ import TweetCardBasic, {
 import TweetCardDemo, {
   demoSource as TweetCardDemoSource,
 } from "./example/tweet-card-demo";
+import TweetCardHidden, {
+  demoSource as TweetCardHiddenSource,
+} from "./example/tweet-card-hidden";
+import TweetCardCompact, {
+  demoSource as TweetCardCompactSource,
+} from "./example/tweet-card-compact";
+import TweetCardX, {
+  demoSource as TweetCardXSource,
+} from "./example/tweet-card-x-con";
 
 export const examples: RegistryItem[] = [
   {
@@ -418,6 +427,27 @@ export const examples: RegistryItem[] = [
     type: "examples",
     component: TweetCardDemo,
     code: TweetCardDemoSource,
-    dependencies: ["@/components/prismui/tweet-card", "@/components/ui/card"],
+    dependencies: ["@/components/prismui/tweet-card"],
+  },
+  {
+    name: "tweet-card-x-con",
+    type: "examples",
+    component: TweetCardX,
+    code: TweetCardXSource,
+    dependencies: ["@/components/prismui/tweet-card"],
+  },
+  {
+    name: "tweet-card-hidden",
+    type: "examples",
+    component: TweetCardHidden,
+    code: TweetCardHiddenSource,
+    dependencies: ["@/components/prismui/tweet-card"],
+  },
+  {
+    name: "tweet-card-compact",
+    type: "examples",
+    component: TweetCardCompact,
+    code: TweetCardCompactSource,
+    dependencies: ["@/components/prismui/tweet-card"],
   },
 ];

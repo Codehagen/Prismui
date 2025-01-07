@@ -477,15 +477,12 @@ export function TweetCard({
   const [error, setError] = React.useState<Error | null>(null);
 
   React.useEffect(() => {
-    console.log("TweetCard mounted with ID:", id);
     let mounted = true;
     setIsLoading(true);
 
     async function loadTweet() {
       try {
-        console.log("Fetching tweet data for ID:", id);
         const result = await fetchTweet(id);
-        console.log("Tweet fetch result:", result);
 
         if (!mounted) return;
 
@@ -493,26 +490,15 @@ export function TweetCard({
           throw new Error(result.error);
         }
 
-        console.log("Setting tweet data:", {
-          text: result.tweet.text,
-          user: {
-            name: result.tweet.user.name,
-            screen_name: result.tweet.user.screen_name,
-            profile_image: result.tweet.user.profile_image_url_https,
-          },
-        });
-
         setTweet(result.tweet);
       } catch (err) {
         if (!mounted) return;
-        console.error("Error loading tweet:", err);
         setError(
           err instanceof Error ? err : new Error("Failed to load tweet")
         );
       } finally {
         if (mounted) {
           setIsLoading(false);
-          console.log("Loading state finished");
         }
       }
     }
@@ -520,17 +506,14 @@ export function TweetCard({
     loadTweet();
     return () => {
       mounted = false;
-      console.log("TweetCard cleanup");
     };
   }, [id]);
 
   if (isLoading) {
-    console.log("Rendering loading skeleton");
     return <TweetCardSkeleton compact={compact} className={className} />;
   }
 
   if (error) {
-    console.log("Rendering error state:", error.message);
     return (
       <Card
         className={cn(
@@ -560,15 +543,8 @@ export function TweetCard({
   }
 
   if (!tweet) {
-    console.log("No tweet data available");
     return null;
   }
-
-  console.log("Rendering TweetCardContent with data:", {
-    hasUser: !!tweet.user,
-    hasProfileImage: !!tweet.user?.profile_image_url_https,
-    profileImageUrl: tweet.user?.profile_image_url_https,
-  });
 
   return (
     <TweetCardContent

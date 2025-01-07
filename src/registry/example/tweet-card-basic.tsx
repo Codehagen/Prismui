@@ -9,15 +9,13 @@ export default function TweetCardBasic() {
   );
 }
 
-export const demoSource = `
-import { TweetCard } from "@/components/prismui/tweet-card"
+export const demoSource = `import { TweetCard } from "@/components/prismui/tweet-card"
 
 export default function TweetCardBasic() {
   return (
     <div className="flex flex-col gap-4">
-      <TweetCard id="1742841889743454616" />
-      <TweetCard id="1742841889743454616" compact hideMedia />
+      <TweetCard id="1875639011454361860" />
+      <TweetCard id="1875639011454361860" compact hideMedia />
     </div>
   )
-}
-`;
+}`;
