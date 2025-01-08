@@ -28,7 +28,7 @@ function FeatureCard({ title, description, children }: FeatureCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       viewport={{ once: true }}
-      className="relative overflow-hidden rounded-xl border bg-background"
+      className="relative rounded-xl border bg-background"
     >
       <div className="p-8">
         <h3 className="text-2xl font-bold">{title}</h3>
