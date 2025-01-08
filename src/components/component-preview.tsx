@@ -70,15 +70,6 @@ export function ComponentPreview({
   const registryItem = getRegistryItem(name);
   const Component = registryItem?.component;
 
-  // Debug display
-  const debugInfo = {
-    name,
-    type: registryItem?.type,
-    meta: registryItem?.meta,
-    hasComponent: !!Component,
-    v0Template: v0,
-  };
-
   React.useEffect(() => {
     if (registryItem?.code) {
       formatCode(registryItem.code).then(setFormattedCode);
@@ -105,15 +96,10 @@ export function ComponentPreview({
       className={cn("relative my-4 flex flex-col space-y-2", className)}
       {...props}
     >
-      {/* Debug info */}
-      <pre className="text-xs text-muted-foreground">
-        {JSON.stringify(debugInfo, null, 2)}
-      </pre>
-
       <Tabs defaultValue="preview" className="relative mr-auto w-full">
         {!preview && (
           <div className="flex items-center justify-between pb-3">
-            <TabsList className="justify-start rounded-none border-b bg-transparent p-0">
+            <TabsList className="w-full justify-start rounded-none border-b bg-transparent p-0">
               <TabsTrigger
                 value="preview"
                 className="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none"
@@ -126,13 +112,17 @@ export function ComponentPreview({
               >
                 Code
               </TabsTrigger>
+              {v0 && (
+                <div className="flex-1 flex justify-end">
+                  <OpenInV0Form name={v0} />
+                </div>
+              )}
             </TabsList>
           </div>
         )}
         <TabsContent value="preview" className="relative" key={key}>
           <div className="relative rounded-lg border bg-background">
-            <div className="absolute right-4 top-4 z-10 flex items-center gap-2">
-              {v0 && <OpenInV0Form name={v0} />}
+            <div className="absolute right-4 top-4">
               <Button
                 onClick={() => setKey((prev) => prev + 1)}
                 variant="outline"

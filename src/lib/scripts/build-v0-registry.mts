@@ -1,3 +1,57 @@
+/**
+ * // DO NOT REMOVE - V0 Registry Build Requirements
+ *
+ * This script builds the v0 registry for template pages. To add a new template:
+ *
+ * 1. Create a new folder in registry/app with your template name:
+ *    registry/app/your-template/
+ *    ├── app/
+ *    │   ├── page.tsx       (required)
+ *    │   ├── layout.tsx     (required)
+ *    │   └── globals.css    (optional)
+ *    ├── components/        (optional)
+ *    ├── lib/              (optional)
+ *    └── hooks/            (optional)
+ *
+ * 2. Required Files:
+ *    - app/page.tsx: Must be first in files array
+ *    - app/layout.tsx: Must include proper layout setup
+ *
+ * 3. File Type Rules:
+ *    - registry:page: For pages and layouts
+ *    - registry:component: For React components
+ *    - registry:lib: For utility functions
+ *    - registry:hook: For React hooks
+ *    - Use registry:page with target for any other file types
+ *
+ * 4. CSS Variables:
+ *    - Add globals.css in app/registry/TEMPLATE_NAME/app/
+ *    - Import in layout.tsx
+ *    - Add to files array with type: "registry:page", target: "app/globals.css"
+ *
+ * 5. API Routes:
+ *    - Place in registry/TEMPLATE_NAME/app/api/
+ *    - Use full path: /registry/TEMPLATE_NAME/api/...
+ *
+ * Example structure in registry/index.ts:
+ * {
+ *   name: "example-template",
+ *   type: "template",
+ *   files: [
+ *     {
+ *       path: "example-template/app/page.tsx",
+ *       type: "registry:page",
+ *       target: "app/page.tsx"
+ *     },
+ *     {
+ *       path: "example-template/app/layout.tsx",
+ *       type: "registry:page",
+ *       target: "app/layout.tsx"
+ *     }
+ *   ]
+ * }
+ */
+
 import { promises as fs } from "fs";
 import path from "path";
 import { type Registry } from "../../registry/schema";
