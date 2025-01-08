@@ -54,25 +54,11 @@
 
 import { promises as fs } from "fs";
 import path from "path";
-import { type Registry } from "../../registry/schema";
 import dedent from "dedent";
 import chokidar from "chokidar";
 
-interface RegistryFile {
-  path: string;
-  type: string;
-  target?: string;
-}
-
-interface RegistryItem {
-  name: string;
-  type: string;
-  title: string;
-  description: string;
-  files: RegistryFile[];
-}
-
 const V0_REGISTRY_PATH = path.join(process.cwd(), "src/registry/app");
+const PUBLIC_REGISTRY_PATH = path.join(process.cwd(), "public/r/v0");
 
 // Initialize an empty watcher if in watch mode.
 const isWatchMode = process.argv.includes("--watch");
@@ -124,7 +110,7 @@ async function buildV0Registry() {
     // Get all template directories
     const templates = await fs.readdir(V0_REGISTRY_PATH);
 
-    const registryItems: RegistryItem[] = [];
+    const registryItems = [];
 
     for (const templateName of templates) {
       const templatePath = path.join(V0_REGISTRY_PATH, templateName);
@@ -132,7 +118,7 @@ async function buildV0Registry() {
 
       if (!stats.isDirectory()) continue;
 
-      const files: RegistryFile[] = [];
+      const files = [];
 
       // Add app files
       const appPath = path.join(templatePath, "app");
@@ -148,6 +134,17 @@ async function buildV0Registry() {
         const bBase = path.basename(b);
         return (order[aBase] || 99) - (order[bBase] || 99);
       });
+
+      // Copy files to public/r/v0
+      const targetTemplatePath = path.join(PUBLIC_REGISTRY_PATH, templateName);
+      await fs.mkdir(targetTemplatePath, { recursive: true });
+
+      for (const file of allAppFiles) {
+        const relativePath = path.relative(appPath, file);
+        const targetPath = path.join(targetTemplatePath, relativePath);
+        await fs.mkdir(path.dirname(targetPath), { recursive: true });
+        await fs.copyFile(file, targetPath);
+      }
 
       files.push(
         ...sortedAppFiles.map((file) => ({
@@ -167,11 +164,46 @@ async function buildV0Registry() {
             type: "registry:component",
           }))
         );
+
+        // Copy component files
+        const targetComponentsPath = path.join(
+          targetTemplatePath,
+          "components"
+        );
+        await fs.mkdir(targetComponentsPath, { recursive: true });
+        for (const file of componentFiles) {
+          const sourcePath = path.join(componentsPath, file);
+          const targetPath = path.join(targetComponentsPath, file);
+          await fs.copyFile(sourcePath, targetPath);
+        }
       } catch (error) {
         // Components directory doesn't exist, skip
       }
 
-      const templateItem: RegistryItem = {
+      // Add hook files if they exist
+      const hooksPath = path.join(templatePath, "hooks");
+      try {
+        const hookFiles = await fs.readdir(hooksPath);
+        files.push(
+          ...hookFiles.map((file) => ({
+            path: `${templateName}/hooks/${file}`,
+            type: "registry:hook",
+          }))
+        );
+
+        // Copy hook files
+        const targetHooksPath = path.join(targetTemplatePath, "hooks");
+        await fs.mkdir(targetHooksPath, { recursive: true });
+        for (const file of hookFiles) {
+          const sourcePath = path.join(hooksPath, file);
+          const targetPath = path.join(targetHooksPath, file);
+          await fs.copyFile(sourcePath, targetPath);
+        }
+      } catch (error) {
+        // Hooks directory doesn't exist, skip
+      }
+
+      const templateItem = {
         name: templateName,
         type: "registry:block",
         title: templateName

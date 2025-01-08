@@ -10,7 +10,8 @@
     "lint": "next lint",
     "build:registry": "tsx src/lib/scripts/build-registry.mts",
     "build:v0": "tsx src/lib/scripts/build-v0-registry.mts",
-    "build:v0:watch": "tsx src/lib/scripts/build-v0-registry.mts --watch"
+    "build:v0:watch": "tsx src/lib/scripts/build-v0-registry.mts --watch",
+    "prod:build": "tsx src/lib/scripts/build-v0-registry.mts && tsx src/lib/scripts/build-registry.mts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
