@@ -19,6 +19,7 @@ interface ComponentPreviewProps extends React.HTMLAttributes<HTMLDivElement> {
   align?: "center" | "start" | "end";
   preview?: boolean;
   height?: "sm" | "md" | "lg" | "xl" | string;
+  v0?: string;
 }
 
 async function formatCode(code: string, language = "tsx") {
@@ -59,6 +60,7 @@ export function ComponentPreview({
   align = "center",
   preview = false,
   height = "md",
+  v0,
   ...props
 }: ComponentPreviewProps) {
   const [key, setKey] = React.useState(0);
@@ -74,6 +76,7 @@ export function ComponentPreview({
     type: registryItem?.type,
     meta: registryItem?.meta,
     hasComponent: !!Component,
+    v0Template: v0,
   };
 
   React.useEffect(() => {
@@ -129,7 +132,7 @@ export function ComponentPreview({
         <TabsContent value="preview" className="relative" key={key}>
           <div className="relative rounded-lg border bg-background">
             <div className="absolute right-4 top-4 z-10 flex items-center gap-2">
-              <OpenInV0Form name={name} />
+              {v0 && <OpenInV0Form name={v0} />}
               <Button
                 onClick={() => setKey((prev) => prev + 1)}
                 variant="outline"

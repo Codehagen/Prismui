@@ -3,6 +3,49 @@
 import { templateSchema } from "@/registry/schema";
 import { getRegistryItem } from "@/registry";
 import { z } from "zod";
+import { promises as fs } from "fs";
+import path from "path";
+
+async function getTemplateFiles(name: string) {
+  const template = getRegistryItem(name);
+  if (!template || !template.files) return null;
+
+  try {
+    const files = await Promise.all(
+      template.files.map(async (file) => {
+        const filePath = typeof file === "string" ? file : file.path;
+        const target = typeof file === "string" ? file : file.target;
+
+        if (!target) {
+          throw new Error(`Missing target for file in template ${name}`);
+        }
+
+        const fullPath = path.join(
+          process.cwd(),
+          "src/registry/app",
+          name,
+          target
+        );
+        const content = await fs.readFile(fullPath, "utf-8");
+
+        return {
+          ...file,
+          path: filePath,
+          content,
+          target,
+        };
+      })
+    );
+
+    return {
+      ...template,
+      files,
+    };
+  } catch (error) {
+    console.error(`Error reading template files for ${name}:`, error);
+    return null;
+  }
+}
 
 export async function openInV0Action(formData: FormData) {
   try {
@@ -21,7 +64,7 @@ export async function openInV0Action(formData: FormData) {
     const name = z.string().parse(formData.get("name"));
     console.log("Template name:", name);
 
-    const template = await getRegistryItem(name);
+    const template = await getTemplateFiles(name);
 
     if (!template) {
       throw new Error(`Template ${name} not found or files could not be read.`);
