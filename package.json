@@ -65,6 +65,7 @@
     "react-medium-image-zoom": "^5.2.12",
     "react-resizable-panels": "^2.1.7",
     "react-syntax-highlighter": "^15.6.1",
+    "react-tweet": "^3.2.1",
     "recharts": "^2.15.0",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-pretty-code": "^0.13.2",
@@ -79,6 +80,7 @@
     "tailwindcss-animate": "^1.0.7",
     "unified": "^11.0.5",
     "vaul": "^0.9.9",
+    "vercel": "^39.2.5",
     "zod": "^3.24.1"
   },
   "devDependencies": {

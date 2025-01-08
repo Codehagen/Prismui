@@ -14,6 +14,7 @@ import { ComponentSource } from "@/components/component-source";
 import { Note } from "@/components/ui/note";
 import { SectionPreview } from "@/components/section-preview";
 import { MdxCodeBlock } from "@/components/mdx-code-block";
+import { ComponentPreviewNotRegistry } from "@/components/component-preview-not-registry";
 
 const CustomLink = (props: any) => {
   const href = props.href;
@@ -298,6 +299,8 @@ const components = {
   ),
   ComponentPreview,
   ComponentSource,
+  ComponentPreviewNotRegistry,
+  MdxCodeBlock,
   Note,
   SectionPreview,
 };
@@ -308,9 +311,27 @@ interface MDXProps {
   className?: string;
 }
 
+interface MDXImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+  src: string;
+  alt?: string;
+  blurDataURL?: string;
+}
+
 export function MDX({ code, images, className }: MDXProps) {
-  const MDXImage = (props: any) => {
+  const MDXImage = (props: MDXImageProps) => {
     if (!images) return null;
+
+    // Special handling for Twitter profile images
+    if (props.src?.includes("twimg.com")) {
+      return (
+        <img
+          {...props}
+          loading="eager"
+          className={cn(props.className, "h-full w-full object-cover")}
+        />
+      );
+    }
+
     const blurDataURL = images.find(
       (image) => image.src === props.src
     )?.blurDataURL;
@@ -325,6 +346,7 @@ export function MDX({ code, images, className }: MDXProps) {
         components={{
           ...components,
           Image: MDXImage,
+          img: MDXImage,
         }}
       />
     </article>

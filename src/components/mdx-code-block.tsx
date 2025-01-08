@@ -15,12 +15,14 @@ interface MdxCodeBlockProps {
   code: string;
   language?: string;
   className?: string;
+  notBlur?: boolean;
 }
 
 export function MdxCodeBlock({
   code,
   language = "tsx",
   className,
+  notBlur = false,
 }: MdxCodeBlockProps) {
   const [formattedCode, setFormattedCode] = useState("");
 
@@ -28,14 +30,17 @@ export function MdxCodeBlock({
     unified()
       .use(remarkParse)
       .use(remarkRehype)
-      .use(rehypePrettyCode, rehypePrettyCodeConfig)
+      .use(rehypePrettyCode, rehypePrettyCodeConfig as any)
       .use(rehypeStringify)
       .process(`\`\`\`${language}\n${code}\n\`\`\``)
       .then((file) => setFormattedCode(String(file)));
   }, [code, language]);
 
   return (
-    <CodeBlockWrapper className={cn("group relative", className)}>
+    <CodeBlockWrapper
+      className={cn("group relative", className)}
+      notBlur={notBlur}
+    >
       <div className="absolute right-4 top-4 z-20">
         <CopyButton value={code} />
       </div>
