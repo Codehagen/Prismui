@@ -20,14 +20,13 @@ async function getTemplateFiles(name: string) {
           throw new Error(`Missing target for file in template ${name}`);
         }
 
-        const publicPath = path.join(
+        const fullPath = path.join(
           process.cwd(),
-          "public/r/v0",
+          "src/registry/app",
           name,
           target
         );
-
-        const content = await fs.readFile(publicPath, "utf-8");
+        const content = await fs.readFile(fullPath, "utf-8");
 
         return {
           ...file,
