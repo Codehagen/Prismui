@@ -9,6 +9,7 @@ export const registryItemTypeSchema = z.enum([
   "registry:theme",
   "registry:page",
   "registry:example",
+  "registry:style",
 ]);
 
 export const registryItemFileSchema = z.object({
@@ -47,6 +48,8 @@ export const registryItemSchema = z.object({
   meta: z.record(z.string(), z.any()).optional(),
   docs: z.string().optional(),
   categories: z.array(z.string()).optional(),
+  category: z.string().optional(),
+  subcategory: z.string().optional(),
 });
 
 export const registrySchema = z.array(registryItemSchema);

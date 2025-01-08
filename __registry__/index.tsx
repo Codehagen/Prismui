@@ -5,20 +5,6 @@ import * as React from "react"
 
 export const Index: Record<string, any> = {
   "default": {
-    "landing-page-test": {
-      name: "landing-page-test",
-      type: "registry:block",
-      title: "Landing Page Test",
-      description: "A simple landing page template for testing V0 integration",
-      registryDependencies: undefined,
-      files: ["src/registry/app/landing-page-test/page.tsx","src/registry/app/landing-page-test/layout.tsx"],
-      component: React.lazy(() => import("@/src/registry/app/landing-page-test/page.tsx")),
-      source: "src/registry/app/landing-page-test/page.tsx",
-      category: "",
-      subcategory: "",
-      meta: {},
-      chunks: []
-    },
     "hero": {
       name: "hero",
       type: "registry:block",
@@ -28,20 +14,6 @@ export const Index: Record<string, any> = {
       files: ["src/registry/section/hero.tsx"],
       component: React.lazy(() => import("@/src/registry/registry/section/hero.tsx")),
       source: "src/registry/registry/section/hero.tsx",
-      category: "sections",
-      subcategory: "hero",
-      meta: {},
-      chunks: []
-    },
-    "hero-test": {
-      name: "hero-test",
-      type: "registry:block",
-      title: "hero-test",
-      description: "",
-      registryDependencies: undefined,
-      files: ["src/registry/section/hero-test.tsx"],
-      component: React.lazy(() => import("@/src/registry/registry/section/hero-test.tsx")),
-      source: "src/registry/registry/section/hero-test.tsx",
       category: "sections",
       subcategory: "hero",
       meta: {},

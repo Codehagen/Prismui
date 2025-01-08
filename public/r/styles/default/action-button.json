@@ -2,22 +2,16 @@
   "name": "action-button",
   "type": "registry:ui",
   "code": "\"use client\";\n\nimport { LoaderCircle } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport { VariantProps } from \"class-variance-authority\";\nimport { Button } from \"../ui/button\";\nimport { buttonVariants } from \"../ui/button\";\n\ninterface props\n  extends React.ButtonHTMLAttributes<HTMLButtonElement>,\n    VariantProps<typeof buttonVariants> {\n  children: React.ReactNode;\n  isPending: boolean;\n  onClick?: () => void;\n}\n\nexport default function ActionButton({\n  children,\n  isPending,\n  variant,\n  size,\n  className,\n  onClick,\n}: props) {\n  return (\n    <Button\n      onClick={\n        onClick\n          ? (e: React.MouseEvent<HTMLButtonElement>) => {\n              e.preventDefault();\n              onClick();\n            }\n          : undefined\n      }\n      type=\"submit\"\n      disabled={isPending}\n      variant={variant}\n      size={size}\n      className={cn(\n        className,\n        \"inline-grid place-items-center [grid-template-areas:'stack']\"\n      )}\n    >\n      <span\n        className={cn(\n          isPending && \"invisible\",\n          \"flex items-center gap-2 [grid-area:stack]\"\n        )}\n      >\n        {children}\n      </span>\n      <LoaderCircle\n        aria-label=\"Submitting\"\n        className={cn(\n          isPending ? \"visible\" : \"invisible\",\n          \"size-5 animate-spin transition-opacity [grid-area:stack]\"\n        )}\n      />\n    </Button>\n  );\n}",
-  "files": [
-    {
-      "path": "components/prismui/action-button.tsx",
-      "type": "registry:ui",
-      "content": "\"use client\";\n\nimport { LoaderCircle } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport { VariantProps } from \"class-variance-authority\";\nimport { Button } from \"../ui/button\";\nimport { buttonVariants } from \"../ui/button\";\n\ninterface props\n  extends React.ButtonHTMLAttributes<HTMLButtonElement>,\n    VariantProps<typeof buttonVariants> {\n  children: React.ReactNode;\n  isPending: boolean;\n  onClick?: () => void;\n}\n\n// Submit button with pending state\n// Also takes an onClick which prevents default\n// Keeps it's original size when pending with the help of grid stacking\nexport default function ActionButton({\n  children,\n  isPending,\n  variant,\n  size,\n  className,\n  onClick,\n}: props) {\n  return (\n    <Button\n      onClick={\n        onClick\n          ? (e: React.MouseEvent<HTMLButtonElement>) => {\n              e.preventDefault();\n              onClick();\n            }\n          : undefined\n      }\n      type=\"submit\"\n      disabled={isPending}\n      variant={variant}\n      size={size}\n      className={cn(\n        className,\n        \"inline-grid place-items-center [grid-template-areas:'stack']\"\n      )}\n    >\n      <span\n        className={cn(\n          isPending && \"invisible\",\n          \"flex items-center gap-2 [grid-area:stack]\"\n        )}\n      >\n        {children}\n      </span>\n      <LoaderCircle\n        aria-label=\"Submitting\"\n        className={cn(\n          isPending ? \"visible\" : \"invisible\",\n          \"size-5 animate-spin transition-opacity [grid-area:stack]\"\n        )}\n      />\n    </Button>\n  );\n}\n"
-    }
-  ],
-  "cli": {
-    "npm": "npx shadcn@latest add \"https://www.prismui.tech/r/styles/default/action-button.json\"",
-    "pnpm": "pnpm dlx shadcn@latest add \"https://www.prismui.tech/r/styles/default/action-button.json\"",
-    "yarn": "yarn dlx shadcn@latest add \"https://www.prismui.tech/r/styles/default/action-button.json\"",
-    "bun": "bunx shadcn@latest add \"https://www.prismui.tech/r/styles/default/action-button.json\""
-  },
   "dependencies": [
     "lucide-react",
     "class-variance-authority",
     "@/components/ui/button"
+  ],
+  "files": [
+    {
+      "path": "components/prismui/action-button.tsx",
+      "content": "\"use client\";\n\nimport { LoaderCircle } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport { VariantProps } from \"class-variance-authority\";\nimport { Button } from \"../ui/button\";\nimport { buttonVariants } from \"../ui/button\";\n\ninterface props\n  extends React.ButtonHTMLAttributes<HTMLButtonElement>,\n    VariantProps<typeof buttonVariants> {\n  children: React.ReactNode;\n  isPending: boolean;\n  onClick?: () => void;\n}\n\n// Submit button with pending state\n// Also takes an onClick which prevents default\n// Keeps it's original size when pending with the help of grid stacking\nexport default function ActionButton({\n  children,\n  isPending,\n  variant,\n  size,\n  className,\n  onClick,\n}: props) {\n  return (\n    <Button\n      onClick={\n        onClick\n          ? (e: React.MouseEvent<HTMLButtonElement>) => {\n              e.preventDefault();\n              onClick();\n            }\n          : undefined\n      }\n      type=\"submit\"\n      disabled={isPending}\n      variant={variant}\n      size={size}\n      className={cn(\n        className,\n        \"inline-grid place-items-center [grid-template-areas:'stack']\"\n      )}\n    >\n      <span\n        className={cn(\n          isPending && \"invisible\",\n          \"flex items-center gap-2 [grid-area:stack]\"\n        )}\n      >\n        {children}\n      </span>\n      <LoaderCircle\n        aria-label=\"Submitting\"\n        className={cn(\n          isPending ? \"visible\" : \"invisible\",\n          \"size-5 animate-spin transition-opacity [grid-area:stack]\"\n        )}\n      />\n    </Button>\n  );\n}\n",
+      "type": "registry:ui"
+    }
   ]
 }

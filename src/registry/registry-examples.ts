@@ -403,41 +403,4 @@ export const examples: RegistryItem[] = [
       "@number-flow/react",
     ],
   },
-  {
-    name: "landing-page-test",
-    type: "registry:block",
-    component: LandingPageTest,
-    code: LandingPageTestSource,
-    title: "Landing Page Test",
-    description: "A simple landing page template for testing V0 integration",
-    files: [
-      {
-        path: "app/page.tsx",
-        type: "registry:page",
-        target: "app/page.tsx",
-        content: LandingPageTestSource,
-      },
-      {
-        path: "app/layout.tsx",
-        type: "registry:page",
-        target: "app/layout.tsx",
-        content: `import "@/styles/globals.css"
- 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  )
-}`,
-      },
-    ],
-    meta: {
-      author: process.env.NEXT_PUBLIC_V0_TEMPLATES_AUTHOR,
-    },
-  },
 ];
