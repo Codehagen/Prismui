@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:registry": "tsx src/lib/scripts/build-registry.mts"
+    "build:registry": "tsx src/lib/scripts/build-registry.mts",
+    "build:v0": "tsx src/lib/scripts/build-v0-registry.mts",
+    "build:v0:watch": "tsx src/lib/scripts/build-v0-registry.mts --watch"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
