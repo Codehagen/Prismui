@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect,useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Clock,
@@ -51,6 +51,18 @@ export function ProjectStatusCard({
 }: ProjectStatusCardProps) {
   const { isExpanded, toggleExpand, animatedHeight } = useExpandable();
   const contentRef = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    const updateWidth = () => {
+      if (contentRef.current) {
+        setWidth(contentRef.current.offsetWidth);
+      }
+    };
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => {window.removeEventListener("resize", updateWidth);};
+  }, []);
 
   useEffect(() => {
     if (contentRef.current) {
@@ -196,10 +208,12 @@ export function ProjectStatusCard({
       </CardContent>
 
       <CardFooter>
-        <div className="flex items-center justify-between w-full text-sm text-gray-600">
+        <div className="flex items-center justify-between w-full text-sm gap-3 text-gray-600 flex-wrap">
           <span>Last updated: 2 hours ago</span>
+          {width < 300 &&  <span >/</span>}
           <span>{openIssues} open issues</span>
         </div>
+
       </CardFooter>
     </Card>
   );

@@ -2,7 +2,8 @@ import { ProjectStatusCard } from "@/components/prismui/expandable-card";
 
 export default function ExpandableCardBasic() {
   return (
-    <ProjectStatusCard
+    <div className=" w-full place-items-center grid">
+      <ProjectStatusCard
       title="UI Component Library"
       progress={75}
       dueDate="Jan 15, 2024"
@@ -15,6 +16,7 @@ export default function ExpandableCardBasic() {
       githubStars={128}
       openIssues={5}
     />
+    </div>
   );
 }
 
