@@ -2,28 +2,16 @@
 
 import { templateSchema } from "@/registry/schema";
 import { z } from "zod";
-import { promises as fs } from "fs";
-import path from "path";
 
 async function getTemplateFromRegistry(name: string) {
   try {
-    // Use fetch with absolute URL in server component
-    const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-    const host = process.env.VERCEL_URL || "localhost:3000";
-    const url = `${protocol}://${host}/r/registry.json`;
-
-    const response = await fetch(url, {
-      // Ensure we get fresh data
-      cache: "no-store",
-      // Add headers for Vercel internal requests
-      headers: {
-        "x-vercel-protection-bypass":
-          process.env.VERCEL_PROTECTION_BYPASS || "",
-      },
-    });
+    // Fetch the registry data from public/r/registry.json
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_APP_URL}/r/registry.json`
+    );
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch registry: ${response.statusText}`);
+      throw new Error("Failed to fetch registry data");
     }
 
     const registry = await response.json();

@@ -46,9 +46,6 @@ const nextConfig = {
   },
   experimental: {
     optimizePackageImports: ["shiki"],
-    outputFileTracingIncludes: {
-      '/**/*': ['./public/r/**/*'],
-    },
   },
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
