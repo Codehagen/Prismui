@@ -6,6 +6,9 @@ import { z } from "zod";
 import { promises as fs } from "fs";
 import path from "path";
 
+// Helper to check if we're in production
+const isProd = process.env.NODE_ENV === "production";
+
 async function getTemplateFiles(name: string) {
   const template = getRegistryItem(name);
   if (!template || !template.files) return null;
@@ -20,20 +23,39 @@ async function getTemplateFiles(name: string) {
           throw new Error(`Missing target for file in template ${name}`);
         }
 
-        const fullPath = path.join(
-          process.cwd(),
-          "src/registry/app",
-          name,
-          target
-        );
-        const content = await fs.readFile(fullPath, "utf-8");
+        // In production, we need to read from the public directory
+        const fullPath = isProd
+          ? path.join(process.cwd(), "public/r/v0", name, target)
+          : path.join(process.cwd(), "src/registry/app", name, target);
 
-        return {
-          ...file,
-          path: filePath,
-          content,
-          target,
-        };
+        try {
+          const content = await fs.readFile(fullPath, "utf-8");
+          return {
+            ...file,
+            path: filePath,
+            content,
+            target,
+          };
+        } catch (error) {
+          console.error(`Error reading file ${fullPath}:`, error);
+          // If file not found in production path, try development path as fallback
+          if (isProd) {
+            const devPath = path.join(
+              process.cwd(),
+              "src/registry/app",
+              name,
+              target
+            );
+            const content = await fs.readFile(devPath, "utf-8");
+            return {
+              ...file,
+              path: filePath,
+              content,
+              target,
+            };
+          }
+          throw error;
+        }
       })
     );
 

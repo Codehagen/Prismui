@@ -5,13 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "pnpm run copy-templates && next build",
     "start": "next start",
     "lint": "next lint",
     "build:registry": "tsx src/lib/scripts/build-registry.mts",
     "build:v0": "tsx src/lib/scripts/build-v0-registry.mts",
     "build:v0:watch": "tsx src/lib/scripts/build-v0-registry.mts --watch",
-    "prod:build": "tsx src/lib/scripts/build-v0-registry.mts && tsx src/lib/scripts/build-registry.mts"
+    "prod:build": "tsx src/lib/scripts/build-v0-registry.mts && tsx src/lib/scripts/build-registry.mts",
+    "copy-templates": "tsx src/lib/scripts/copy-templates.mts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
