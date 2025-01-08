@@ -10,8 +10,17 @@ import path from "path";
 const isProd = process.env.NODE_ENV === "production";
 
 async function getTemplateFiles(name: string) {
+  console.log(`[v0] Getting template files for: ${name}`);
+  console.log(`[v0] Environment: ${isProd ? "production" : "development"}`);
+  console.log(`[v0] Current working directory: ${process.cwd()}`);
+
   const template = getRegistryItem(name);
-  if (!template || !template.files) return null;
+  if (!template || !template.files) {
+    console.error(`[v0] Template not found or has no files: ${name}`);
+    return null;
+  }
+
+  console.log(`[v0] Found template with ${template.files.length} files`);
 
   try {
     const files = await Promise.all(
@@ -23,18 +32,27 @@ async function getTemplateFiles(name: string) {
           throw new Error(`Missing target for file in template ${name}`);
         }
 
-        // In production on Vercel, files are in .next/server/chunks/static
-        const prodPath = isProd
-          ? path.join(
-              process.cwd(),
-              ".next/server/chunks/static/r/v0",
-              name,
-              target
-            )
-          : path.join(process.cwd(), "src/registry/app", name, target);
+        // In production, read from public/r/v0 directory
+        const prodPath = path.join(process.cwd(), "public/r/v0", name, target);
+        console.log(
+          `[v0] Attempting to read file from production path: ${prodPath}`
+        );
 
         try {
+          // Check if file exists before reading
+          try {
+            await fs.access(prodPath);
+            console.log(`[v0] File exists at production path: ${prodPath}`);
+          } catch (accessError) {
+            console.log(
+              `[v0] File does not exist at production path: ${prodPath}`
+            );
+          }
+
           const content = await fs.readFile(prodPath, "utf-8");
+          console.log(
+            `[v0] Successfully read file from production path: ${prodPath}`
+          );
           return {
             ...file,
             path: filePath,
@@ -42,57 +60,99 @@ async function getTemplateFiles(name: string) {
             target,
           };
         } catch (error) {
-          console.error(`Error reading file ${prodPath}:`, error);
-
-          // Try public directory as fallback
-          const publicPath = path.join(
-            process.cwd(),
-            "public/r/v0",
-            name,
-            target
-          );
+          console.error(`[v0] Error reading file ${prodPath}:`, error);
+          console.log(`[v0] Directory contents for ${path.dirname(prodPath)}:`);
           try {
-            const content = await fs.readFile(publicPath, "utf-8");
-            return {
-              ...file,
-              path: filePath,
-              content,
-              target,
-            };
-          } catch (publicError) {
-            console.error(
-              `Error reading from public path ${publicPath}:`,
-              publicError
+            const dirContents = await fs.readdir(path.dirname(prodPath));
+            console.log(dirContents);
+          } catch (dirError) {
+            console.error(`[v0] Could not read directory:`, dirError);
+          }
+
+          // If in production, try development path as fallback
+          if (isProd) {
+            const devPath = path.join(
+              process.cwd(),
+              "src/registry/app",
+              name,
+              target
+            );
+            console.log(
+              `[v0] Attempting to read file from development path: ${devPath}`
             );
 
-            // If in production, try development path as last resort
-            if (isProd) {
-              const devPath = path.join(
-                process.cwd(),
-                "src/registry/app",
-                name,
-                target
-              );
+            try {
+              // Check if file exists before reading
+              try {
+                await fs.access(devPath);
+                console.log(`[v0] File exists at development path: ${devPath}`);
+              } catch (accessError) {
+                console.log(
+                  `[v0] File does not exist at development path: ${devPath}`
+                );
+              }
+
               const content = await fs.readFile(devPath, "utf-8");
+              console.log(
+                `[v0] Successfully read file from development path: ${devPath}`
+              );
               return {
                 ...file,
                 path: filePath,
                 content,
                 target,
               };
+            } catch (devError) {
+              console.error(
+                `[v0] Error reading from development path ${devPath}:`,
+                devError
+              );
+              console.log(
+                `[v0] Directory contents for ${path.dirname(devPath)}:`
+              );
+              try {
+                const dirContents = await fs.readdir(path.dirname(devPath));
+                console.log(dirContents);
+              } catch (dirError) {
+                console.error(`[v0] Could not read directory:`, dirError);
+              }
+              throw error;
             }
-            throw error;
+          } else {
+            // In development, read from src/registry/app
+            const devPath = path.join(
+              process.cwd(),
+              "src/registry/app",
+              name,
+              target
+            );
+            console.log(`[v0] Development mode: reading from ${devPath}`);
+            const content = await fs.readFile(devPath, "utf-8");
+            console.log(
+              `[v0] Successfully read file in development mode: ${devPath}`
+            );
+            return {
+              ...file,
+              path: filePath,
+              content,
+              target,
+            };
           }
         }
       })
     );
 
+    console.log(`[v0] Successfully processed all files for template: ${name}`);
     return {
       ...template,
       files,
     };
   } catch (error) {
-    console.error(`Error reading template files for ${name}:`, error);
+    console.error(`[v0] Error reading template files for ${name}:`, error);
+    console.error(
+      `[v0] Stack trace:`,
+      error instanceof Error ? error.stack : "No stack trace"
+    );
     return null;
   }
 }
