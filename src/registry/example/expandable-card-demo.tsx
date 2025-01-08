@@ -2,7 +2,7 @@ import { ProjectStatusCard } from "@/components/prismui/expandable-card";
 
 export default function ExpandableCardDemo() {
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <div className="grid gap-4 md:grid-cols-2 place-items-center">
       <ProjectStatusCard
         title="Design System"
         progress={100}
@@ -22,7 +22,6 @@ export default function ExpandableCardDemo() {
         githubStars={256}
         openIssues={0}
       />
-
       <ProjectStatusCard
         title="Analytics Dashboard"
         progress={45}
