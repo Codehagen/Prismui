@@ -28,9 +28,10 @@ export function OpenInV0Form({
   const [isTemplateAvailable, setIsTemplateAvailable] = useState<boolean>(true);
 
   useEffect(() => {
+    // Check if template exists in registry
     const checkTemplate = async () => {
       try {
-        const response = await fetch("/api/registry");
+        const response = await fetch("/r/registry.json");
         if (!response.ok) {
           throw new Error("Failed to fetch registry");
         }
