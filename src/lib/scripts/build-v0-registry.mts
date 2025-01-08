@@ -4,6 +4,20 @@ import { type Registry } from "../../registry/schema";
 import dedent from "dedent";
 import chokidar from "chokidar";
 
+interface RegistryFile {
+  path: string;
+  type: string;
+  target?: string;
+}
+
+interface RegistryItem {
+  name: string;
+  type: string;
+  title: string;
+  description: string;
+  files: RegistryFile[];
+}
+
 const V0_REGISTRY_PATH = path.join(process.cwd(), "src/registry/app");
 
 // Initialize an empty watcher if in watch mode.
@@ -35,7 +49,7 @@ async function buildV0Registry() {
     // Get all template directories
     const templates = await fs.readdir(V0_REGISTRY_PATH);
 
-    const registryItems = [];
+    const registryItems: RegistryItem[] = [];
 
     for (const templateName of templates) {
       const templatePath = path.join(V0_REGISTRY_PATH, templateName);
@@ -43,13 +57,20 @@ async function buildV0Registry() {
 
       if (!stats.isDirectory()) continue;
 
-      const files = [];
+      const files: RegistryFile[] = [];
 
       // Add app files
       const appPath = path.join(templatePath, "app");
       const appFiles = await fs.readdir(appPath);
+
+      // Sort files to maintain specific order: page.tsx, layout.tsx, globals.css
+      const sortedAppFiles = appFiles.sort((a, b) => {
+        const order = { "page.tsx": 1, "layout.tsx": 2, "globals.css": 3 };
+        return (order[a] || 99) - (order[b] || 99);
+      });
+
       files.push(
-        ...appFiles.map((file) => ({
+        ...sortedAppFiles.map((file) => ({
           path: `${templateName}/app/${file}`,
           type: "registry:page",
           target: `app/${file}`,
@@ -70,7 +91,7 @@ async function buildV0Registry() {
         // Components directory doesn't exist, skip
       }
 
-      const templateItem = {
+      const templateItem: RegistryItem = {
         name: templateName,
         type: "registry:block",
         title: templateName
