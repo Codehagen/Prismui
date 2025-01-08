@@ -20,18 +20,26 @@ async function getTemplateFiles(name: string) {
           throw new Error(`Missing target for file in template ${name}`);
         }
 
-        const fullPath = path.join(
-          process.cwd(),
-          "src/registry/app",
-          name,
-          target
+        const fullPath = path.join(process.cwd(), "public/r/registry.json");
+
+        const registryContent = await fs.readFile(fullPath, "utf-8");
+        const registry = JSON.parse(registryContent);
+
+        const templateData = registry.find((t: any) => t.name === name);
+        const fileData = templateData?.files?.find(
+          (f: any) => f.target === target
         );
-        const content = await fs.readFile(fullPath, "utf-8");
+
+        if (!fileData?.content) {
+          throw new Error(
+            `Could not find content for file ${target} in template ${name}`
+          );
+        }
 
         return {
           ...file,
           path: filePath,
-          content,
+          content: fileData.content,
           target,
         };
       })
