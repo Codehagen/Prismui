@@ -20,36 +20,13 @@ async function getTemplateFiles(name: string) {
           throw new Error(`Missing target for file in template ${name}`);
         }
 
-        // Try multiple possible paths for the template files
-        const possiblePaths = [
-          // Development path
-          path.join(process.cwd(), "src/registry/app", name, target),
-          // Production path
-          path.join(process.cwd(), "public/r/v0", name, target),
-          // Alternative production path
-          path.join(process.cwd(), ".next/server/app/r/v0", name, target),
-        ];
-
-        let content = "";
-        let foundPath = "";
-
-        // Try each path until we find one that exists
-        for (const tryPath of possiblePaths) {
-          try {
-            content = await fs.readFile(tryPath, "utf-8");
-            foundPath = tryPath;
-            break;
-          } catch (e) {
-            // Continue to next path
-            continue;
-          }
-        }
-
-        if (!content) {
-          throw new Error(
-            `Could not find template file at any of the expected locations for ${name}/${target}`
-          );
-        }
+        const fullPath = path.join(
+          process.cwd(),
+          "src/registry/app",
+          name,
+          target
+        );
+        const content = await fs.readFile(fullPath, "utf-8");
 
         return {
           ...file,
@@ -66,59 +43,132 @@ async function getTemplateFiles(name: string) {
     };
   } catch (error) {
     console.error(`Error reading template files for ${name}:`, error);
-    throw error;
+    return null;
   }
 }
 
-const formSchema = z.object({
-  name: z.string(),
-});
-
 export async function openInV0Action(formData: FormData) {
   try {
-    const { name } = formSchema.parse(Object.fromEntries(formData));
-
-    const template = await getTemplateFiles(name);
-    if (!template) {
-      return {
-        error: `Template ${name} not found`,
-      };
+    // Check if V0_API_KEY is set
+    if (!process.env.V0_API_KEY) {
+      throw new Error("V0_API_KEY is not set in environment variables");
     }
 
-    const payload = templateSchema.parse(template);
+    // Check if author is set
+    if (!process.env.NEXT_PUBLIC_V0_TEMPLATES_AUTHOR) {
+      throw new Error(
+        "NEXT_PUBLIC_V0_TEMPLATES_AUTHOR is not set in environment variables"
+      );
+    }
 
-    const response = await fetch("https://v0.dev/api/templates", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.V0_API_KEY}`,
+    const name = z.string().parse(formData.get("name"));
+    console.log("Template name:", name);
+
+    const template = await getTemplateFiles(name);
+
+    if (!template) {
+      throw new Error(`Template ${name} not found or files could not be read.`);
+    }
+
+    console.log("Found template:", JSON.stringify(template, null, 2));
+
+    const payload = templateSchema.parse({
+      ...template,
+      meta: {
+        ...template.meta,
+        author: process.env.NEXT_PUBLIC_V0_TEMPLATES_AUTHOR,
       },
+    });
+
+    console.log("Parsed payload:", JSON.stringify(payload, null, 2));
+    console.log(
+      "Request payload:",
+      JSON.stringify(
+        {
+          version: 3,
+          template: payload,
+        },
+        null,
+        2
+      )
+    );
+
+    console.log(
+      "Sending request to V0 with API key:",
+      process.env.V0_API_KEY?.slice(0, 4) + "..."
+    );
+
+    const response = await fetch(`https://v0.dev/chat/api/templates/open`, {
+      method: "POST",
       body: JSON.stringify({
         version: 3,
         template: payload,
       }),
+      headers: {
+        "x-v0-edit-secret": process.env.V0_API_KEY,
+        "Content-Type": "application/json",
+      },
     });
 
     if (!response.ok) {
-      const error = await response.text();
-      return {
-        error: `Failed to open template in v0: ${error}`,
-      };
+      if (response.status === 403) {
+        throw new Error(
+          "Invalid V0 API key. Please check your V0_API_KEY environment variable."
+        );
+      }
+
+      const errorText = await response.text();
+      console.error("Error response status:", response.status);
+      console.error(
+        "Error response headers:",
+        Object.fromEntries(response.headers.entries())
+      );
+      console.error("Error response from V0:", errorText);
+      try {
+        const errorJson = JSON.parse(errorText);
+        console.error(
+          "Parsed error response:",
+          JSON.stringify(errorJson, null, 2)
+        );
+      } catch (e) {
+        console.error("Could not parse error response as JSON");
+      }
+      throw new Error(`V0 API error: ${errorText}`);
     }
 
-    const data = await response.json();
+    const result = await response.json();
+    console.log("Success response:", JSON.stringify(result, null, 2));
+
+    const data = z
+      .object({
+        url: z.string(),
+      })
+      .parse(result);
 
     return {
+      error: null,
       url: data.url,
     };
   } catch (error) {
-    if (error instanceof Error) {
+    console.error("V0 Action Error:", error);
+    if (error instanceof z.ZodError) {
+      console.error(
+        "Zod validation errors:",
+        JSON.stringify(error.errors, null, 2)
+      );
       return {
-        error: error.message,
+        error: error.errors[0].message,
+        url: null,
       };
     }
+
+    if (error instanceof Error) {
+      return { error: error.message, url: null };
+    }
+
     return {
-      error: "An unknown error occurred",
+      error: "Something went wrong. Please try again later.",
+      url: null,
     };
   }
 }

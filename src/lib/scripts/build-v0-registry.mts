@@ -73,7 +73,6 @@ interface RegistryItem {
 }
 
 const V0_REGISTRY_PATH = path.join(process.cwd(), "src/registry/app");
-const V0_PUBLIC_PATH = path.join(process.cwd(), "public/r/v0");
 
 // Initialize an empty watcher if in watch mode.
 const isWatchMode = process.argv.includes("--watch");
@@ -120,30 +119,12 @@ async function getAllFiles(
   return arrayOfFiles;
 }
 
-// Helper function to ensure directory exists
-async function ensureDir(dirPath: string) {
-  try {
-    await fs.access(dirPath);
-  } catch {
-    await fs.mkdir(dirPath, { recursive: true });
-  }
-}
-
-// Helper function to copy file with directory creation
-async function copyFile(src: string, dest: string) {
-  await ensureDir(path.dirname(dest));
-  await fs.copyFile(src, dest);
-}
-
 async function buildV0Registry() {
   try {
     // Get all template directories
     const templates = await fs.readdir(V0_REGISTRY_PATH);
 
     const registryItems: RegistryItem[] = [];
-
-    // Ensure the public directory exists
-    await ensureDir(V0_PUBLIC_PATH);
 
     for (const templateName of templates) {
       const templatePath = path.join(V0_REGISTRY_PATH, templateName);
@@ -168,38 +149,24 @@ async function buildV0Registry() {
         return (order[aBase] || 99) - (order[bBase] || 99);
       });
 
-      // Copy files to public directory and add to registry
-      for (const file of sortedAppFiles) {
-        const sourcePath = path.join(appPath, file);
-        const targetPath = path.join(V0_PUBLIC_PATH, templateName, "app", file);
-        await copyFile(sourcePath, targetPath);
-
-        files.push({
+      files.push(
+        ...sortedAppFiles.map((file) => ({
           path: `${templateName}/app/${file}`,
           type: "registry:page",
           target: `app/${file}`,
-        });
-      }
+        }))
+      );
 
       // Add component files if they exist
       const componentsPath = path.join(templatePath, "components");
       try {
-        const componentFiles = await getAllFiles(componentsPath);
-        for (const file of componentFiles) {
-          const relativePath = path.relative(componentsPath, file);
-          const targetPath = path.join(
-            V0_PUBLIC_PATH,
-            templateName,
-            "components",
-            relativePath
-          );
-          await copyFile(file, targetPath);
-
-          files.push({
-            path: `${templateName}/components/${relativePath}`,
+        const componentFiles = await fs.readdir(componentsPath);
+        files.push(
+          ...componentFiles.map((file) => ({
+            path: `${templateName}/components/${file}`,
             type: "registry:component",
-          });
-        }
+          }))
+        );
       } catch (error) {
         // Components directory doesn't exist, skip
       }
