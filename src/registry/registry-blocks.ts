@@ -35,6 +35,34 @@ import { type Registry } from "./schema";
   ]
 },
 {
+  "name": "floating-action-panel-template",
+  "type": "registry:block",
+  "title": "Floating Action Panel Template",
+  "description": "A template for floating-action-panel-template",
+  "files": [
+    {
+      "path": "floating-action-panel-template/app/page.tsx",
+      "type": "registry:page",
+      "target": "app/page.tsx"
+    },
+    {
+      "path": "floating-action-panel-template/app/layout.tsx",
+      "type": "registry:page",
+      "target": "app/layout.tsx"
+    },
+    {
+      "path": "floating-action-panel-template/app/globals.css",
+      "type": "registry:page",
+      "target": "app/globals.css"
+    },
+    {
+      "path": "floating-action-panel-template/app/component/floating-action-panel.tsx",
+      "type": "registry:page",
+      "target": "app/component/floating-action-panel.tsx"
+    }
+  ]
+},
+{
   "name": "landing-page-test",
   "type": "registry:block",
   "title": "Landing Page Test",
