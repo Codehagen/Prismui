@@ -7,11 +7,16 @@ import path from "path";
 
 async function getTemplateFromRegistry(name: string) {
   try {
-    // Read the registry file directly from the filesystem in server action
-    const registryPath = path.join(process.cwd(), "public/r/registry.json");
-    const registryContent = await fs.readFile(registryPath, "utf-8");
-    const registry = JSON.parse(registryContent);
+    // Use relative URL for both development and production
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_APP_URL}/api/registry`
+    );
 
+    if (!response.ok) {
+      throw new Error("Failed to fetch registry data");
+    }
+
+    const registry = await response.json();
     const template = registry.find((item: any) => item.name === name);
 
     if (!template) {
