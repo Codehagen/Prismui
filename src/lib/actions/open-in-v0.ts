@@ -20,27 +20,14 @@ async function getTemplateFiles(name: string) {
           throw new Error(`Missing target for file in template ${name}`);
         }
 
-        // Try the public directory first, then fall back to src
         const publicPath = path.join(
           process.cwd(),
           "public/r/v0",
           name,
           target
         );
-        const srcPath = path.join(
-          process.cwd(),
-          "src/registry/app",
-          name,
-          target
-        );
 
-        let content: string;
-        try {
-          content = await fs.readFile(publicPath, "utf-8");
-        } catch (error) {
-          // If file doesn't exist in public, try src
-          content = await fs.readFile(srcPath, "utf-8");
-        }
+        const content = await fs.readFile(publicPath, "utf-8");
 
         return {
           ...file,
