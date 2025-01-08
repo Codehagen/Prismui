@@ -21,6 +21,16 @@ import { type Registry } from "./schema";
       "path": "expandable-card-template/app/globals.css",
       "type": "registry:page",
       "target": "app/globals.css"
+    },
+    {
+      "path": "expandable-card-template/app/component/expandable-card.tsx",
+      "type": "registry:page",
+      "target": "app/component/expandable-card.tsx"
+    },
+    {
+      "path": "expandable-card-template/app/hooks/use-expandable.ts",
+      "type": "registry:page",
+      "target": "app/hooks/use-expandable.ts"
     }
   ]
 },

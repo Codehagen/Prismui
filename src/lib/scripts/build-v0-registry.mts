@@ -44,6 +44,27 @@ if (isWatchMode) {
   process.exit(0);
 }
 
+// Helper function to recursively get all files
+async function getAllFiles(
+  dirPath: string,
+  arrayOfFiles: string[] = []
+): Promise<string[]> {
+  const files = await fs.readdir(dirPath);
+
+  for (const file of files) {
+    const fullPath = path.join(dirPath, file);
+    const stat = await fs.stat(fullPath);
+
+    if (stat.isDirectory()) {
+      arrayOfFiles = await getAllFiles(fullPath, arrayOfFiles);
+    } else {
+      arrayOfFiles.push(fullPath);
+    }
+  }
+
+  return arrayOfFiles;
+}
+
 async function buildV0Registry() {
   try {
     // Get all template directories
@@ -61,12 +82,17 @@ async function buildV0Registry() {
 
       // Add app files
       const appPath = path.join(templatePath, "app");
-      const appFiles = await fs.readdir(appPath);
+      const allAppFiles = await getAllFiles(appPath);
 
-      // Sort files to maintain specific order: page.tsx, layout.tsx, globals.css
-      const sortedAppFiles = appFiles.sort((a, b) => {
+      // Convert absolute paths to relative paths and sort
+      const relativeAppFiles = allAppFiles.map((file) =>
+        path.relative(appPath, file)
+      );
+      const sortedAppFiles = relativeAppFiles.sort((a, b) => {
         const order = { "page.tsx": 1, "layout.tsx": 2, "globals.css": 3 };
-        return (order[a] || 99) - (order[b] || 99);
+        const aBase = path.basename(a);
+        const bBase = path.basename(b);
+        return (order[aBase] || 99) - (order[bBase] || 99);
       });
 
       files.push(

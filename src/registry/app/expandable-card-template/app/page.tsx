@@ -1,5 +1,7 @@
 "use client";
 
+import { ProjectStatusCard } from "./component/expandable-card";
+
 export default function ExpandableCardPage() {
   return (
     <div className="container mx-auto py-10">
@@ -10,6 +12,16 @@ export default function ExpandableCardPage() {
             Track your project progress with our expandable card component
           </p>
         </div>
+
+        <ProjectStatusCard
+          title="Project 1"
+          progress={50}
+          dueDate="2025-01-01"
+          contributors={[]}
+          tasks={[]}
+          githubStars={100}
+          openIssues={5}
+        />
 
         <div className="mt-8 text-center text-sm text-muted-foreground">
           <p>Click the card to expand and see more details</p>
