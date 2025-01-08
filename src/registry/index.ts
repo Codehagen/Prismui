@@ -50,5 +50,5 @@ export function getRegistryItemsByType(type: string) {
 }
 
 export function getRegistryItemsByCategory(category: string) {
-  return registry.filter((item) => item.category === category);
+  return registry.filter((item) => item.categories?.includes(category));
 }

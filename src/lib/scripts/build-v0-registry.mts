@@ -71,7 +71,7 @@ async function buildV0Registry() {
     const registryContent = dedent`
       import { type Registry } from "./schema";
 
-      export const registry = ${JSON.stringify(
+      export const blocks = ${JSON.stringify(
         registryItems,
         null,
         2
