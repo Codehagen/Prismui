@@ -1,48 +1,26 @@
 "use server";
 
 import { templateSchema } from "@/registry/schema";
-import { getRegistryItem } from "@/registry";
 import { z } from "zod";
 import { promises as fs } from "fs";
 import path from "path";
 
-async function getTemplateFiles(name: string) {
-  const template = getRegistryItem(name);
-  if (!template || !template.files) return null;
-
+async function getTemplateFromRegistry(name: string) {
   try {
-    const files = await Promise.all(
-      template.files.map(async (file) => {
-        const filePath = typeof file === "string" ? file : file.path;
-        const target = typeof file === "string" ? file : file.target;
+    // Read the registry file directly from the filesystem in server action
+    const registryPath = path.join(process.cwd(), "public/r/registry.json");
+    const registryContent = await fs.readFile(registryPath, "utf-8");
+    const registry = JSON.parse(registryContent);
 
-        if (!target) {
-          throw new Error(`Missing target for file in template ${name}`);
-        }
+    const template = registry.find((item: any) => item.name === name);
 
-        const fullPath = path.join(
-          process.cwd(),
-          "src/registry/app",
-          name,
-          target
-        );
-        const content = await fs.readFile(fullPath, "utf-8");
+    if (!template) {
+      throw new Error(`Template ${name} not found in registry`);
+    }
 
-        return {
-          ...file,
-          path: filePath,
-          content,
-          target,
-        };
-      })
-    );
-
-    return {
-      ...template,
-      files,
-    };
+    return template;
   } catch (error) {
-    console.error(`Error reading template files for ${name}:`, error);
+    console.error("Error fetching template from registry:", error);
     return null;
   }
 }
@@ -64,10 +42,10 @@ export async function openInV0Action(formData: FormData) {
     const name = z.string().parse(formData.get("name"));
     console.log("Template name:", name);
 
-    const template = await getTemplateFiles(name);
+    const template = await getTemplateFromRegistry(name);
 
     if (!template) {
-      throw new Error(`Template ${name} not found or files could not be read.`);
+      throw new Error(`Template ${name} not found or could not be loaded.`);
     }
 
     console.log("Found template:", JSON.stringify(template, null, 2));

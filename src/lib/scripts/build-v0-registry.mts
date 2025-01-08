@@ -54,12 +54,11 @@
 
 import { promises as fs } from "fs";
 import path from "path";
-import { type Registry } from "../../registry/schema";
 import dedent from "dedent";
 import chokidar from "chokidar";
 
 const V0_REGISTRY_PATH = path.join(process.cwd(), "src/registry/app");
-const REGISTRY_OUTPUT_PATH = path.join(process.cwd(), "public/r");
+const R_REGISTRY_PATH = path.join(process.cwd(), "public/r");
 
 // Initialize an empty watcher if in watch mode.
 const isWatchMode = process.argv.includes("--watch");
@@ -106,8 +105,20 @@ async function getAllFiles(
   return arrayOfFiles;
 }
 
-// Helper function to read file content
 async function getFileContent(filePath: string): Promise<string> {
+  const imageExtensions = [
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".gif",
+    ".svg",
+    ".webp",
+    ".ico",
+  ];
+  if (imageExtensions.some((ext) => filePath.toLowerCase().endsWith(ext))) {
+    return "";
+  }
+
   try {
     return await fs.readFile(filePath, "utf-8");
   } catch (error) {
@@ -116,115 +127,11 @@ async function getFileContent(filePath: string): Promise<string> {
   }
 }
 
-// Helper function to determine file type
-function getFileType(filePath: string): string {
-  if (filePath.includes("/components/")) {
-    return "registry:component";
-  } else if (filePath.includes("/lib/")) {
-    return "registry:lib";
-  } else if (filePath.includes("/hooks/")) {
-    return "registry:hook";
-  } else {
-    return "registry:page";
-  }
-}
-
-// Helper function to get target path
-function getTargetPath(
-  filePath: string,
-  templateName: string
-): string | undefined {
-  if (filePath.includes("/app/")) {
-    return filePath.split(`${templateName}/`)[1];
-  }
-  return undefined;
-}
-
-// Helper function to detect dependencies from file content
-async function detectDependencies(files: any[]): Promise<string[]> {
-  const dependencies = new Set<string>();
-
-  for (const file of files) {
-    if (!file.content) continue;
-
-    // Check for UI component imports
-    const uiMatches = file.content.match(/@\/components\/ui\/([a-z-]+)/g);
-    if (uiMatches) {
-      uiMatches.forEach((match: string) => {
-        dependencies.add(match.split("/").pop()!);
-      });
-    }
-
-    // Check for explicit registry dependencies in MDX
-    const mdxMatches = file.content.match(/registryDependencies:\s*\[(.*?)\]/s);
-    if (mdxMatches && mdxMatches[1]) {
-      mdxMatches[1]
-        .split(",")
-        .map((dep) => dep.trim().replace(/['"]/g, ""))
-        .filter(Boolean)
-        .forEach((dep) => dependencies.add(dep));
-    }
-  }
-
-  return Array.from(dependencies);
-}
-
-// Helper function to detect categories from MDX and file structure
-async function detectCategories(
-  templateName: string,
-  files: any[]
-): Promise<string[]> {
-  const categories = new Set<string>(["templates"]);
-
-  for (const file of files) {
-    if (!file.content) continue;
-
-    // Check for categories in MDX frontmatter
-    const categoryMatch = file.content.match(/category:\s*['"]([^'"]+)['"]/);
-    if (categoryMatch) {
-      categories.add(categoryMatch[1]);
-    }
-
-    // Check for subcategories in MDX frontmatter
-    const subcategoryMatch = file.content.match(
-      /subcategory:\s*['"]([^'"]+)['"]/
-    );
-    if (subcategoryMatch) {
-      categories.add(subcategoryMatch[1]);
-    }
-  }
-
-  // Add categories based on template name
-  if (templateName.includes("card")) categories.add("cards");
-  if (templateName.includes("form")) categories.add("forms");
-  if (templateName.includes("layout")) categories.add("layouts");
-
-  return Array.from(categories);
-}
-
-// Helper function to get description from MDX if available
-async function getDescription(
-  templateName: string,
-  files: any[]
-): Promise<string> {
-  for (const file of files) {
-    if (!file.content) continue;
-
-    // Check for summary in MDX frontmatter
-    const summaryMatch = file.content.match(/summary:\s*['"]([^'"]+)['"]/);
-    if (summaryMatch) {
-      return summaryMatch[1];
-    }
-  }
-
-  return `A template for ${templateName}`;
-}
-
 async function buildV0Registry() {
   try {
     // Get all template directories
     const templates = await fs.readdir(V0_REGISTRY_PATH);
-    const registryItems: any[] = [];
+    const registryItems = [];
 
     for (const templateName of templates) {
       const templatePath = path.join(V0_REGISTRY_PATH, templateName);
@@ -232,42 +139,22 @@ async function buildV0Registry() {
 
       if (!stats.isDirectory()) continue;
 
-      const files: any[] = [];
+      // Process all files in the template
       const allFiles = await getAllFiles(templatePath);
+      const files = await Promise.all(
+        allFiles.map(async (filePath) => {
+          const relativePath = path.relative(templatePath, filePath);
+          const content = await getFileContent(filePath);
+          const fileType = getFileType(relativePath);
 
-      // Process each file
-      for (const filePath of allFiles) {
-        const relativePath = path.relative(V0_REGISTRY_PATH, filePath);
-        const fileContent = await getFileContent(filePath);
-        const fileType = getFileType(filePath);
-        const targetPath = getTargetPath(relativePath, templateName);
-
-        const fileEntry: any = {
-          path: relativePath,
-          type: fileType,
-          content: fileContent,
-        };
-
-        if (targetPath) {
-          fileEntry.target = targetPath;
-        }
-
-        files.push(fileEntry);
-      }
-
-      // Sort files to ensure page.tsx comes first
-      files.sort((a, b) => {
-        if (a.path.endsWith("/page.tsx")) return -1;
-        if (b.path.endsWith("/page.tsx")) return 1;
-        if (a.path.endsWith("/layout.tsx")) return -1;
-        if (b.path.endsWith("/layout.tsx")) return 1;
-        return 0;
-      });
-
-      // Create template item with enhanced metadata
-      const dependencies = await detectDependencies(files);
-      const categories = await detectCategories(templateName, files);
-      const description = await getDescription(templateName, files);
+          return {
+            path: `${templateName}/${relativePath}`,
+            content,
+            type: fileType,
+            target: getTargetPath(relativePath, fileType),
+          };
+        })
+      );
 
       const templateItem = {
         name: templateName,
@@ -276,26 +163,25 @@ async function buildV0Registry() {
           .split("-")
           .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
           .join(" "),
-        description,
+        description: `A template for ${templateName}`,
         files,
-        registryDependencies: dependencies,
-        categories,
       };
 
       registryItems.push(templateItem);
     }
 
-    // Ensure output directory exists
-    await fs.mkdir(REGISTRY_OUTPUT_PATH, { recursive: true });
+    // Ensure /r directory exists
+    await fs.mkdir(R_REGISTRY_PATH, { recursive: true });
 
-    // Write the registry file
-    const registryContent = JSON.stringify(registryItems, null, 2);
+    // Write the registry JSON file
+    const registryJson = JSON.stringify(registryItems, null, 2);
     await fs.writeFile(
-      path.join(REGISTRY_OUTPUT_PATH, "index.json"),
-      registryContent
+      path.join(R_REGISTRY_PATH, "registry.json"),
+      registryJson,
+      "utf8"
     );
 
-    // Generate the registry blocks file
+    // Generate the registry-blocks.ts file
     const registryBlocksContent = dedent`
       import { type Registry } from "./schema";
 
@@ -311,45 +197,40 @@ async function buildV0Registry() {
       registryBlocksContent
     );
 
-    // Generate the __index__.tsx file
-    const indexContent = dedent`
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-nocheck
-      // This file is autogenerated by ./scripts/build-v0-registry.ts
-      // Do not edit this file directly.
-      import * as React from "react"
-      import { type RegistryIndex } from "../registry/schema"
-
-      export const index: RegistryIndex = {
-        ${registryItems
-          .map(
-            (item) => `"${item.name}": {
-          name: "${item.name}",
-          title: "${item.title}",
-          description: "${item.description}",
-          type: "${item.type}",
-          registryDependencies: ${JSON.stringify(item.registryDependencies)},
-          files: ${JSON.stringify(item.files)},
-          meta: {
-            component: React.lazy(() => import("${path.join(
-              "@/registry/app",
-              item.name,
-              "app/page.tsx"
-            )}")),
-          },
-        }`
-          )
-          .join(",\n")}
-      }
-    `;
-
-    await fs.writeFile(
-      path.join(process.cwd(), "src/registry/__index__.tsx"),
-      indexContent
-    );
-
     console.log(`📝 Generated registry with ${registryItems.length} templates`);
   } catch (error) {
     console.error("Error building V0 registry:", error);
   }
+}
+
+function getFileType(filePath: string): string {
+  if (filePath.includes("/app/")) {
+    return "registry:page";
+  }
+  if (filePath.includes("/components/")) {
+    return "registry:component";
+  }
+  if (filePath.includes("/lib/")) {
+    return "registry:lib";
+  }
+  if (filePath.includes("/hooks/")) {
+    return "registry:hook";
+  }
+  return "registry:component";
+}
+
+function getTargetPath(relativePath: string, fileType: string): string {
+  if (fileType === "registry:page") {
+    return `app/${relativePath}`;
+  }
+  if (fileType === "registry:component") {
+    return `components/${path.basename(relativePath)}`;
+  }
+  if (fileType === "registry:lib") {
+    return `lib/${path.basename(relativePath)}`;
+  }
+  if (fileType === "registry:hook") {
+    return `hooks/${path.basename(relativePath)}`;
+  }
+  return relativePath;
 }

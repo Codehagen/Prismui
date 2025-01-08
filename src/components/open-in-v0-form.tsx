@@ -6,11 +6,51 @@ import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
+import { useEffect, useState } from "react";
+
+interface RegistryItem {
+  name: string;
+  type: string;
+  title: string;
+  description: string;
+  files: Array<{
+    path: string;
+    content: string;
+    type: string;
+    target: string;
+  }>;
+}
 
 export function OpenInV0Form({
   name,
   className,
 }: { name: string } & React.ComponentProps<"form">) {
+  const [isTemplateAvailable, setIsTemplateAvailable] = useState<boolean>(true);
+
+  useEffect(() => {
+    // Check if template exists in registry
+    const checkTemplate = async () => {
+      try {
+        const response = await fetch("/r/registry.json");
+        if (!response.ok) {
+          throw new Error("Failed to fetch registry");
+        }
+        const registry: RegistryItem[] = await response.json();
+        const templateExists = registry.some((item) => item.name === name);
+        setIsTemplateAvailable(templateExists);
+      } catch (error) {
+        console.error("Error checking template availability:", error);
+        setIsTemplateAvailable(false);
+      }
+    };
+
+    checkTemplate();
+  }, [name]);
+
+  if (!isTemplateAvailable) {
+    return null;
+  }
+
   return (
     <form
       action={async (formData) => {
