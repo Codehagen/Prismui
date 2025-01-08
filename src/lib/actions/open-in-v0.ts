@@ -23,13 +23,18 @@ async function getTemplateFiles(name: string) {
           throw new Error(`Missing target for file in template ${name}`);
         }
 
-        // In production, we need to read from the public directory
-        const fullPath = isProd
-          ? path.join(process.cwd(), "public/r/v0", name, target)
+        // In production on Vercel, files are in .next/server/chunks/static
+        const prodPath = isProd
+          ? path.join(
+              process.cwd(),
+              ".next/server/chunks/static/r/v0",
+              name,
+              target
+            )
           : path.join(process.cwd(), "src/registry/app", name, target);
 
         try {
-          const content = await fs.readFile(fullPath, "utf-8");
+          const content = await fs.readFile(prodPath, "utf-8");
           return {
             ...file,
             path: filePath,
@@ -37,24 +42,47 @@ async function getTemplateFiles(name: string) {
             target,
           };
         } catch (error) {
-          console.error(`Error reading file ${fullPath}:`, error);
-          // If file not found in production path, try development path as fallback
-          if (isProd) {
-            const devPath = path.join(
-              process.cwd(),
-              "src/registry/app",
-              name,
-              target
-            );
-            const content = await fs.readFile(devPath, "utf-8");
+          console.error(`Error reading file ${prodPath}:`, error);
+
+          // Try public directory as fallback
+          const publicPath = path.join(
+            process.cwd(),
+            "public/r/v0",
+            name,
+            target
+          );
+          try {
+            const content = await fs.readFile(publicPath, "utf-8");
             return {
               ...file,
               path: filePath,
               content,
               target,
             };
+          } catch (publicError) {
+            console.error(
+              `Error reading from public path ${publicPath}:`,
+              publicError
+            );
+
+            // If in production, try development path as last resort
+            if (isProd) {
+              const devPath = path.join(
+                process.cwd(),
+                "src/registry/app",
+                name,
+                target
+              );
+              const content = await fs.readFile(devPath, "utf-8");
+              return {
+                ...file,
+                path: filePath,
+                content,
+                target,
+              };
+            }
+            throw error;
           }
-          throw error;
         }
       })
     );

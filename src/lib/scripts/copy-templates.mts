@@ -15,6 +15,8 @@ async function copyDir(src: string, dest: string) {
     if (entry.isDirectory()) {
       await copyDir(srcPath, destPath);
     } else {
+      // Create parent directory if it doesn't exist
+      await fs.mkdir(path.dirname(destPath), { recursive: true });
       await fs.copyFile(srcPath, destPath);
     }
   }
@@ -23,6 +25,14 @@ async function copyDir(src: string, dest: string) {
 async function copyTemplates() {
   try {
     console.log("🔄 Copying templates to public directory...");
+
+    // Clean target directory first
+    try {
+      await fs.rm(TARGET_DIR, { recursive: true, force: true });
+      console.log("🧹 Cleaned target directory");
+    } catch (error) {
+      // Ignore if directory doesn't exist
+    }
 
     // Ensure target directory exists
     await fs.mkdir(TARGET_DIR, { recursive: true });
