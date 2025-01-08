@@ -19,11 +19,15 @@ export async function openInV0Action(formData: FormData) {
     }
 
     const name = z.string().parse(formData.get("name"));
+    console.log("Template name:", name);
+
     const template = await getRegistryItem(name);
 
     if (!template) {
-      throw new Error(`Template ${name} not found.`);
+      throw new Error(`Template ${name} not found or files could not be read.`);
     }
+
+    console.log("Found template:", JSON.stringify(template, null, 2));
 
     const payload = templateSchema.parse({
       ...template,
@@ -32,6 +36,19 @@ export async function openInV0Action(formData: FormData) {
         author: process.env.NEXT_PUBLIC_V0_TEMPLATES_AUTHOR,
       },
     });
+
+    console.log("Parsed payload:", JSON.stringify(payload, null, 2));
+    console.log(
+      "Request payload:",
+      JSON.stringify(
+        {
+          version: 3,
+          template: payload,
+        },
+        null,
+        2
+      )
+    );
 
     console.log(
       "Sending request to V0 with API key:",
@@ -58,11 +75,26 @@ export async function openInV0Action(formData: FormData) {
       }
 
       const errorText = await response.text();
+      console.error("Error response status:", response.status);
+      console.error(
+        "Error response headers:",
+        Object.fromEntries(response.headers.entries())
+      );
       console.error("Error response from V0:", errorText);
+      try {
+        const errorJson = JSON.parse(errorText);
+        console.error(
+          "Parsed error response:",
+          JSON.stringify(errorJson, null, 2)
+        );
+      } catch (e) {
+        console.error("Could not parse error response as JSON");
+      }
       throw new Error(`V0 API error: ${errorText}`);
     }
 
     const result = await response.json();
+    console.log("Success response:", JSON.stringify(result, null, 2));
 
     const data = z
       .object({
@@ -77,6 +109,10 @@ export async function openInV0Action(formData: FormData) {
   } catch (error) {
     console.error("V0 Action Error:", error);
     if (error instanceof z.ZodError) {
+      console.error(
+        "Zod validation errors:",
+        JSON.stringify(error.errors, null, 2)
+      );
       return {
         error: error.errors[0].message,
         url: null,

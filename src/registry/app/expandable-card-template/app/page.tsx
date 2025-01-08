@@ -7,7 +7,7 @@ export default function ExpandableCardPage() {
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold mb-2">Project Status Dashboard</h1>
           <p className="text-muted-foreground">
-            THIS IS A TEST FOR LANDING PAGE
+            Track your project progress with our expandable card component
           </p>
         </div>
 

@@ -24,6 +24,8 @@ import { blocks } from "./registry-blocks";
 import { themes } from "./registry-themes";
 import { components } from "./registry-components";
 import { type Registry } from "./schema";
+import fs from "fs/promises";
+import path from "path";
 
 // Import registries as they are created
 // import { hooks } from "./registry-hooks";
@@ -41,8 +43,36 @@ export const registry: Registry = [
 ];
 
 // Helper functions
-export function getRegistryItem(name: string) {
-  return registry.find((item) => item.name === name);
+export async function getRegistryItem(name: string) {
+  // First get the registry item metadata
+  const item = registry.find((item) => item.name === name);
+  if (!item || !item.files) return null;
+
+  // Then read the actual files from src/registry/app
+  const basePath = path.join(process.cwd(), "src/registry/app", name);
+
+  try {
+    const files = await Promise.all(
+      item.files.map(async (file) => {
+        if (!file.target)
+          throw new Error(`Missing target for file in template ${name}`);
+        const filePath = path.join(basePath, file.target);
+        const content = await fs.readFile(filePath, "utf-8");
+        return {
+          ...file,
+          content,
+        };
+      })
+    );
+
+    return {
+      ...item,
+      files,
+    };
+  } catch (error) {
+    console.error(`Error reading files for template ${name}:`, error);
+    return null;
+  }
 }
 
 export function getRegistryItemsByType(type: string) {

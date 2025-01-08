@@ -43,15 +43,32 @@ async function buildV0Registry() {
 
       if (!stats.isDirectory()) continue;
 
-      // Read all files in the template's app directory
-      const appPath = path.join(templatePath, "app");
-      const files = await fs.readdir(appPath);
+      const files = [];
 
-      const templateFiles = files.map((file) => ({
-        path: `${templateName}/app/${file}`,
-        type: "registry:page",
-        target: `app/${file}`,
-      }));
+      // Add app files
+      const appPath = path.join(templatePath, "app");
+      const appFiles = await fs.readdir(appPath);
+      files.push(
+        ...appFiles.map((file) => ({
+          path: `${templateName}/app/${file}`,
+          type: "registry:page",
+          target: `app/${file}`,
+        }))
+      );
+
+      // Add component files if they exist
+      const componentsPath = path.join(templatePath, "components");
+      try {
+        const componentFiles = await fs.readdir(componentsPath);
+        files.push(
+          ...componentFiles.map((file) => ({
+            path: `${templateName}/components/${file}`,
+            type: "registry:component",
+          }))
+        );
+      } catch (error) {
+        // Components directory doesn't exist, skip
+      }
 
       const templateItem = {
         name: templateName,
@@ -61,7 +78,7 @@ async function buildV0Registry() {
           .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
           .join(" "),
         description: `A template for ${templateName}`,
-        files: templateFiles,
+        files,
       };
 
       registryItems.push(templateItem);
