@@ -3,14 +3,28 @@
 import { templateSchema } from "@/registry/schema";
 import { getRegistryItem } from "@/registry";
 import { z } from "zod";
-import { promises as fs } from "fs";
-import path from "path";
+import { headers } from "next/headers";
 
 async function getTemplateFiles(name: string) {
   const template = getRegistryItem(name);
   if (!template || !template.files) return null;
 
   try {
+    // Get the host from headers
+    const headersList = headers();
+    const host = headersList.get("host") || "";
+    const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
+
+    // Fetch the registry from the public URL
+    const registryUrl = `${protocol}://${host}/r/registry.json`;
+    const response = await fetch(registryUrl);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch registry from ${registryUrl}`);
+    }
+
+    const registry = await response.json();
+
     const files = await Promise.all(
       template.files.map(async (file) => {
         const filePath = typeof file === "string" ? file : file.path;
@@ -19,11 +33,6 @@ async function getTemplateFiles(name: string) {
         if (!target) {
           throw new Error(`Missing target for file in template ${name}`);
         }
-
-        const fullPath = path.join(process.cwd(), "public/r/registry.json");
-
-        const registryContent = await fs.readFile(fullPath, "utf-8");
-        const registry = JSON.parse(registryContent);
 
         const templateData = registry.find((t: any) => t.name === name);
         const fileData = templateData?.files?.find(
