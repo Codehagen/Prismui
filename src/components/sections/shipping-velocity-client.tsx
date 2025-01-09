@@ -1,10 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 interface ComponentDate {
   name: string;
@@ -103,19 +105,65 @@ function ComponentTimeline({
 }: {
   componentDates: ComponentDate[];
 }) {
+  const [showAll, setShowAll] = useState(false);
+  const sortedDates = componentDates.sort((a, b) =>
+    b.publishedAt.localeCompare(a.publishedAt)
+  );
+  const initialItems = sortedDates.slice(0, 5);
+  const remainingItems = sortedDates.slice(5);
+
   return (
-    <div className="mx-5 max-w-2xl md:mx-auto md:translate-x-28">
-      <ul className="space-y-8">
-        {componentDates
-          .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
-          .slice(0, 10)
-          .map((component) => (
+    <div className="mx-5 max-w-2xl md:mx-auto">
+      <div className="md:translate-x-28">
+        <ul className="space-y-8">
+          {initialItems.map((component) => (
             <li key={component.name}>
               <DesktopTimelineEntry component={component} />
               <MobileTimelineEntry component={component} />
             </li>
           ))}
-      </ul>
+          <AnimatePresence>
+            {showAll &&
+              remainingItems.map((component, index) => (
+                <motion.li
+                  key={component.name}
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{
+                    duration: 0.3,
+                    delay: index * 0.1,
+                  }}
+                >
+                  <DesktopTimelineEntry component={component} />
+                  <MobileTimelineEntry component={component} />
+                </motion.li>
+              ))}
+          </AnimatePresence>
+        </ul>
+      </div>
+      {remainingItems.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="mt-8 flex justify-center"
+        >
+          <Button
+            variant="ghost"
+            size="sm"
+            className="gap-2"
+            onClick={() => setShowAll(!showAll)}
+          >
+            {showAll ? "Show Less" : "Show More"}
+            <motion.div
+              animate={{ rotate: showAll ? 180 : 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <ChevronDown className="h-4 w-4" />
+            </motion.div>
+          </Button>
+        </motion.div>
+      )}
     </div>
   );
 }
@@ -141,7 +189,7 @@ export function ShippingVelocityContent({
 
       <ComponentTimeline componentDates={componentDates} />
 
-      <div className="mt-10 flex justify-center">
+      {/* <div className="mt-10 flex justify-center">
         <Button
           variant="outline"
           size="lg"
@@ -150,7 +198,7 @@ export function ShippingVelocityContent({
         >
           <Link href="/docs/components">View all components</Link>
         </Button>
-      </div>
+      </div> */}
     </section>
   );
 }
