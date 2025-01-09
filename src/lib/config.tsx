@@ -18,7 +18,7 @@ export const siteConfig = {
       label: "Docs",
     },
     {
-      href: "/docs/",
+      href: "/docs/components/expandable-card",
       label: "Components",
     },
     {
