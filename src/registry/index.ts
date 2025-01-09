@@ -42,7 +42,7 @@ export const registry: Registry = [
 
 // Helper functions
 export function getRegistryItem(name: string) {
-  return registry.find((item) => item.name === name);
+  return registry.find((item) => item.name === name) ?? null;
 }
 
 export function getRegistryItemsByType(type: string) {
@@ -50,5 +50,5 @@ export function getRegistryItemsByType(type: string) {
 }
 
 export function getRegistryItemsByCategory(category: string) {
-  return registry.filter((item) => item.category === category);
+  return registry.filter((item) => item.categories?.includes(category));
 }

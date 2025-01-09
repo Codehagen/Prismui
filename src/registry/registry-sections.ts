@@ -22,7 +22,6 @@
  * }
  */
 
-import { HeroTest } from "@/registry/section/hero-test";
 import { type RegistryItem } from "./schema";
 import Pricing from "./section/pricing";
 import HeroSection from "./section/hero";
@@ -112,79 +111,6 @@ export default function HeroSection() {
       "@/components/prismui/hero",
       "@/components/icons",
       "@/components/sections/component-preview",
-    ],
-  },
-  {
-    name: "hero-test",
-    type: "registry:block",
-    component: HeroTest,
-    category: "sections",
-    subcategory: "hero",
-    code: `"use client";
-
-import { Button } from "@/components/ui/button";
-import { WordReveal } from "@/components/prismui/word-reveal";
-
-export function HeroTest() {
-  return (
-    <section className="container flex flex-col items-center justify-center gap-4 pb-8 pt-6 md:py-10">
-      <div className="flex max-w-[980px] flex-col items-center gap-2">
-        <h1 className="text-center text-3xl font-bold leading-tight tracking-tighter md:text-6xl lg:leading-[1.1]">
-          <WordReveal>
-            Building blocks for your Next.js project
-          </WordReveal>
-        </h1>
-        <p className="max-w-[750px] text-center text-lg text-muted-foreground sm:text-xl">
-          Beautifully designed components that you can copy and paste into your
-          apps. Accessible. Customizable. Open Source.
-        </p>
-      </div>
-      <div className="flex gap-4">
-        <Button size="lg">Get Started</Button>
-        <Button size="lg" variant="outline">
-          Components
-        </Button>
-      </div>
-    </section>
-  );
-}`,
-    files: [
-      {
-        path: "registry/section/hero-test.tsx",
-        type: "registry:block",
-        content: `"use client";
-
-import { Button } from "@/components/ui/button";
-import { WordReveal } from "@/components/prismui/word-reveal";
-
-export function HeroTest() {
-  return (
-    <section className="container flex flex-col items-center justify-center gap-4 pb-8 pt-6 md:py-10">
-      <div className="flex max-w-[980px] flex-col items-center gap-2">
-        <h1 className="text-center text-3xl font-bold leading-tight tracking-tighter md:text-6xl lg:leading-[1.1]">
-          <WordReveal>
-            Building blocks for your Next.js project
-          </WordReveal>
-        </h1>
-        <p className="max-w-[750px] text-center text-lg text-muted-foreground sm:text-xl">
-          Beautifully designed components that you can copy and paste into your
-          apps. Accessible. Customizable. Open Source.
-        </p>
-      </div>
-      <div className="flex gap-4">
-        <Button size="lg">Get Started</Button>
-        <Button size="lg" variant="outline">
-          Components
-        </Button>
-      </div>
-    </section>
-  );
-}`,
-      },
-    ],
-    dependencies: [
-      "@/components/ui/button",
-      "@/components/prismui/word-reveal",
     ],
   },
   {

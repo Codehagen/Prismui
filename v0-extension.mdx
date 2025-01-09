@@ -1,0 +1,213 @@
+---
+title: V0 Extension Guide
+description: A guide for creating and managing V0 templates in PrismUI
+---
+
+# V0 Extension Guide
+
+This guide explains how to create and manage V0 templates in PrismUI, allowing users to open and edit components in the V0 editor.
+
+## Quick Start
+
+To add a new V0 template, follow these steps:
+
+1. Create a new folder in `src/registry/app/[template-name]`
+2. Add required files (page.tsx, layout.tsx)
+3. Register the template in `src/registry/index.ts`
+4. Link the template to a component using the `v0` prop
+5. Run `pnpm build:v0`
+
+## Directory Structure
+
+```
+src/registry/
+├── app/                    # V0 templates directory
+│   └── [template-name]/   # Your template folder
+│       ├── app/
+│       │   ├── page.tsx      # Required
+│       │   ├── layout.tsx    # Required
+│       │   └── globals.css   # Optional
+│       ├── components/       # Optional
+│       ├── lib/             # Optional
+│       └── hooks/           # Optional
+└── index.ts                # Template registry
+```
+
+## Step-by-Step Guide
+
+### 1. Create Template Structure
+
+Create a new folder in `src/registry/app/` with your template name:
+
+```bash
+mkdir -p src/registry/app/my-template/app
+touch src/registry/app/my-template/app/page.tsx
+touch src/registry/app/my-template/app/layout.tsx
+```
+
+### 2. Create Required Files
+
+1. **page.tsx** (Required):
+```tsx
+export default function Page() {
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      {/* Your template content */}
+    </main>
+  );
+}
+```
+
+2. **layout.tsx** (Required):
+```tsx
+import "./globals.css"
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+### 3. Add Optional Files
+
+1. **globals.css** (Optional):
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Your CSS variables */
+}
+```
+
+2. **Components** (Optional):
+Create reusable components in the `components/` directory:
+```tsx
+// components/my-component.tsx
+export function MyComponent() {
+  return (
+    // Your component code
+  );
+}
+```
+
+### 5. Link to Component
+
+Use the `v0` prop in your component's MDX documentation:
+
+```mdx
+<ComponentPreview name="my-component-basic" v0="my-template" />
+```
+
+### 6. Build the Registry
+
+Run:
+```bash
+pnpm build:v0
+```
+
+## API Routes in Templates
+
+To use API routes in your template:
+
+1. Create route handlers in `app/api/`:
+```tsx
+// app/api/route.ts
+export async function POST(req: Request) {
+  // Your API logic
+}
+```
+
+2. Use the `@replacer` transformer for V0 compatibility:
+```tsx
+// @replacer /registry/my-template/api/endpoint /api/endpoint
+fetch("/registry/my-template/api/endpoint")
+```
+
+## CSS Variables
+
+To use CSS variables in your template:
+
+1. Add variables to `globals.css`:
+```css
+:root {
+  --primary: #000000;
+  --secondary: #ffffff;
+}
+```
+
+2. Import in `layout.tsx`:
+```tsx
+import "./globals.css"
+```
+
+3. Register in template files:
+```typescript
+{
+  path: "my-template/app/globals.css",
+  type: "registry:page",
+  target: "app/globals.css"
+}
+```
+
+## Best Practices
+
+1. **File Organization**:
+   - Keep required files in `app/` directory
+   - Organize components logically
+   - Use clear, descriptive names
+
+2. **Template Design**:
+   - Make templates self-contained
+   - Include necessary dependencies
+   - Follow Next.js App Router conventions
+
+3. **Code Quality**:
+   - Use TypeScript
+   - Add proper comments
+   - Follow consistent styling
+   - Include error handling
+
+4. **Documentation**:
+   - Document API routes
+   - Explain CSS variables
+   - Include usage examples
+
+## Common Issues
+
+1. **Template Not Loading**:
+   - Check file paths in registry
+   - Verify required files exist
+   - Run `pnpm build:v0`
+
+2. **API Routes Not Working**:
+   - Check `@replacer` comments
+   - Verify route handler setup
+   - Test API endpoints
+
+3. **Styling Issues**:
+   - Check globals.css import
+   - Verify CSS variable names
+   - Test dark mode support
+
+## Rules
+
+1. Every template must have:
+   - `app/page.tsx`
+   - `app/layout.tsx`
+
+2. File order matters:
+   - `page.tsx` must be first in files array
+   - Set proper targets for each file
+
+3. Type definitions:
+   - Use `registry:page` for pages/layouts
+   - Use appropriate types for other files

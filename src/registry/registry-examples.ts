@@ -107,46 +107,49 @@ import PopoverProject, {
 import PricingBasic, {
   demoSource as PricingBasicSource,
 } from "./example/pricing-basic";
+import LandingPageTest, {
+  demoSource as LandingPageTestSource,
+} from "./example/landing-page-test";
 
 export const examples: RegistryItem[] = [
   {
     name: "number-flow-basic",
-    type: "examples",
+    type: "registry:component",
     component: NumberFlowBasic,
     code: NumberFlowBasicSource,
     dependencies: ["@/components/ui/card", "@number-flow/react"],
   },
   {
     name: "word-reveal-demo",
-    type: "examples",
+    type: "registry:example",
     component: WordRevealDemo,
     code: WordRevealDemoSource,
     dependencies: ["@/components/prismui/word-reveal"],
   },
   {
     name: "card-demo",
-    type: "examples",
+    type: "registry:example",
     component: CardDemo,
     code: CardDemoSource,
     dependencies: ["@/components/prismui/card", "@/components/prismui/button"],
   },
   {
     name: "word-reveal-hero",
-    type: "examples",
+    type: "registry:example",
     component: WordRevealHeroExample,
     code: WordRevealHeroSource,
     dependencies: ["@/components/prismui/word-reveal"],
   },
   {
     name: "word-reveal-custom",
-    type: "examples",
+    type: "registry:example",
     component: WordRevealCustomExample,
     code: WordRevealCustomSource,
     dependencies: ["@/components/prismui/word-reveal"],
   },
   {
     name: "number-flow-demo",
-    type: "examples",
+    type: "registry:example",
     component: NumberFlowDemo,
     code: NumberFlowDemoSource,
     dependencies: [
@@ -158,7 +161,7 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "logo-carousel-basic",
-    type: "examples",
+    type: "registry:example",
     component: LogoCarouselBasic,
     code: LogoCarouselBasicSource,
     dependencies: [
@@ -169,7 +172,7 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "logo-carousel-demo",
-    type: "examples",
+    type: "registry:example",
     component: LogoCarouselDemo,
     code: LogoCarouselDemoSource,
     dependencies: [
@@ -180,21 +183,21 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "expandable-card-basic",
-    type: "examples",
+    type: "registry:example",
     component: ExpandableCardBasic,
     code: ExpandableCardBasicSource,
     dependencies: ["@/components/prismui/expandable-card"],
   },
   {
     name: "expandable-card-demo",
-    type: "examples",
+    type: "registry:example",
     component: ExpandableCardDemo,
     code: ExpandableCardDemoSource,
     dependencies: ["@/components/prismui/expandable-card"],
   },
   {
     name: "floating-action-panel-basic",
-    type: "examples",
+    type: "registry:example",
     component: FloatingActionPanelBasic,
     code: FloatingActionPanelBasicSource,
     dependencies: [
@@ -204,7 +207,7 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "floating-action-panel-demo",
-    type: "examples",
+    type: "registry:example",
     component: FloatingActionPanelDemo,
     code: FloatingActionPanelDemoSource,
     dependencies: [
@@ -215,28 +218,28 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "hero-badge-basic",
-    type: "examples",
+    type: "registry:example",
     component: HeroBadgeBasic,
     code: HeroBadgeBasicSource,
     dependencies: ["@/components/prismui/hero-badge", "@/components/icons"],
   },
   {
     name: "hero-badge-demo",
-    type: "examples",
+    type: "registry:example",
     component: HeroBadgeDemo,
     code: HeroBadgeDemoSource,
     dependencies: ["@/components/prismui/hero-badge", "@/components/icons"],
   },
   {
     name: "action-button-basic",
-    type: "examples",
+    type: "registry:example",
     component: ActionButtonBasic,
     code: ActionButtonBasicSource,
     dependencies: ["@/components/prismui/action-button"],
   },
   {
     name: "action-button-demo",
-    type: "examples",
+    type: "registry:example",
     component: ActionButtonDemo,
     code: ActionButtonDemoSource,
     dependencies: [
@@ -246,7 +249,7 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "button-group-basic",
-    type: "examples",
+    type: "registry:example",
     component: ButtonGroupBasic,
     code: ButtonGroupBasicSource,
     dependencies: [
@@ -257,7 +260,7 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "button-group-demo",
-    type: "examples",
+    type: "registry:example",
     component: ButtonGroupDemo,
     code: ButtonGroupDemoSource,
     dependencies: [
@@ -269,14 +272,14 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "display-cards-basic",
-    type: "examples",
+    type: "registry:example",
     component: DisplayCardsBasic,
     code: DisplayCardsBasicSource,
     dependencies: ["@/components/prismui/display-cards"],
   },
   {
     name: "display-cards-demo",
-    type: "examples",
+    type: "registry:example",
     component: DisplayCardsDemo,
     code: DisplayCardsDemoSource,
     dependencies: [
@@ -287,14 +290,14 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "hero-basic",
-    type: "examples",
+    type: "registry:example",
     component: HeroBasic,
     code: HeroBasicSource,
     dependencies: ["@/components/prismui/hero", "@/components/icons"],
   },
   {
     name: "hero-demo",
-    type: "examples",
+    type: "registry:example",
     component: HeroDemo,
     code: HeroDemoSource,
     dependencies: [
@@ -306,28 +309,28 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "open-source-basic",
-    type: "examples",
+    type: "registry:example",
     component: OpenSourceBasic,
     code: OpenSourceBasicSource,
     dependencies: ["@/components/prismui/open-source"],
   },
   {
     name: "open-source-demo",
-    type: "examples",
+    type: "registry:example",
     component: OpenSourceDemo,
     code: OpenSourceDemoSource,
     dependencies: ["@/components/prismui/open-source", "@/components/ui/card"],
   },
   {
     name: "popover-basic",
-    type: "examples",
+    type: "registry:example",
     component: PopoverBasic,
     code: PopoverBasicSource,
     dependencies: ["@/components/prismui/popover"],
   },
   {
     name: "popover-demo",
-    type: "examples",
+    type: "registry:example",
     component: PopoverDemo,
     code: PopoverDemoSource,
     dependencies: [
@@ -345,14 +348,14 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "popover-menu",
-    type: "examples",
+    type: "registry:example",
     component: PopoverMenu,
     code: PopoverMenuSource,
     dependencies: ["@/components/prismui/popover", "lucide-react"],
   },
   {
     name: "popover-command",
-    type: "examples",
+    type: "registry:example",
     component: PopoverCommand,
     code: PopoverCommandSource,
     dependencies: [
@@ -365,14 +368,14 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "popover-form",
-    type: "examples",
+    type: "registry:example",
     component: PopoverForm,
     code: PopoverFormSource,
     dependencies: ["@/components/prismui/popover"],
   },
   {
     name: "popover-project",
-    type: "examples",
+    type: "registry:example",
     component: PopoverProject,
     code: PopoverProjectSource,
     dependencies: [
@@ -387,7 +390,7 @@ export const examples: RegistryItem[] = [
   },
   {
     name: "pricing-basic",
-    type: "examples",
+    type: "registry:example",
     component: PricingBasic,
     code: PricingBasicSource,
     dependencies: [
