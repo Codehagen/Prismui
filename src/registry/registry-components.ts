@@ -2309,4 +2309,39 @@ export function PopoverButton({
     },
     dependencies: ["framer-motion", "canvas-confetti"],
   },
+  {
+    name: "timeline",
+    type: "registry:ui",
+    category: "components",
+    subcategory: "display",
+    code: `import { Timeline } from "@/components/prismui/timeline"
+
+export default function Example() {
+  return (
+    <Timeline
+      items={[
+        {
+          date: "2024-01-07",
+          title: "New Feature",
+          description: "Added dark mode support",
+          href: "/changelog/dark-mode"
+        }
+      ]}
+    />
+  )
+}`,
+    files: [
+      {
+        path: "components/prismui/timeline.tsx",
+        type: "registry:ui",
+      },
+    ],
+    cli: {
+      npm: "npx prismui@latest add timeline",
+      pnpm: "pnpm dlx prismui@latest add timeline",
+      yarn: "yarn dlx prismui@latest add timeline",
+      bun: "bunx prismui@latest add timeline",
+    },
+    dependencies: ["framer-motion", "lucide-react"],
+  },
 ];

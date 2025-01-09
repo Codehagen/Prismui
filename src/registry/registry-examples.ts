@@ -107,6 +107,12 @@ import PopoverProject, {
 import PricingBasic, {
   demoSource as PricingBasicSource,
 } from "./example/pricing-basic";
+import TimelineBasic, {
+  demoSource as TimelineBasicSource,
+} from "./example/timeline-basic";
+import TimelineDemo, {
+  demoSource as TimelineDemoSource,
+} from "./example/timeline-demo";
 
 export const examples: RegistryItem[] = [
   {
@@ -399,5 +405,19 @@ export const examples: RegistryItem[] = [
       "canvas-confetti",
       "@number-flow/react",
     ],
+  },
+  {
+    name: "timeline-basic",
+    type: "examples",
+    component: TimelineBasic,
+    code: TimelineBasicSource,
+    dependencies: ["@/components/prismui/timeline"],
+  },
+  {
+    name: "timeline-demo",
+    type: "examples",
+    component: TimelineDemo,
+    code: TimelineDemoSource,
+    dependencies: ["@/components/prismui/timeline", "@/components/ui/card"],
   },
 ];

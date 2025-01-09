@@ -85,6 +85,11 @@ export const docsConfig: DocsConfig = {
           title: "Pricing",
           href: "/docs/sections/pricing",
         },
+        {
+          title: "Timeline",
+          href: "/docs/components/timeline",
+          isNew: true,
+        },
       ],
     },
     {

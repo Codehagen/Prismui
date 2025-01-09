@@ -1,0 +1,212 @@
+---
+title: Timeline
+publishedAt: 2024-01-09
+summary: A responsive timeline component for displaying chronological events with expandable content.
+author: codehagen
+slug: components/timeline
+related: ["introduction"]
+---
+
+<ComponentPreview name="timeline-basic" />
+
+<Note variant="info">
+  The Timeline component provides an elegant way to display chronological events with a responsive layout, smooth animations, and expandable content. Perfect for changelogs, activity feeds, and project histories.
+</Note>
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+    <ComponentSource name="timeline" isCli />
+  </TabsContent>
+  <TabsContent value="manual">
+    <Steps>
+      <Step>Copy and paste the following code into your project.</Step>
+      <ComponentSource name="timeline" />
+      <Step>Update the import paths to match your project setup.</Step>
+    </Steps>
+  </TabsContent>
+</Tabs>
+
+## Usage
+
+```tsx
+import { Timeline } from "@/components/prismui/timeline"
+
+export default function Example() {
+  return (
+    <Timeline
+      items={[
+        {
+          date: "2024-01-07",
+          title: "New Feature",
+          description: "Added dark mode support",
+          href: "/changelog/dark-mode"
+        },
+        {
+          date: "2024-01-05",
+          title: "Bug Fix",
+          description: "Fixed mobile navigation",
+          href: "/changelog/mobile-nav"
+        }
+      ]}
+      initialCount={3}
+      showMoreText="Load More"
+      showLessText="Show Less"
+    />
+  )
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `items` | `TimelineItem[]` | Required | Array of timeline items to display |
+| `initialCount` | `number` | `5` | Number of items to show initially |
+| `className` | `string` | - | Additional CSS classes |
+| `showMoreText` | `string` | "Show More" | Text for the show more button |
+| `showLessText` | `string` | "Show Less" | Text for the show less button |
+
+### TimelineItem Interface
+
+```tsx
+interface TimelineItem {
+  date: string;        // ISO date string
+  title: string;       // Item title
+  description?: string; // Optional description
+  href?: string;       // Optional link URL
+  icon?: React.ReactNode; // Optional icon
+}
+```
+
+## Features
+
+- Responsive design with mobile-first approach
+- Smooth animations using Framer Motion
+- Expandable content with "Show More/Less"
+- Automatic date sorting (newest first)
+- Customizable text and styling
+- Support for icons in timeline dots
+- Accessible markup with proper ARIA labels
+- Optional links for each timeline item
+- Hover states and transitions
+
+## Customization
+
+<Steps>
+  <Step>Custom Styling</Step>
+  ```tsx
+  <Timeline
+    className="my-custom-timeline"
+    items={items}
+  />
+  ```
+
+  <Step>Custom Button Text</Step>
+  ```tsx
+  <Timeline
+    showMoreText="Load More Events"
+    showLessText="Collapse Events"
+    items={items}
+  />
+  ```
+
+  <Step>Initial Item Count</Step>
+  ```tsx
+  <Timeline
+    initialCount={3} // Show only 3 items initially
+    items={items}
+  />
+  ```
+</Steps>
+
+## Notes
+
+- Built with Framer Motion for smooth animations
+- Uses semantic HTML for better accessibility
+- Supports both mobile and desktop layouts
+- Automatically sorts items by date
+- Handles both linked and non-linked items
+- Supports custom styling via className prop
+
+## Examples
+
+### Basic Timeline
+
+<ComponentPreview name="timeline-basic" />
+
+### Style Variations
+
+<ComponentPreview name="timeline-demo" />
+
+### Modern Style
+
+```tsx
+import { Sparkles, Code, Component } from "lucide-react"
+
+<Timeline
+  items={[
+    {
+      date: "2024-01-07",
+      title: "Modern Style",
+      description: "With gradient dots and hover effects",
+      href: "#modern",
+      icon: <Sparkles className="text-white" />,
+    },
+    {
+      date: "2024-01-05",
+      title: "Minimal Style",
+      description: "Clean and simple design",
+      href: "#minimal",
+      icon: <Code className="text-white" />,
+    }
+  ]}
+  dotClassName="bg-gradient-to-tr from-blue-500 to-purple-500 h-3 w-3 group-hover:scale-125 transition-transform"
+  lineClassName="border-l-2 border-dashed"
+  titleClassName="font-medium text-blue-500 dark:text-blue-400"
+  dateClassName="text-purple-500 dark:text-purple-400"
+  buttonVariant="outline"
+  buttonSize="sm"
+  showMoreText="Load More"
+  showLessText="Show Less"
+  animationDuration={0.4}
+  animationDelay={0.15}
+/>
+```
+
+### Minimal Style
+
+```tsx
+<Timeline
+  items={items}
+  dotClassName="bg-foreground/20 group-hover:bg-foreground h-2 w-2"
+  lineClassName="border-l border-border/50"
+  titleClassName="font-normal"
+  dateClassName="font-light"
+  buttonVariant="ghost"
+  buttonSize="sm"
+  showMoreText="View More"
+  showLessText="View Less"
+/>
+```
+
+### Bold Style
+
+```tsx
+<Timeline
+  items={items}
+  dotClassName="bg-primary h-4 w-4 group-hover:ring-4 ring-primary/20 transition-all"
+  lineClassName="border-l-[3px]"
+  titleClassName="font-bold text-2xl"
+  dateClassName="font-semibold"
+  buttonVariant="default"
+  buttonSize="lg"
+  showMoreText="Expand Timeline"
+  showLessText="Collapse Timeline"
+/>
+``` 
