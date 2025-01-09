@@ -5,8 +5,10 @@ import { allDocsPosts } from "content-collections";
 
 export async function ShippingVelocity() {
   const stats = await getRepoActivity();
+  const now = new Date();
   const componentDates = allDocsPosts
     .filter((doc) => doc.slug.startsWith("components/"))
+    .filter((doc) => new Date(doc.publishedAt) <= now)
     .map((doc) => ({
       name: doc.title,
       publishedAt: doc.publishedAt,
