@@ -12,12 +12,14 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import { CopyButton } from "./copy-button";
+import { OpenInV0Form } from "./open-in-v0-form";
 
 interface ComponentPreviewProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
   align?: "center" | "start" | "end";
   preview?: boolean;
   height?: "sm" | "md" | "lg" | "xl" | string;
+  v0?: string;
 }
 
 async function formatCode(code: string, language = "tsx") {
@@ -58,6 +60,7 @@ export function ComponentPreview({
   align = "center",
   preview = false,
   height = "md",
+  v0,
   ...props
 }: ComponentPreviewProps) {
   const [key, setKey] = React.useState(0);
@@ -109,12 +112,17 @@ export function ComponentPreview({
               >
                 Code
               </TabsTrigger>
+              {v0 && (
+                <div className="flex-1 flex justify-end">
+                  <OpenInV0Form name={v0} />
+                </div>
+              )}
             </TabsList>
           </div>
         )}
         <TabsContent value="preview" className="relative" key={key}>
           <div className="relative rounded-lg border bg-background">
-            <div className="absolute right-4 top-4 z-10">
+            <div className="absolute right-4 top-4">
               <Button
                 onClick={() => setKey((prev) => prev + 1)}
                 variant="outline"

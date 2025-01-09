@@ -130,14 +130,14 @@ Add to `src/registry/registry-examples.ts`:
 ```typescript
 {
   name: "my-component-basic",
-  type: "examples",
+  type: "registry:example",
   component: MyComponentBasic,
   code: MyComponentBasicSource,
   dependencies: ["@/components/prismui/my-component"],
 },
 {
   name: "my-component-demo",
-  type: "examples",
+  type: "registry:example",
   component: MyComponentDemo,
   code: MyComponentDemoSource,
   dependencies: [
