@@ -228,5 +228,22 @@
     ],
     "category": "sections",
     "subcategory": "marketing"
+  },
+  {
+    "name": "timeline",
+    "type": "registry:ui",
+    "code": "import { Timeline } from \"@/components/prismui/timeline\"\n\nexport default function Example() {\n  return (\n    <Timeline\n      items={[\n        {\n          date: \"2024-01-07\",\n          title: \"New Feature\",\n          description: \"Added dark mode support\",\n          href: \"/changelog/dark-mode\"\n        }\n      ]}\n    />\n  )\n}",
+    "files": [
+      {
+        "path": "components/prismui/timeline.tsx",
+        "type": "registry:ui"
+      }
+    ],
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "category": "components",
+    "subcategory": "display"
   }
 ]

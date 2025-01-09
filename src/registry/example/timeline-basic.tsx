@@ -2,7 +2,18 @@ import { Timeline } from "@/components/prismui/timeline";
 
 export default function TimelineBasic() {
   return (
-    <div className="w-full place-items-center grid">
+    <div className="w-full space-y-8">
+      <div className="text-center">
+        <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+          Wanna see some{" "}
+          <span className="bg-gradient-to-br from-primary to-primary/60 bg-clip-text italic text-transparent">
+            real speed?
+          </span>
+        </h2>
+        <p className="mt-2 text-muted-foreground">
+          Here&apos;s what we&apos;ve shipped recently
+        </p>
+      </div>
       <Timeline
         items={[
           {
@@ -57,7 +68,9 @@ export default function TimelineBasic() {
         initialCount={3}
         showMoreText="Show More Components"
         showLessText="Show Less Components"
-        className="max-w-3xl"
+        className="max-w-3xl mx-auto"
+        dotClassName="bg-primary/60 group-hover:bg-primary"
+        titleClassName="group-hover:text-primary"
       />
     </div>
   );

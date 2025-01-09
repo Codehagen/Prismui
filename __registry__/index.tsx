@@ -192,5 +192,16 @@ export const Index: Record<string, any> = {
       subcategory: "marketing",
       chunks: []
     },
+    "timeline": {
+      name: "timeline",
+      type: "registry:ui",
+      registryDependencies: undefined,
+      files: ["src/components/prismui/timeline.tsx"],
+      component: React.lazy(() => import("@/components/prismui/timeline.tsx")),
+      source: "",
+      category: "components",
+      subcategory: "display",
+      chunks: []
+    },
   },
 }

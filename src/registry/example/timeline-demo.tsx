@@ -7,23 +7,23 @@ export default function TimelineDemo() {
     {
       date: "2024-01-07",
       title: "Modern Style",
-      description: "With gradient dots and hover effects",
+      description: "With subtle gradients and hover effects",
       href: "#modern",
-      icon: <Sparkles className="text-white" />,
+      icon: <Sparkles className="h-3 w-3" />,
     },
     {
       date: "2024-01-05",
       title: "Minimal Style",
       description: "Clean and simple design",
       href: "#minimal",
-      icon: <Code className="text-white" />,
+      icon: <Code className="h-3 w-3" />,
     },
     {
       date: "2024-01-03",
       title: "With Icons",
       description: "Using Lucide icons in the timeline",
       href: "#icons",
-      icon: <Component className="text-white" />,
+      icon: <Component className="h-3 w-3" />,
     },
   ];
 
@@ -31,14 +31,15 @@ export default function TimelineDemo() {
     <div className="grid gap-8">
       {/* Modern Style */}
       <Card className="p-6">
-        <h3 className="font-semibold mb-4">Modern Style</h3>
+        <h3 className="mb-4 font-semibold">Modern Style</h3>
         <Timeline
           items={items}
           initialCount={2}
-          dotClassName="bg-gradient-to-tr from-blue-500 to-purple-500 h-3 w-3 group-hover:scale-125 transition-transform"
-          lineClassName="border-l-2 border-dashed"
-          titleClassName="font-medium text-blue-500 dark:text-blue-400"
-          dateClassName="text-purple-500 dark:text-purple-400"
+          dotClassName="bg-gradient-to-b from-background to-muted ring-1 ring-border group-hover:ring-primary group-hover:bg-gradient-to-b group-hover:from-muted group-hover:to-muted/50 transition-all duration-300"
+          lineClassName="border-l border-border"
+          titleClassName="font-medium text-foreground/90 group-hover:text-primary transition-colors duration-300"
+          dateClassName="text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300"
+          descriptionClassName="text-muted-foreground/80"
           buttonVariant="outline"
           buttonSize="sm"
           showMoreText="Load More"
@@ -50,11 +51,11 @@ export default function TimelineDemo() {
 
       {/* Minimal Style */}
       <Card className="p-6">
-        <h3 className="font-semibold mb-4">Minimal Style</h3>
+        <h3 className="mb-4 font-semibold">Minimal Style</h3>
         <Timeline
           items={items.map((item) => ({ ...item, icon: undefined }))}
           initialCount={2}
-          dotClassName="bg-foreground/20 group-hover:bg-foreground h-2 w-2"
+          dotClassName="bg-muted-foreground/20 group-hover:bg-muted-foreground/40 h-2 w-2 transition-colors duration-300"
           lineClassName="border-l border-border/50"
           titleClassName="font-normal"
           dateClassName="font-light"
@@ -78,23 +79,23 @@ export default function TimelineDemo() {
     {
       date: "2024-01-07",
       title: "Modern Style",
-      description: "With gradient dots and hover effects",
+      description: "With subtle gradients and hover effects",
       href: "#modern",
-      icon: <Sparkles className="text-white" />,
+      icon: <Sparkles className="h-3 w-3" />,
     },
     {
       date: "2024-01-05",
       title: "Minimal Style",
       description: "Clean and simple design",
       href: "#minimal",
-      icon: <Code className="text-white" />,
+      icon: <Code className="h-3 w-3" />,
     },
     {
       date: "2024-01-03",
       title: "With Icons",
       description: "Using Lucide icons in the timeline",
       href: "#icons",
-      icon: <Component className="text-white" />,
+      icon: <Component className="h-3 w-3" />,
     },
   ]
 
@@ -103,20 +104,19 @@ export default function TimelineDemo() {
       {/* Modern Style */}
       <Timeline
         items={items}
-        dotClassName="bg-gradient-to-tr from-blue-500 to-purple-500 h-3 w-3 group-hover:scale-125 transition-transform"
-        lineClassName="border-l-2 border-dashed"
-        titleClassName="font-medium text-blue-500 dark:text-blue-400"
-        dateClassName="text-purple-500 dark:text-purple-400"
+        dotClassName="bg-gradient-to-b from-background to-muted ring-1 ring-border group-hover:ring-primary group-hover:bg-gradient-to-b group-hover:from-muted group-hover:to-muted/50 transition-all duration-300"
+        lineClassName="border-l border-border"
+        titleClassName="font-medium text-foreground/90 group-hover:text-primary transition-colors duration-300"
+        dateClassName="text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300"
+        descriptionClassName="text-muted-foreground/80"
         buttonVariant="outline"
         buttonSize="sm"
-        showMoreText="Load More"
-        showLessText="Show Less"
       />
 
       {/* Minimal Style */}
       <Timeline
         items={items.map(item => ({ ...item, icon: undefined }))}
-        dotClassName="bg-foreground/20 group-hover:bg-foreground h-2 w-2"
+        dotClassName="bg-muted-foreground/20 group-hover:bg-muted-foreground/40 h-2 w-2 transition-colors duration-300"
         lineClassName="border-l border-border/50"
         titleClassName="font-normal"
         dateClassName="font-light"
