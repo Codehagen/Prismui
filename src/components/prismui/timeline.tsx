@@ -82,7 +82,7 @@ function DesktopTimelineEntry({
           <div
             className={cn(
               "absolute -left-1 top-[1.6875rem] flex h-5 w-5 items-center justify-center rounded-full bg-primary/60 transition-colors group-hover:bg-primary",
-              item.icon ? "-left-[0.555rem]" : "h-2.5 w-2.5 ",
+              !item.icon && "h-2.5 w-2.5",
               dotClassName
             )}
           >
@@ -144,7 +144,7 @@ function MobileTimelineEntry({
         <div
           className={cn(
             "absolute -left-1 top-5 flex h-5 w-5 items-center justify-center rounded-full bg-primary/60",
-            item.icon ? "-left-[0.555rem]" : "h-2.5 w-2.5 ",
+            !item.icon && "h-2.5 w-2.5",
             dotClassName
           )}
         >
