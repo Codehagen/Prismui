@@ -129,7 +129,7 @@ export function MainFeatures() {
           description="Beautiful, animated display cards with skewed design and hover effects. Perfect for showcasing featured content or important updates."
         >
           <div className="flex items-center justify-center min-h-[300px] rounded-lg bg-muted/50 p-8 overflow-hidden">
-            <div className="scale-[0.80] origin-center -mt-16">
+            <div className="scale-[0.80] origin-center w-[12rem] md:w-full -mt-16">
               <DisplayCards />
             </div>
           </div>
