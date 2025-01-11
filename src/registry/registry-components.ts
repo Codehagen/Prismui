@@ -2640,4 +2640,9 @@ export function Timeline({
     },
     dependencies: ["framer-motion", "lucide-react"],
   },
+  {
+    name: "testimonial-card",
+    type: "components",
+    files: ["components/prismui/testimonial-card.tsx"],
+  },
 ];
