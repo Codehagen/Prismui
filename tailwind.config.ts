@@ -85,6 +85,16 @@ const config = {
             height: "0",
           },
         },
+        "testimonial-scroll": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(calc(-100% - var(--gap)))" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+        "testimonial-scroll":
+          "testimonial-scroll var(--duration) linear infinite",
       },
     },
   },

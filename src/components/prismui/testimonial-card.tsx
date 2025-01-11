@@ -210,15 +210,8 @@ export function TestimonialSection({
   columns = 3,
 }: TestimonialSectionProps) {
   return (
-    <section className={cn("py-14", className)}>
+    <section className={cn("py-10", className)}>
       <div className="mx-auto md:container md:px-8">
-        <motion.h3
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center text-sm font-semibold text-muted-foreground"
-        >
-          TESTIMONIALS
-        </motion.h3>
         {variant === "grid" ? (
           <div className="relative mt-6 max-h-[700px] overflow-hidden py-14">
             <div

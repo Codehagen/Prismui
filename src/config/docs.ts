@@ -88,6 +88,10 @@ export const docsConfig: DocsConfig = {
         {
           title: "Timeline",
           href: "/docs/components/timeline",
+        },
+        {
+          title: "Testimonial",
+          href: "/docs/components/testimonial",
           isNew: true,
         },
       ],

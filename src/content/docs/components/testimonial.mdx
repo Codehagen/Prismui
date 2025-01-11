@@ -1,0 +1,152 @@
+---
+title: Testimonial
+publishedAt: 2025-01-02
+summary: A versatile testimonial component with multiple layouts, auto-scrolling, and Twitter integration.
+author: codehagen
+slug: components/testimonial
+related: ["introduction"]
+---
+
+<ComponentPreview name="testimonial-basic" />
+
+<Note variant="info">
+  The Testimonial component provides a flexible way to showcase user testimonials with various layouts and animations. Perfect for landing pages, product showcases, and social proof sections. It supports auto-scrolling, manual scrolling, grid layouts, and Twitter integration.
+</Note>
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+    <ComponentSource name="testimonial" isCli />
+  </TabsContent>
+  <TabsContent value="manual">
+    <Steps>
+      <Step>Copy and paste the following code into your project.</Step>
+      <ComponentSource name="testimonial" />
+      <Step>Update the import paths to match your project setup.</Step>
+    </Steps>
+  </TabsContent>
+</Tabs>
+
+## Examples
+
+### Manual Scroll
+
+<ComponentPreview name="testimonial-scroll" />
+
+### Grid Layout
+
+<ComponentPreview name="testimonial-grid" />
+
+### Tweet Integration
+
+<ComponentPreview name="testimonial-tweet" />
+
+## Usage
+
+### Manual Scroll
+
+```tsx
+import { TestimonialSection } from "@/components/prismui/testimonial-card"
+
+export function ManualScrollExample() {
+  return (
+    <TestimonialSection
+      testimonials={testimonials}
+      variant="scroll"
+    />
+  )
+}
+```
+
+### Grid Layout
+
+```tsx
+export function GridExample() {
+  return (
+    <TestimonialSection
+      testimonials={testimonials}
+      variant="grid"
+      columns={3}
+    />
+  )
+}
+```
+
+### Tweet Integration
+
+```tsx
+import { TweetCard } from "@/components/prismui/tweet-card"
+
+function ScrollingTweetRow({ direction = "right" }) {
+  return (
+    <div className="group flex overflow-hidden py-4 [--duration:120s] [--gap:1.5rem] [gap:var(--gap)]">
+      {Array(2).fill(0).map((_, i) => (
+        <div
+          key={i}
+          className={cn(
+            "flex shrink-0 justify-around [gap:var(--gap)]",
+            "animate-testimonial-scroll",
+            direction === "left" && "[animation-direction:reverse]",
+            "group-hover:[animation-play-state:paused]"
+          )}
+        >
+          {tweetIds.map((id) => (
+            <TweetCard key={idx} id={id} hideMedia />
+          ))}
+        </div>
+      ))}
+    </div>
+  )
+}
+```
+
+## Features
+
+- Multiple layout variants (scroll, grid)
+- Auto-scrolling with configurable direction
+- Pause on hover functionality
+- Twitter integration
+- Responsive design
+- Smooth animations with Framer Motion
+- Accessible markup
+- Dark mode support
+
+## Customization
+
+<Steps>
+  <Step>Custom Animation Speed</Step>
+  ```css
+  .animate-testimonial-scroll {
+    --duration: 120s;
+  }
+  ```
+
+  <Step>Custom Grid Layout</Step>
+  ```tsx
+  <TestimonialSection
+    variant="grid"
+    columns={4} // Change this value
+    testimonials={testimonials}
+  />
+  ```
+
+  <Step>Custom Tweet Row</Step>
+  ```tsx
+  <ScrollingTweetRow
+    direction="left"
+    className="[--gap:2rem]" // Adjust spacing
+  />
+  ```
+</Steps>
+
+## Notes
+
+- The auto-scrolling feature uses CSS animations for smooth performance
+- Tweet integration requires the Twitter API
+- Grid layout is responsive and adjusts based on screen size
+- All animations can be disabled for reduced motion preferences 

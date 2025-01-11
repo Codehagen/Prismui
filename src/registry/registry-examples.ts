@@ -110,6 +110,21 @@ import PricingBasic, {
 import TimelineBasic from "./example/timeline-basic";
 import TimelineModern from "./example/timeline-modern";
 import TimelineMinimal from "./example/timeline-minimal";
+import TestimonialBasic, {
+  demoSource as TestimonialBasicSource,
+} from "./example/testimonial-basic";
+import TestimonialDemo, {
+  demoSource as TestimonialDemoSource,
+} from "./example/testimonial-demo";
+import TestimonialScroll, {
+  demoSource as TestimonialScrollSource,
+} from "./example/testimonial-scroll";
+import TestimonialGrid, {
+  demoSource as TestimonialGridSource,
+} from "./example/testimonial-grid";
+import TestimonialTweet, {
+  demoSource as TestimonialTweetSource,
+} from "./example/testimonial-tweet";
 
 export const examples: RegistryItem[] = [
   {
@@ -417,5 +432,40 @@ export const examples: RegistryItem[] = [
     name: "timeline-minimal",
     type: "examples",
     component: TimelineMinimal,
+  },
+  {
+    name: "testimonial-basic",
+    type: "examples",
+    component: TestimonialBasic,
+    code: TestimonialBasicSource,
+    dependencies: ["framer-motion"],
+  },
+  {
+    name: "testimonial-demo",
+    type: "examples",
+    component: TestimonialDemo,
+    code: TestimonialDemoSource,
+    dependencies: ["framer-motion"],
+  },
+  {
+    name: "testimonial-scroll",
+    type: "examples",
+    component: TestimonialScroll,
+    code: TestimonialScrollSource,
+    dependencies: ["@/components/prismui/testimonial-card"],
+  },
+  {
+    name: "testimonial-grid",
+    type: "examples",
+    component: TestimonialGrid,
+    code: TestimonialGridSource,
+    dependencies: ["@/components/prismui/testimonial-card"],
+  },
+  {
+    name: "testimonial-tweet",
+    type: "examples",
+    component: TestimonialTweet,
+    code: TestimonialTweetSource,
+    dependencies: ["@/components/prismui/tweet-card", "@/lib/utils"],
   },
 ];
