@@ -9,15 +9,14 @@ import { cn } from "@/lib/utils";
 const testimonials = [
   {
     name: "Sarah Chen",
-    role: "Senior Frontend Developer at TechFlow",
+    role: "Senior Developer at TechFlow",
     img: "https://randomuser.me/api/portraits/women/1.jpg",
     description: (
       <p>
         <Highlight>PrismUI&apos;s components</Highlight> have transformed our
         development workflow. The{" "}
         <Highlight>motion-based animations and interactions</Highlight> are
-        incredibly smooth, and the documentation is top-notch. It&apos;s cut our
-        UI development time in half!
+        incredibly smooth.
       </p>
     ),
   },
