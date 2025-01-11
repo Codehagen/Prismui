@@ -34,7 +34,7 @@ export interface TestimonialCardProps {
   rating?: number;
   img?: string;
   className?: string;
-  variant?: "minimal" | "modern";
+  variant?: "minimal" | "modern" | "tweet";
   [key: string]: any;
 }
 
@@ -48,6 +48,65 @@ export function TestimonialCard({
   variant = "minimal",
   ...props
 }: TestimonialCardProps) {
+  if (variant === "tweet") {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <div
+          className={cn(
+            "group relative overflow-hidden rounded-xl bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/50 transition-all duration-200 hover:shadow-lg",
+            "min-h-[8rem]",
+            className
+          )}
+          {...props}
+        >
+          <div className="p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                {img && (
+                  <div className="overflow-hidden rounded-full border border-gray-200/50 bg-gradient-to-br from-white to-gray-50 transition-all">
+                    <div className="relative h-8 w-8">
+                      <Image
+                        alt={name}
+                        src={img}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+                )}
+                <div>
+                  <div className="flex items-center font-semibold text-foreground transition-colors">
+                    {name}
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <span className="text-xs text-muted-foreground">
+                      {role}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-2 mt-2 whitespace-pre-wrap text-sm text-foreground">
+              {description}
+            </div>
+
+            <div className="mt-2 flex items-center justify-start space-x-8 opacity-75 transition-opacity group-hover:opacity-100">
+              <div className="inline-flex items-center gap-1.5 text-muted-foreground/60">
+                <Star className="h-3 w-3 text-yellow-500" />
+                <span className="text-xs font-medium">{rating}.0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
+
   if (variant === "modern") {
     return (
       <div

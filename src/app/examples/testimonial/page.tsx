@@ -1,7 +1,10 @@
 import {
   Highlight,
   TestimonialSection,
+  TestimonialCard,
 } from "@/components/prismui/testimonial-card";
+import { TweetCard } from "@/components/prismui/tweet-card";
+import { cn } from "@/lib/utils";
 
 const testimonials = [
   {
@@ -76,6 +79,46 @@ const testimonials = [
   },
 ];
 
+const tweetIds = [
+  "1875676743564140901",
+  "1876013415875162179",
+  "1875856235771432998",
+  "1875695790540386402",
+  "1875736259022483755",
+  "1875708925649326196",
+  "1875717532575003036",
+  "1875682866488816068",
+  "1876118162745528714",
+];
+
+function ScrollingTweetRow({
+  direction = "right",
+}: {
+  direction?: "left" | "right";
+}) {
+  return (
+    <div className="group flex overflow-hidden py-4 [--duration:120s] [--gap:1.5rem] [gap:var(--gap)]">
+      {Array(2)
+        .fill(0)
+        .map((_, i) => (
+          <div
+            key={i}
+            className={cn(
+              "flex shrink-0 justify-around [gap:var(--gap)]",
+              "animate-testimonial-scroll",
+              direction === "left" && "[animation-direction:reverse]",
+              "group-hover:[animation-play-state:paused]"
+            )}
+          >
+            {tweetIds.map((id, idx) => (
+              <TweetCard key={idx} id={id} hideMedia />
+            ))}
+          </div>
+        ))}
+    </div>
+  );
+}
+
 export default function TestimonialPage() {
   return (
     <div className="container mx-auto py-10 space-y-32">
@@ -102,6 +145,14 @@ export default function TestimonialPage() {
           variant="grid"
           columns={3}
         />
+      </div>
+
+      <div>
+        <h1 className="mb-8 text-3xl font-bold">Tweet Card Integration</h1>
+        <div className="space-y-6">
+          <ScrollingTweetRow direction="left" />
+          <ScrollingTweetRow direction="right" />
+        </div>
       </div>
     </div>
   );
