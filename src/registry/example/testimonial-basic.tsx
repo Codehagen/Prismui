@@ -1,5 +1,26 @@
 import { motion } from "framer-motion";
 import { TestimonialSection } from "@/components/prismui/testimonial-card";
+import { cn } from "@/lib/utils";
+import { StarIcon } from "lucide-react";
+
+const Emphasis = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
+  return (
+    <span
+      className={cn(
+        "bg-primary/20 p-1 py-0.5 font-bold text-primary dark:bg-primary/20 dark:text-primary",
+        className
+      )}
+    >
+      {children}
+    </span>
+  );
+};
 
 const testimonials = [
   {
@@ -8,8 +29,10 @@ const testimonials = [
     img: "https://randomuser.me/api/portraits/women/1.jpg",
     description: (
       <p>
-        PrismUI&apos;s components have transformed our development workflow. The
-        motion-based animations and interactions are incredibly smooth.
+        PrismUI&apos;s components have transformed our development workflow.{" "}
+        <Emphasis>
+          The motion-based animations and interactions are incredibly smooth.
+        </Emphasis>
       </p>
     ),
   },
@@ -19,9 +42,10 @@ const testimonials = [
     img: "https://randomuser.me/api/portraits/men/2.jpg",
     description: (
       <p>
-        The attention to detail in PrismUI&apos;s design system is remarkable.
-        Every component feels polished and cohesive. The dark mode
-        implementation and accessibility features are exactly what we needed.
+        The attention to detail in PrismUI&apos;s design system is remarkable.{" "}
+        <Emphasis>Every component feels polished and cohesive.</Emphasis> The
+        dark mode implementation and accessibility features are exactly what we
+        needed.
       </p>
     ),
   },
@@ -31,9 +55,12 @@ const testimonials = [
     img: "https://randomuser.me/api/portraits/women/3.jpg",
     description: (
       <p>
-        Switching to PrismUI was a game-changer for our team. The seamless
-        integration with Next.js and TypeScript means we can focus on building
-        features instead of fighting with UI bugs.
+        Switching to PrismUI was a game-changer for our team.{" "}
+        <Emphasis>
+          The seamless integration with Next.js and TypeScript means we can
+          focus on building features
+        </Emphasis>{" "}
+        instead of fighting with UI bugs.
       </p>
     ),
   },
@@ -42,7 +69,7 @@ const testimonials = [
 export default function TestimonialBasic() {
   return (
     <div className="w-full">
-      <div className="text-center mb-16">
+      <div className="text-center mb-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -70,6 +97,27 @@ export default function TestimonialBasic() {
 
 export const demoSource = `import { motion } from "framer-motion";
 import { TestimonialSection } from "@/components/prismui/testimonial-card";
+import { cn } from "@/lib/utils";
+import { StarIcon } from "lucide-react";
+
+const Emphasis = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
+  return (
+    <span
+      className={cn(
+        "bg-primary/20 p-1 py-0.5 font-bold text-primary dark:bg-primary/20 dark:text-primary",
+        className
+      )}
+    >
+      {children}
+    </span>
+  );
+};
 
 const testimonials = [
   {

@@ -2953,10 +2953,10 @@ export function TestimonialSection({
     ],
     dependencies: ["framer-motion", "lucide-react"],
     cli: {
-      npm: "npx prismui@latest add testimonial",
-      pnpm: "pnpm dlx prismui@latest add testimonial",
-      yarn: "yarn dlx prismui@latest add testimonial",
-      bun: "bunx prismui@latest add testimonial",
+      npm: 'npx shadcn@latest add "https://www.prismui.tech/r/styles/default/testimonial.json"',
+      pnpm: 'pnpm dlx shadcn@latest add "https://www.prismui.tech/r/styles/default/testimonial.json"',
+      yarn: 'yarn dlx shadcn@latest add "https://www.prismui.tech/r/styles/default/testimonial.json"',
+      bun: 'bunx shadcn@latest add "https://www.prismui.tech/r/styles/default/testimonial.json"',
     },
   },
 ];
