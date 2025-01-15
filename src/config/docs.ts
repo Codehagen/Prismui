@@ -26,15 +26,15 @@ export const docsConfig: DocsConfig = {
         },
       ],
     },
-    // {
-    //   title: "Templates",
-    //   items: [
-    //     {
-    //       title: "Portfolio",
-    //       href: "/docs/templates/portfolio",
-    //     },
-    //   ],
-    // },
+    {
+      title: "Templates",
+      items: [
+        {
+          title: "Portfolio",
+          href: "/docs/templates/portfolio",
+        },
+      ],
+    },
     {
       title: "Components",
       items: [
