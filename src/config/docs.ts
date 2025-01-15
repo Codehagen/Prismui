@@ -30,8 +30,9 @@ export const docsConfig: DocsConfig = {
       title: "Templates",
       items: [
         {
-          title: "Portfolio",
+          title: "Prism Homepage",
           href: "/docs/templates/portfolio",
+          isNew: true,
         },
       ],
     },
