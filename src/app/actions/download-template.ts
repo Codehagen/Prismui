@@ -22,24 +22,15 @@ export type DownloadResponse = {
   fileName: string;
 };
 
-const TEMPLATE_FILES = {
-  portfolio: "portfolio-template.zip",
-} as const;
-
 export async function downloadTemplate(
-  template: keyof typeof TEMPLATE_FILES
+  fileName: string
 ): Promise<DownloadResponse> {
-  console.log("Server: Starting download for template:", template);
   try {
-    const fileName = TEMPLATE_FILES[template];
-    console.log("Server: Attempting to download file:", fileName);
-
     const { data, error } = await supabase.storage
       .from("templates")
       .download(fileName);
 
     if (error) {
-      console.error("Server: Supabase download error:", error);
       return {
         success: false,
         error: `Failed to download template: ${error.message}`,
@@ -49,7 +40,6 @@ export async function downloadTemplate(
     }
 
     if (!data) {
-      console.error("Server: No data received from Supabase");
       return {
         success: false,
         error: "Template file not found.",
@@ -58,24 +48,17 @@ export async function downloadTemplate(
       };
     }
 
-    // Convert to Uint8Array and then to regular array
     const arrayBuffer = await data.arrayBuffer();
     const uint8Array = new Uint8Array(arrayBuffer);
     const plainArray = Array.from(uint8Array);
-
-    console.log(
-      "Server: Successfully downloaded file, size:",
-      plainArray.length
-    );
 
     return {
       success: true,
       data: plainArray,
       contentType: "application/zip",
-      fileName: "portfolio-template.zip",
+      fileName,
     };
   } catch (error) {
-    console.error("Server: Unexpected error:", error);
     return {
       success: false,
       error:
