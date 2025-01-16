@@ -2,15 +2,42 @@
 
 import { Button } from "@/components/ui/button";
 import { downloadTemplate } from "@/app/actions/download-template";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Loader2 } from "lucide-react";
 
 interface DownloadButtonProps {
   fileName: string;
 }
 
+const loadingStates = [
+  "Preparing download...",
+  "Fetching template...",
+  "Almost there...",
+  "Starting download...",
+];
+
 export function DownloadButton({ fileName }: DownloadButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState(loadingStates[0]);
+  const [messageIndex, setMessageIndex] = useState(0);
+
+  useEffect(() => {
+    if (!isLoading) {
+      setMessageIndex(0);
+      setLoadingMessage(loadingStates[0]);
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setMessageIndex((current) => {
+        const nextIndex = (current + 1) % loadingStates.length;
+        setLoadingMessage(loadingStates[nextIndex]);
+        return nextIndex;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isLoading]);
 
   const handleDownload = async () => {
     try {
@@ -52,7 +79,7 @@ export function DownloadButton({ fileName }: DownloadButtonProps) {
       {isLoading ? (
         <>
           <Loader2 className="h-4 w-4 animate-spin" />
-          Downloading...
+          {loadingMessage}
         </>
       ) : (
         "Free Download"
