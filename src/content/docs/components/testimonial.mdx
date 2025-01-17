@@ -1,0 +1,100 @@
+---
+title: Testimonial
+publishedAt: 2025-01-02
+summary: A versatile testimonial component with multiple layouts, auto-scrolling, and Twitter integration.
+author: codehagen
+slug: components/testimonial
+related: ["introduction"]
+---
+
+<ComponentPreview name="testimonial-basic" />
+
+<Note variant="info">
+  The Testimonial component provides a flexible way to showcase user testimonials with various layouts and animations. Perfect for landing pages, product showcases, and social proof sections. It supports auto-scrolling, manual scrolling, grid layouts, and Twitter integration.
+</Note>
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+    <ComponentSource name="testimonial" isCli />
+  </TabsContent>
+  <TabsContent value="manual">
+    <Steps>
+      <Step>Copy and paste the following code into your project.</Step>
+      <ComponentSource name="testimonial" />
+      <Step>Update the import paths to match your project setup.</Step>
+    </Steps>
+  </TabsContent>
+</Tabs>
+
+### Tailwind Config 
+
+You also need to update the tailwind config to include the animation keyframes:
+
+<MdxCodeBlock language="tsx" code={`      keyframes: {
+        "accordion-down": {
+          from: {
+            height: "0",
+          },
+          to: {
+            height: "var(--radix-accordion-content-height)",
+          },
+        },
+        "accordion-up": {
+          from: {
+            height: "var(--radix-accordion-content-height)",
+          },
+          to: {
+            height: "0",
+          },
+        },
+        "testimonial-scroll": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(calc(-100% - var(--gap)))" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+        "testimonial-scroll":
+          "testimonial-scroll var(--duration) linear infinite",
+      },`} />
+
+
+## Examples
+
+### Manual Scroll
+
+<ComponentPreview name="testimonial-scroll" />
+
+### Grid Layout
+
+<ComponentPreview name="testimonial-grid" />
+
+### Tweet Integration
+
+<ComponentPreview name="testimonial-tweet" />
+
+## Features
+
+- Multiple layout variants (scroll, grid)
+- Auto-scrolling with configurable direction
+- Pause on hover functionality
+- Twitter integration
+- Responsive design
+- Smooth animations with Framer Motion
+- Accessible markup
+- Dark mode support
+
+
+## Notes
+
+- The auto-scrolling feature uses CSS animations for smooth performance
+- Tweet integration requires the Twitter API
+- Grid layout is responsive and adjusts based on screen size
+- All animations can be disabled for reduced motion preferences 
