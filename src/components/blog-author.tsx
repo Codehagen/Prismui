@@ -17,26 +17,29 @@ export default function Author({
 }) {
   if (imageOnly) {
     return (
-      <Image
-        src={image}
-        alt={name}
-        width={36}
-        height={36}
-        className="rounded-full transition-all group-hover:brightness-90"
-      />
+      <span className="w-10 h-10 relative">
+        <Image
+          src={image}
+          alt={name}
+          width={36}
+          height={36}
+          className="border border-white ring-1 ring-primary rounded-full transition-all group-hover:brightness-90"
+        />
+      </span>
     );
   }
 
   if (updatedAt) {
     return (
       <div className="flex items-center space-x-3">
-        <Image
-          src={image}
-          alt={name}
-          width={36}
-          height={36}
-          className="rounded-full"
-        />
+        <span className="w-10 h-10 relative">
+          <Image
+            src={image}
+            alt={name}
+            fill
+            className="border border-white ring-1 ring-primary rounded-full"
+          />
+        </span>
         <div className="flex flex-col">
           <p className="text-sm text-gray-500">Written by {name}</p>
           <time
