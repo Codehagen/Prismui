@@ -1134,13 +1134,15 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress as ProgressBar } from "@/components/ui/progress";
+import { useState, useCallback } from "react";
+import { useSpring } from "framer-motion";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useExpandable } from "@/hooks/use-expandable";
+
 
 interface ProjectStatusCardProps {
   title: string;
@@ -1151,6 +1153,20 @@ interface ProjectStatusCardProps {
   githubStars: number;
   openIssues: number;
 }
+
+export function useExpandable(initialState = false) {
+  const [isExpanded, setIsExpanded] = useState(initialState);
+
+  const springConfig = { stiffness: 300, damping: 30 };
+  const animatedHeight = useSpring(0, springConfig);
+
+  const toggleExpand = useCallback(() => {
+    setIsExpanded((prev) => !prev);
+  }, []);
+
+  return { isExpanded, toggleExpand, animatedHeight };
+}
+
 
 export function ProjectStatusCard({
   title,
@@ -1328,7 +1344,7 @@ export function ProjectStatusCard({
       yarn: 'yarn dlx shadcn@latest add "https://www.prismui.tech/r/styles/default/expandable-card.json"',
       bun: 'bunx shadcn@latest add "https://www.prismui.tech/r/styles/default/expandable-card.json"',
     },
-    dependencies: ["framer-motion", "lucide-react", "@/hooks/use-expandable"],
+    dependencies: ["framer-motion", "lucide-react"],
   },
   {
     name: "display-cards",

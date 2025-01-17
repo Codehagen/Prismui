@@ -1,9 +1,9 @@
 ---
-title: Portfolio Template
+title: PrismUI Homepage Template
 publishedAt: 2025-01-02
-summary: A modern, minimal portfolio template for developers and creators with built-in dark mode and animations.
+summary: A modern, beautifully designed homepage template for your next project, built with Next.js 15 and PrismUI components.
 author: codehagen
-slug: templates/portfolio
+slug: templates/prismui-homepage
 related: ["introduction"]
 ---
 
@@ -13,18 +13,13 @@ related: ["introduction"]
     loop
     muted
     playsInline
-    src="/video/portfolio-template.mp4"
+    src="/video/prismui-homepage.mp4"
     className="w-full rounded-xl border shadow-2xl"
   />
   <div className="flex w-full flex-col gap-2 sm:flex-row">
+    <DownloadButton fileName="prismui-homepage.zip" />
     <Link 
-      href="https://github.com/codehagen/portfolio-template" 
-      className="flex-1 inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-    >
-      Free Download
-    </Link>
-    <Link 
-      href="/templates/portfolio/demo" 
+      href="https://templete-prismui.vercel.app/" 
       className="flex-1 inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
     >
       Live Preview
@@ -33,7 +28,7 @@ related: ["introduction"]
 </div>
 
 <Note>
-  A beautifully designed portfolio template to showcase your work, experience, and skills. Built with Next.js 14 and Tailwind CSS.
+  A beautifully designed homepage template featuring modern animations, dark mode, and PrismUI components. Perfect for showcasing your SaaS, product, or service.
 </Note>
 
 ## Features
@@ -44,28 +39,28 @@ related: ["introduction"]
       <span className="text-lg">✨</span>
       <h3 className="font-medium">Modern Tech Stack</h3>
     </div>
-    <p className="text-sm text-muted-foreground">Next.js 14, React Server Components, and Tailwind CSS for optimal performance.</p>
+    <p className="text-sm text-muted-foreground">Built with Next.js 15, React Server Components, and PrismUI components for optimal performance.</p>
   </div>
   <div className="flex flex-col gap-2 p-4 rounded-lg border bg-card text-card-foreground shadow-sm">
     <div className="flex items-center gap-2">
       <span className="text-lg">🎨</span>
       <h3 className="font-medium">Beautiful Design</h3>
     </div>
-    <p className="text-sm text-muted-foreground">Clean and minimal design with dark mode and smooth animations.</p>
+    <p className="text-sm text-muted-foreground">Clean and minimal design with dark mode and smooth animations, powered by PrismUI.</p>
   </div>
   <div className="flex flex-col gap-2 p-4 rounded-lg border bg-card text-card-foreground shadow-sm">
     <div className="flex items-center gap-2">
       <span className="text-lg">📱</span>
       <h3 className="font-medium">Responsive</h3>
     </div>
-    <p className="text-sm text-muted-foreground">Looks great on all devices, from mobile to desktop.</p>
+    <p className="text-sm text-muted-foreground">Fully responsive design that looks great on all devices, from mobile to desktop.</p>
   </div>
   <div className="flex flex-col gap-2 p-4 rounded-lg border bg-card text-card-foreground shadow-sm">
     <div className="flex items-center gap-2">
       <span className="text-lg">⚡️</span>
       <h3 className="font-medium">Fast Setup</h3>
     </div>
-    <p className="text-sm text-muted-foreground">Get up and running in minutes with detailed documentation.</p>
+    <p className="text-sm text-muted-foreground">Get your homepage up and running in minutes with our detailed documentation.</p>
   </div>
 </div>
 
@@ -75,7 +70,7 @@ related: ["introduction"]
   <div className="flex items-center gap-3 p-4 rounded-lg border bg-card text-card-foreground">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
     <div>
-      <div className="font-medium">Next.js 14</div>
+      <div className="font-medium">Next.js 15</div>
       <div className="text-sm text-muted-foreground">React framework</div>
     </div>
   </div>
@@ -116,68 +111,26 @@ related: ["introduction"]
   </div>
 </div>
 
-## Installation
-
-<Tabs defaultValue="cli">
-  <TabsList>
-    <TabsTrigger value="cli">CLI</TabsTrigger>
-    <TabsTrigger value="manual">Manual</TabsTrigger>
-  </TabsList>
-  <TabsContent value="cli">
-    ```bash
-    npx create-next-app@latest portfolio --use-pnpm --typescript --tailwind --app
-    ```
-  </TabsContent>
-  <TabsContent value="manual">
-    <Steps>
-      <Step>Clone the repository</Step>
-      ```bash
-      git clone https://github.com/codehagen/portfolio-template.git
-      ```
-
-      <Step>Install dependencies</Step>
-      ```bash
-      pnpm install
-      ```
-
-      <Step>Start the development server</Step>
-      ```bash
-      pnpm dev
-      ```
-    </Steps>
-  </TabsContent>
-</Tabs>
-
-## Customization
+## Getting Started
 
 <Steps>
-  <Step>Update your information</Step>
-  Edit `config/site.ts` to update your personal information, social links, and site metadata.
+  <Step>Install dependencies</Step>
+  ```bash
+  pnpm install
+  ```
 
-  <Step>Add your projects</Step>
-  Add your projects in `content/projects` using MDX files. Each project can have its own images, tech stack, and description.
+  <Step>Set up your environment variables</Step>
+  ```bash
+  cp .env.example .env.local
+  ```
+  Then update the variables in `.env.local` with your own values.
 
-  <Step>Customize the theme</Step>
-  Modify `styles/globals.css` and `config/theme.ts` to match your personal brand colors and style preferences.
+  <Step>Start the development server</Step>
+  ```bash
+  pnpm dev
+  ```
+
+  <Step>View your application</Step>
+  Open [http://localhost:3000](http://localhost:3000) in your browser to see your homepage.
 </Steps>
-
-## Deploy
-
-Deploy your portfolio template with one click using Vercel:
-
-<Link 
-  href="https://vercel.com/new/clone?repository-url=https://github.com/codehagen/portfolio-template&project-name=portfolio&repository-name=portfolio&build-command=pnpm%20build&install-command=pnpm%20install&output-directory=.next"
-  className="inline-flex items-center gap-2 bg-black text-white px-3 py-1.5 rounded-md hover:bg-black/90"
->
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 76 65"
-    fill="none"
-    className="h-3 w-3"
-  >
-    <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" fill="currentColor"/>
-  </svg>
-  Deploy to Vercel
-</Link>
 

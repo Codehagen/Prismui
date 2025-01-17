@@ -26,15 +26,16 @@ export const docsConfig: DocsConfig = {
         },
       ],
     },
-    // {
-    //   title: "Templates",
-    //   items: [
-    //     {
-    //       title: "Portfolio",
-    //       href: "/docs/templates/portfolio",
-    //     },
-    //   ],
-    // },
+    {
+      title: "Templates",
+      items: [
+        {
+          title: "Prism Homepage",
+          href: "/docs/templates/prismui-homepage",
+          isNew: true,
+        },
+      ],
+    },
     {
       title: "Components",
       items: [
