@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:registry": "tsx src/lib/scripts/build-registry.mts"
+    "build:registry": "tsx src/lib/scripts/build-registry.mts",
+    "shadcn": "shadcn build"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -75,6 +76,7 @@
     "remark-gfm": "^4.0.0",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.0",
+    "shadcn": "2.2.0-canary.3",
     "shiki": "^1.24.4",
     "sonner": "^1.7.1",
     "tailwind-merge": "^2.4.0",

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "prismui",
+  "homepage": "https://prismui.com",
+  "items": [
+    {
+      "name": "hello-world",
+      "type": "registry:block",
+      "title": "Hello World",
+      "description": "A simple hello world component demonstrating the PrismUI registry.",
+      "files": [
+        {
+          "path": "registry/hello-world/hello-world.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": ["button"]
+    },
+    {
+      "name": "hero-badge",
+      "type": "registry:block",
+      "title": "Hero Badge",
+      "description": "A beautiful badge component for hero sections with icon support.",
+      "files": [
+        {
+          "path": "registry/hero-badge/hero-badge.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/hero-badge/demo.tsx",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+} 

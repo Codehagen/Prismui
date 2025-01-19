@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hero-badge",
+  "type": "registry:block",
+  "title": "Hero Badge",
+  "description": "A beautiful badge component for hero sections with icon support.",
+  "files": [
+    {
+      "path": "registry/hero-badge/hero-badge.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\ninterface HeroBadgeProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {\n  text: string;\n  icon?: React.ReactNode;\n  endIcon?: React.ReactNode;\n}\n\nexport function HeroBadge({\n  text,\n  icon,\n  endIcon,\n  className,\n  ...props\n}: HeroBadgeProps) {\n  return (\n    <a\n      className={cn(\n        \"inline-flex items-center rounded-full border bg-background px-4 py-1.5 text-sm font-medium transition-colors hover:bg-muted\",\n        className\n      )}\n      {...props}\n    >\n      {icon && <span className=\"mr-2\">{icon}</span>}\n      {text}\n      {endIcon && <span className=\"ml-2\">{endIcon}</span>}\n    </a>\n  );\n}\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "registry/hero-badge/demo.tsx",
+      "content": "import { HeroBadge } from \"./hero-badge\";\n\nfunction IconLogo() {\n  return (\n    <svg\n      xmlns=\"http://www.w3.org/2000/svg\"\n      viewBox=\"0 0 24 24\"\n      fill=\"none\"\n      stroke=\"currentColor\"\n      strokeWidth=\"2\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      className=\"h-4 w-4\"\n    >\n      <path d=\"M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5\" />\n    </svg>\n  );\n}\n\nfunction IconChevronRight() {\n  return (\n    <svg\n      xmlns=\"http://www.w3.org/2000/svg\"\n      viewBox=\"0 0 24 24\"\n      fill=\"none\"\n      stroke=\"currentColor\"\n      strokeWidth=\"2\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      className=\"h-4 w-4\"\n    >\n      <path d=\"m9 18 6-6-6-6\" />\n    </svg>\n  );\n}\n\nexport function HeroBadgeDemo() {\n  return (\n    <div className=\"flex min-h-[350px] w-full items-center justify-center\">\n      <HeroBadge\n        href=\"#\"\n        text=\"New! PrismUI Components\"\n        icon={<IconLogo />}\n        endIcon={<IconChevronRight />}\n      />\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ]
+}

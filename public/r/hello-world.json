@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hello-world",
+  "type": "registry:block",
+  "title": "Hello World",
+  "description": "A simple hello world component demonstrating the PrismUI registry.",
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "registry/hello-world/hello-world.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\n\nexport function HelloWorld() {\n  return (\n    <div className=\"flex flex-col items-center justify-center space-y-4 p-8\">\n      <h1 className=\"text-3xl font-bold\">Hello from PrismUI Registry</h1>\n      <Button>Click Me</Button>\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ]
+}
