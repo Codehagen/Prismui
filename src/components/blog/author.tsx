@@ -33,22 +33,24 @@ export default async function Author({
   }
 
   return imageOnly ? (
-    <BlurImage
-      src={authors[username].image}
-      alt={authors[username].name}
-      width={36}
-      height={36}
-      className="rounded-full transition-all group-hover:brightness-90"
-    />
-  ) : updatedAt ? (
-    <div className="flex items-center space-x-3">
+    <span className="w-10 h-10 relative">
       <BlurImage
         src={authors[username].image}
         alt={authors[username].name}
-        width={36}
-        height={36}
-        className="rounded-full"
+        fill
+        className="border border-white ring-1 ring-primary rounded-full transition-all group-hover:brightness-90"
       />
+    </span>
+  ) : updatedAt ? (
+    <div className="flex items-center space-x-3">
+      <span className="w-10 h-10 relative">
+        <BlurImage
+          src={authors[username].image}
+          alt={authors[username].name}
+          fill
+          className="border border-white ring-1 ring-primary rounded-full"
+        />
+      </span>
       <div className="flex flex-col">
         <p className="text-sm text-gray-500">
           Written by {authors[username].name}
@@ -65,13 +67,14 @@ export default async function Author({
       target="_blank"
       rel="noopener noreferrer"
     >
-      <BlurImage
-        src={authors[username].image}
-        alt={authors[username].name}
-        width={40}
-        height={40}
-        className="rounded-full transition-all group-hover:brightness-90"
-      />
+      <span className="w-10 h-10 relative">
+        <BlurImage
+          src={authors[username].image}
+          alt={authors[username].name}
+          fill
+          className="border border-white ring-1 ring-primary rounded-full transition-all group-hover:brightness-90"
+        />
+      </span>
       <div className="flex flex-col">
         <p className="font-semibold text-gray-700">{authors[username].name}</p>
         <p className="text-sm text-gray-500">@{username}</p>
