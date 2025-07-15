@@ -81,6 +81,19 @@
         }
       ],
       "dependencies": ["framer-motion", "lucide-react"]
+    },
+    {
+      "name": "expandable-card",
+      "type": "registry:ui",
+      "title": "Expandable Card",
+      "description": "A card component that expands to show additional content with smooth animations.",
+      "files": [
+        {
+          "path": "registry/default/ui/expandable-card.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["framer-motion", "lucide-react"]
     }
   ]
 } 
