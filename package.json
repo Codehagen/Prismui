@@ -8,8 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:registry": "tsx src/lib/scripts/build-registry.mts",
-    "shadcn": "shadcn build"
+    "build:registry": "shadcn build",
+    "registry:build": "shadcn build"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -51,7 +51,7 @@
     "cmdk": "1.0.0",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.5.1",
-    "framer-motion": "^11.3.21",
+    "framer-motion": "^11.18.1",
     "github-slugger": "^2.0.0",
     "input-otp": "^1.4.1",
     "lucide-react": "^0.417.0",

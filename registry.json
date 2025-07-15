@@ -4,33 +4,83 @@
   "homepage": "https://prismui.com",
   "items": [
     {
-      "name": "hello-world",
-      "type": "registry:block",
-      "title": "Hello World",
-      "description": "A simple hello world component demonstrating the PrismUI registry.",
+      "name": "word-reveal",
+      "type": "registry:ui",
+      "title": "Word Reveal",
+      "description": "An animated text component that reveals words with motion effects.",
       "files": [
         {
-          "path": "registry/hello-world/hello-world.tsx",
-          "type": "registry:component"
+          "path": "registry/default/ui/word-reveal.tsx",
+          "type": "registry:ui"
         }
       ],
-      "registryDependencies": ["button"]
+      "dependencies": ["framer-motion"]
     },
     {
       "name": "hero-badge",
-      "type": "registry:block",
+      "type": "registry:ui",
       "title": "Hero Badge",
       "description": "A beautiful badge component for hero sections with icon support.",
       "files": [
         {
-          "path": "registry/hero-badge/hero-badge.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/hero-badge/demo.tsx",
-          "type": "registry:component"
+          "path": "registry/default/ui/hero-badge.tsx",
+          "type": "registry:ui"
         }
-      ]
+      ],
+      "dependencies": ["framer-motion"]
+    },
+    {
+      "name": "action-button",
+      "type": "registry:ui",
+      "title": "Action Button",
+      "description": "A button component with loading states and enhanced interactions.",
+      "files": [
+        {
+          "path": "registry/default/ui/action-button.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["lucide-react", "class-variance-authority"],
+      "registryDependencies": ["button"]
+    },
+    {
+      "name": "button-group",
+      "type": "registry:ui",
+      "title": "Button Group",
+      "description": "A component for grouping related buttons with various layouts.",
+      "files": [
+        {
+          "path": "registry/default/ui/button-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["class-variance-authority"]
+    },
+    {
+      "name": "floating-action-panel",
+      "type": "registry:ui",
+      "title": "Floating Action Panel",
+      "description": "A floating panel component for contextual actions and forms.",
+      "files": [
+        {
+          "path": "registry/default/ui/floating-action-panel.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["framer-motion", "lucide-react"]
+    },
+    {
+      "name": "timeline",
+      "type": "registry:ui",
+      "title": "Timeline",
+      "description": "A timeline component with expandable entries and responsive design.",
+      "files": [
+        {
+          "path": "registry/default/ui/timeline.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["framer-motion", "lucide-react"]
     }
   ]
 } 

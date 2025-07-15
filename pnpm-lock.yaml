@@ -123,7 +123,7 @@ dependencies:
     specifier: ^8.5.1
     version: 8.5.2(react@18.3.1)
   framer-motion:
-    specifier: ^11.3.21
+    specifier: ^11.18.1
     version: 11.18.1(react-dom@18.3.1)(react@18.3.1)
   github-slugger:
     specifier: ^2.0.0
