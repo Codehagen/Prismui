@@ -238,6 +238,248 @@ export const docsMetadata: Record<string, DocsMetadata> = {
     publishedAt: "2025-01-02",
     author: "PrismUI Team",
     category: "display"
+  },
+  "display-cards": {
+    usage: "Perfect for showcasing featured content, testimonials, or product highlights with engaging animations.",
+    features: [
+      "Stacked card layout",
+      "Hover animations",
+      "Customizable content",
+      "Responsive design"
+    ],
+    notes: [
+      "Cards are stacked using CSS Grid",
+      "Includes grayscale and color transition effects",
+      "Supports custom icons and content",
+      "Transform animations on hover"
+    ],
+    props: [
+      {
+        name: "cards",
+        type: "DisplayCardProps[]",
+        description: "Array of card configurations",
+        default: "Default cards with sample content"
+      }
+    ],
+    examples: [
+      {
+        name: "display-cards-demo",
+        title: "Basic Usage",
+        description: "Default display cards"
+      },
+      {
+        name: "display-cards-basic",
+        title: "Custom Content",
+        description: "Cards with custom content"
+      }
+    ],
+    publishedAt: "2025-01-16",
+    author: "PrismUI Team",
+    category: "display"
+  },
+  "hero": {
+    usage: "Ideal for landing page hero sections with compelling headlines and call-to-action buttons.",
+    features: [
+      "Animated entrance effects",
+      "Customizable content",
+      "Button integration",
+      "Responsive layout"
+    ],
+    notes: [
+      "Uses Framer Motion for animations",
+      "Integrates with button components",
+      "Supports custom styling",
+      "Mobile-first responsive design"
+    ],
+    examples: [
+      {
+        name: "hero-demo",
+        title: "Full Hero",
+        description: "Complete hero section"
+      },
+      {
+        name: "hero-basic",
+        title: "Simple Hero",
+        description: "Basic hero layout"
+      }
+    ],
+    publishedAt: "2025-01-16",
+    author: "PrismUI Team",
+    category: "layout"
+  },
+  "logo-carousel": {
+    usage: "Perfect for displaying client logos, partner brands, or technology stacks in an animated carousel.",
+    features: [
+      "Infinite scrolling animation",
+      "Customizable logos",
+      "Responsive design",
+      "Smooth transitions"
+    ],
+    notes: [
+      "Uses Framer Motion for smooth animations",
+      "Automatically handles overflow",
+      "Supports various logo formats",
+      "Pauseable on hover"
+    ],
+    examples: [
+      {
+        name: "logo-carousel-demo",
+        title: "Brand Showcase",
+        description: "Carousel with brand logos"
+      },
+      {
+        name: "logo-carousel-basic",
+        title: "Simple Carousel",
+        description: "Basic logo carousel"
+      }
+    ],
+    publishedAt: "2025-01-16",
+    author: "PrismUI Team",
+    category: "display"
+  },
+  "number-flow": {
+    usage: "Great for displaying animated counters, statistics, or any numeric data with smooth transitions.",
+    features: [
+      "Smooth number transitions",
+      "Multiple formats supported",
+      "Customizable animations",
+      "Performance optimized"
+    ],
+    notes: [
+      "Built on @number-flow/react library",
+      "Supports currency, percentage, and custom formats",
+      "Hardware accelerated animations",
+      "Accessible screen reader support"
+    ],
+    examples: [
+      {
+        name: "number-flow-demo",
+        title: "Statistics Counter",
+        description: "Animated statistics display"
+      },
+      {
+        name: "number-flow-basic",
+        title: "Simple Counter",
+        description: "Basic number animation"
+      }
+    ],
+    publishedAt: "2025-01-16",
+    author: "PrismUI Team",
+    category: "animation"
+  },
+  "open-source": {
+    usage: "Ideal for showcasing open source projects, GitHub repositories, or developer portfolios.",
+    features: [
+      "Project showcase layout",
+      "Interactive animations",
+      "Call-to-action buttons",
+      "Responsive grid"
+    ],
+    notes: [
+      "Includes GitHub-style design elements",
+      "Supports project descriptions and links",
+      "Animated on scroll/hover",
+      "Integrates with button and separator components"
+    ],
+    examples: [
+      {
+        name: "open-source-demo",
+        title: "Project Showcase",
+        description: "Complete open source section"
+      },
+      {
+        name: "open-source-basic",
+        title: "Simple Layout",
+        description: "Basic project display"
+      }
+    ],
+    publishedAt: "2025-01-16",
+    author: "PrismUI Team",
+    category: "layout"
+  },
+  "popover": {
+    usage: "Enhanced popover component for tooltips, menus, or interactive content overlays.",
+    features: [
+      "Smooth animations",
+      "Flexible positioning",
+      "Click and hover triggers",
+      "Customizable content"
+    ],
+    notes: [
+      "Built with Framer Motion animations",
+      "Supports various trigger methods",
+      "Includes close button functionality",
+      "Accessible keyboard navigation"
+    ],
+    examples: [
+      {
+        name: "popover-demo",
+        title: "Interactive Popover",
+        description: "Full-featured popover"
+      },
+      {
+        name: "popover-basic",
+        title: "Simple Popover",
+        description: "Basic popover usage"
+      },
+      {
+        name: "popover-menu",
+        title: "Menu Popover",
+        description: "Popover as dropdown menu"
+      }
+    ],
+    publishedAt: "2025-01-16",
+    author: "PrismUI Team",
+    category: "overlay"
+  },
+  "tweet-card": {
+    usage: "Perfect for displaying Twitter/X posts, testimonials, or social media content.",
+    features: [
+      "Rich tweet content display",
+      "Interactive elements",
+      "Loading states",
+      "Multiple variants"
+    ],
+    notes: [
+      "Integrates with react-tweet library",
+      "Supports various tweet formats",
+      "Includes skeleton loading states",
+      "Handles images and media content"
+    ],
+    props: [
+      {
+        name: "tweetId",
+        type: "string",
+        description: "Twitter/X tweet ID to display",
+        required: true
+      },
+      {
+        name: "variant",
+        type: "string",
+        description: "Display variant (default, compact, etc.)",
+        default: "default"
+      }
+    ],
+    examples: [
+      {
+        name: "tweet-card-demo",
+        title: "Full Tweet",
+        description: "Complete tweet display"
+      },
+      {
+        name: "tweet-card-basic",
+        title: "Simple Tweet",
+        description: "Basic tweet card"
+      },
+      {
+        name: "tweet-card-compact",
+        title: "Compact View",
+        description: "Compact tweet layout"
+      }
+    ],
+    publishedAt: "2025-01-16",
+    author: "PrismUI Team",
+    category: "display"
   }
 };
 

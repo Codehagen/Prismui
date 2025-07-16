@@ -242,15 +242,20 @@ async function main() {
     await fs.mkdir(outputDir, { recursive: true });
     
     let generatedCount = 0;
+    const existingDocs: string[] = [];
+    const missingDocs: string[] = [];
+    const registryComponents = new Set<string>();
     
     for (const item of registry.items) {
       if (item.type === 'registry:ui' || item.type === 'registry:block') {
+        registryComponents.add(item.name);
         const outputPath = path.join(outputDir, `${item.name}.mdx`);
         
         // Check if file already exists
         try {
           await fs.access(outputPath);
           console.log(`⚠️  Skipped: ${item.name}.mdx (already exists)`);
+          existingDocs.push(item.name);
           continue;
         } catch {
           // File doesn't exist, safe to create
@@ -267,7 +272,92 @@ async function main() {
       }
     }
     
-    console.log(`🎉 Successfully generated ${generatedCount} documentation files!`);
+    console.log(`\n🎉 Successfully generated ${generatedCount} documentation files!`);
+    
+    // Check for missing documentation
+    for (const item of registry.items) {
+      if (item.type === 'registry:ui' || item.type === 'registry:block') {
+        const outputPath = path.join(outputDir, `${item.name}.mdx`);
+        try {
+          await fs.access(outputPath);
+        } catch {
+          missingDocs.push(item.name);
+        }
+      }
+    }
+    
+    // Check for all documentation files
+    const componentDocsFiles = await fs.readdir(outputDir);
+    const componentDocs = componentDocsFiles
+      .filter(file => file.endsWith('.mdx'))
+      .map(file => file.replace('.mdx', ''));
+    
+    // Check for orphaned documentation (docs without registry components)
+    const orphanedDocs = componentDocs.filter(name => !registryComponents.has(name));
+    
+    // Check sections documentation
+    const sectionsDir = path.join(projectRoot, 'src/content/docs/sections');
+    let sectionDocs: string[] = [];
+    try {
+      const sectionFiles = await fs.readdir(sectionsDir);
+      sectionDocs = sectionFiles
+        .filter(file => file.endsWith('.mdx'))
+        .map(file => file.replace('.mdx', ''));
+    } catch {
+      // Sections directory might not exist
+    }
+    
+    // Check templates documentation
+    const templatesDir = path.join(projectRoot, 'src/content/docs/templates');
+    let templateDocs: string[] = [];
+    try {
+      const templateFiles = await fs.readdir(templatesDir);
+      templateDocs = templateFiles
+        .filter(file => file.endsWith('.mdx'))
+        .map(file => file.replace('.mdx', ''));
+    } catch {
+      // Templates directory might not exist
+    }
+    
+    // Report validation results
+    console.log('\n📊 Documentation Status Report:');
+    console.log('\n📁 Registry Components:');
+    console.log(`   Total in registry: ${registryComponents.size}`);
+    console.log(`   Documented: ${existingDocs.length}`);
+    console.log(`   Missing docs: ${missingDocs.length}`);
+    
+    if (missingDocs.length > 0) {
+      console.log('\n⚠️  Registry components missing documentation:');
+      missingDocs.forEach(name => console.log(`   - ${name}`));
+    }
+    
+    console.log('\n📄 All Component Documentation:');
+    console.log(`   Total component docs: ${componentDocs.length}`);
+    console.log(`   In registry: ${componentDocs.filter(name => registryComponents.has(name)).length}`);
+    console.log(`   Not in registry: ${orphanedDocs.length}`);
+    
+    if (orphanedDocs.length > 0) {
+      console.log('\n📝 Component docs without registry entry:');
+      orphanedDocs.forEach(name => console.log(`   - ${name}.mdx`));
+    }
+    
+    if (sectionDocs.length > 0) {
+      console.log('\n📑 Section Documentation:');
+      console.log(`   Total section docs: ${sectionDocs.length}`);
+      sectionDocs.forEach(name => console.log(`   - ${name}.mdx`));
+    }
+    
+    if (templateDocs.length > 0) {
+      console.log('\n📐 Template Documentation:');
+      console.log(`   Total template docs: ${templateDocs.length}`);
+      templateDocs.forEach(name => console.log(`   - ${name}.mdx`));
+    }
+    
+    if (missingDocs.length === 0) {
+      console.log('\n✅ All registry components are documented!');
+    } else {
+      console.log('\n⚠️  Some registry components need documentation.');
+    }
     
   } catch (error) {
     console.error('❌ Error generating documentation:', error);
