@@ -9,7 +9,7 @@ import rehypePrettyCode from "rehype-pretty-code";
 import { CodeBlockWrapper } from "./code-block-wrapper";
 import { CopyButton } from "./copy-button";
 import { cn } from "@/lib/utils";
-import { rehypePrettyCodeConfig } from "@/lib/rehype-pretty-code-config";
+import { prettyCodeOptions } from "@/lib/content-collections/pretty-code-options";
 
 interface MdxCodeBlockProps {
   code: string;
@@ -30,7 +30,7 @@ export function MdxCodeBlock({
     unified()
       .use(remarkParse)
       .use(remarkRehype)
-      .use(rehypePrettyCode, rehypePrettyCodeConfig as any)
+      .use(rehypePrettyCode, prettyCodeOptions)
       .use(rehypeStringify)
       .process(`\`\`\`${language}\n${code}\n\`\`\``)
       .then((file) => setFormattedCode(String(file)));
