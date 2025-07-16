@@ -17,9 +17,10 @@ export async function generateStaticParams() {
 export default async function DocsPage({
   params,
 }: {
-  params: { slug: string[] };
+  params: Promise<{ slug: string[] }>;
 }) {
-  const slug = params.slug.join("/");
+  const { slug: slugArray } = await params;
+  const slug = slugArray.join("/");
   const data = allDocsPosts.find((post) => post.slug === slug);
 
   if (!data) {
@@ -42,9 +43,9 @@ export default async function DocsPage({
   // Create breadcrumb segments
   const segments = [
     { name: "Documentation", href: "/docs" },
-    ...params.slug.map((segment, index) => ({
+    ...slugArray.map((segment, index) => ({
       name: segment.charAt(0).toUpperCase() + segment.slice(1),
-      href: `/docs/${params.slug.slice(0, index + 1).join("/")}`,
+      href: `/docs/${slugArray.slice(0, index + 1).join("/")}`,
     })),
   ];
 
@@ -107,7 +108,7 @@ export default async function DocsPage({
           <div className="sticky top-20 col-span-1 hidden flex-col space-y-10 divide-y divide-border self-start md:flex">
             <TableOfContents
               items={data.tableOfContents}
-              currentPageSlug={`/docs/${params.slug.join("/")}`}
+              currentPageSlug={`/docs/${slugArray.join("/")}`}
             />
           </div>
         </div>

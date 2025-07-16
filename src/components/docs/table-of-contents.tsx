@@ -36,11 +36,15 @@ export function TableOfContents({
               <div key={item.slug} className="relative">
                 {isActive && (
                   <motion.div
-                    layoutId="active-indicator"
+                    layoutId="docs-active-indicator"
                     className="absolute -left-0.5 h-full border-l-2 border-foreground"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ 
+                      duration: 0.15,
+                      ease: "easeOut"
+                    }}
+                    style={{ willChange: "opacity" }}
                   />
                 )}
                 <Link

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "word-reveal",
+  "type": "registry:ui",
+  "title": "Word Reveal",
+  "description": "An animated text component that reveals words with motion effects.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "files": [
+    {
+      "path": "registry/default/ui/word-reveal.tsx",
+      "content": "\"use client\";\n\nimport { motion, Variants } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\ninterface WordRevealProps {\n  text: string;\n  className?: string;\n  delay?: number;\n}\n\nexport default function WordReveal({\n  text,\n  className,\n  delay = 0.15,\n}: WordRevealProps) {\n  const words = text.split(\" \");\n\n  const container: Variants = {\n    hidden: { opacity: 0 },\n    visible: {\n      opacity: 1,\n      transition: { staggerChildren: delay },\n    },\n  };\n\n  const child: Variants = {\n    hidden: {\n      opacity: 0,\n      filter: \"blur(10px)\",\n      y: 20,\n    },\n    visible: (i: number) => ({\n      opacity: 1,\n      filter: \"blur(0px)\",\n      y: 0,\n      transition: {\n        delay: i * delay,\n        type: \"spring\",\n        damping: 12,\n        stiffness: 100,\n      },\n    }),\n  };\n\n  return (\n    <motion.h1\n      variants={container}\n      initial=\"hidden\"\n      animate=\"visible\"\n      className={cn(\n        \"text-center text-4xl font-bold tracking-[-0.02em] text-foreground drop-shadow-sm md:text-7xl md:leading-[5rem]\",\n        className\n      )}\n    >\n      {words.map((word, i) => (\n        <motion.span\n          key={word + i}\n          variants={child}\n          custom={i}\n          className=\"inline-block mr-[0.25em] last:mr-0\"\n        >\n          {word}\n        </motion.span>\n      ))}\n    </motion.h1>\n  );\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -39,4 +39,28 @@ next-env.d.ts
 # content collections
 .content-collections/
 .content-collections/cache/
-.content-collections/generated/ 
+.content-collections/generated/
+
+# Pro version - exclude from open source repo
+/src/app/pro/
+/src/components/pro/
+/src/lib/pro/
+/src/registry/pro/
+/content/pro/
+/public/pro-assets/
+pro.config.ts
+/scripts/pro/
+
+# Payment and authentication secrets
+stripe.config.ts
+auth.config.ts
+/src/lib/payments/
+/src/lib/auth/premium/
+
+# Pro environment variables
+.env.pro
+.env.pro.local
+
+# Pro build artifacts
+/pro-build/
+/pro-dist/ 

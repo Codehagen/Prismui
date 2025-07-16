@@ -4,33 +4,191 @@
   "homepage": "https://prismui.com",
   "items": [
     {
-      "name": "hello-world",
-      "type": "registry:block",
-      "title": "Hello World",
-      "description": "A simple hello world component demonstrating the PrismUI registry.",
+      "name": "word-reveal",
+      "type": "registry:ui",
+      "title": "Word Reveal",
+      "description": "An animated text component that reveals words with motion effects.",
       "files": [
         {
-          "path": "registry/hello-world/hello-world.tsx",
-          "type": "registry:component"
+          "path": "registry/default/ui/word-reveal.tsx",
+          "type": "registry:ui"
         }
       ],
-      "registryDependencies": ["button"]
+      "dependencies": ["framer-motion"]
     },
     {
       "name": "hero-badge",
-      "type": "registry:block",
+      "type": "registry:ui",
       "title": "Hero Badge",
       "description": "A beautiful badge component for hero sections with icon support.",
       "files": [
         {
-          "path": "registry/hero-badge/hero-badge.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/hero-badge/demo.tsx",
-          "type": "registry:component"
+          "path": "registry/default/ui/hero-badge.tsx",
+          "type": "registry:ui"
         }
-      ]
+      ],
+      "dependencies": ["framer-motion"]
+    },
+    {
+      "name": "action-button",
+      "type": "registry:ui",
+      "title": "Action Button",
+      "description": "A button component with loading states and enhanced interactions.",
+      "files": [
+        {
+          "path": "registry/default/ui/action-button.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["lucide-react", "class-variance-authority"],
+      "registryDependencies": ["button"]
+    },
+    {
+      "name": "button-group",
+      "type": "registry:ui",
+      "title": "Button Group",
+      "description": "A component for grouping related buttons with various layouts.",
+      "files": [
+        {
+          "path": "registry/default/ui/button-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["class-variance-authority"]
+    },
+    {
+      "name": "floating-action-panel",
+      "type": "registry:ui",
+      "title": "Floating Action Panel",
+      "description": "A floating panel component for contextual actions and forms.",
+      "files": [
+        {
+          "path": "registry/default/ui/floating-action-panel.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["framer-motion", "lucide-react"]
+    },
+    {
+      "name": "timeline",
+      "type": "registry:ui",
+      "title": "Timeline",
+      "description": "A timeline component with expandable entries and responsive design.",
+      "files": [
+        {
+          "path": "registry/default/ui/timeline.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["framer-motion", "lucide-react"]
+    },
+    {
+      "name": "expandable-card",
+      "type": "registry:ui",
+      "title": "Expandable Card",
+      "description": "A card component that expands to show additional content with smooth animations.",
+      "files": [
+        {
+          "path": "registry/default/ui/expandable-card.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["framer-motion", "lucide-react"]
+    },
+    {
+      "name": "display-cards",
+      "type": "registry:ui",
+      "title": "Display Cards",
+      "description": "A stack of animated cards for showcasing featured content with hover effects.",
+      "files": [
+        {
+          "path": "registry/default/ui/display-cards.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["lucide-react"]
+    },
+    {
+      "name": "hero",
+      "type": "registry:ui",
+      "title": "Hero",
+      "description": "A versatile hero component with animations and customizable content.",
+      "files": [
+        {
+          "path": "registry/default/ui/hero.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["framer-motion"],
+      "registryDependencies": ["button"]
+    },
+    {
+      "name": "logo-carousel",
+      "type": "registry:ui",
+      "title": "Logo Carousel",
+      "description": "An animated carousel component for displaying logos and brand icons.",
+      "files": [
+        {
+          "path": "registry/default/ui/logo-carousel.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["framer-motion"]
+    },
+    {
+      "name": "number-flow",
+      "type": "registry:ui",
+      "title": "Number Flow",
+      "description": "Animated number transitions with smooth counting effects.",
+      "files": [
+        {
+          "path": "registry/default/ui/number-flow.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["@number-flow/react", "framer-motion"]
+    },
+    {
+      "name": "open-source",
+      "type": "registry:ui",
+      "title": "Open Source",
+      "description": "A component for showcasing open source projects and contributions.",
+      "files": [
+        {
+          "path": "registry/default/ui/open-source.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["framer-motion"],
+      "registryDependencies": ["button", "separator"]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "An enhanced popover component with animations and flexible content.",
+      "files": [
+        {
+          "path": "registry/default/ui/popover.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["framer-motion", "lucide-react"],
+      "registryDependencies": ["button"]
+    },
+    {
+      "name": "tweet-card",
+      "type": "registry:ui",
+      "title": "Tweet Card",
+      "description": "A component for displaying Twitter/X posts with rich content and interactions.",
+      "files": [
+        {
+          "path": "registry/default/ui/tweet-card.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["framer-motion", "lucide-react", "react-tweet"],
+      "registryDependencies": ["button", "card", "skeleton", "tooltip"]
     }
   ]
 } 

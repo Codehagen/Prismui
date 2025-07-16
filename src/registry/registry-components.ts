@@ -55,6 +55,9 @@ export const components: RegistryItem[] = [
   {
     name: "word-reveal",
     type: "registry:ui",
+    title: "Word Reveal",
+    description: "An animated text component that reveals words with motion effects.",
+    author: "Prism UI Team",
     category: "components",
     subcategory: "animation",
     code: `"use client";

@@ -37,6 +37,9 @@ export interface RegistryFile {
 export interface RegistryItem {
   name: string;
   type: RegistryItemType;
+  title?: string;
+  description?: string;
+  author?: string;
   component?: React.ComponentType;
   code?: string;
   cli?: string | CliCommands;
@@ -45,9 +48,14 @@ export interface RegistryItem {
   registryDependencies?: string[];
   category?: string;
   subcategory?: string;
+  categories?: string[];
+  meta?: Record<string, any>;
+  docs?: string;
+  css?: string;
   cssVars?: {
     light: Record<string, string>;
     dark: Record<string, string>;
+    theme?: Record<string, string>;
   };
 }
 
@@ -63,6 +71,9 @@ export interface RegistryEntry extends Omit<RegistryItem, "files"> {
 export const registryEntrySchema = z.object({
   name: z.string(),
   type: registryItemTypeSchema,
+  title: z.string().optional(),
+  description: z.string().optional(),
+  author: z.string().optional(),
   component: z.any().optional(),
   code: z.string().optional(),
   files: z
@@ -79,10 +90,15 @@ export const registryEntrySchema = z.object({
   dependencies: z.array(z.string()).optional(),
   category: z.string().optional(),
   subcategory: z.string().optional(),
+  categories: z.array(z.string()).optional(),
+  meta: z.record(z.any()).optional(),
+  docs: z.string().optional(),
+  css: z.string().optional(),
   cssVars: z
     .object({
       light: z.record(z.string()),
       dark: z.record(z.string()),
+      theme: z.record(z.string()).optional(),
     })
     .optional(),
   tailwind: z
