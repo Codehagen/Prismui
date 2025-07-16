@@ -1,6 +1,6 @@
-import { rehypePrettyCodeConfig } from "./rehype-pretty-code-config";
+import { prettyCodeOptions } from "./content-collections/pretty-code-options";
 import rehypePrettyCode from "rehype-pretty-code";
 
 export const mdxOptions = {
-  rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeConfig]],
+  rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
 };

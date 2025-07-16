@@ -11,7 +11,7 @@ import rehypeStringify from "rehype-stringify";
 import { CopyButton } from "./copy-button";
 import { CopyCliButton } from "./copy-cli-button";
 import { CodeBlockWrapper } from "./code-block-wrapper";
-import { rehypePrettyCodeConfig } from "@/lib/rehype-pretty-code-config";
+import { prettyCodeOptions } from "@/lib/content-collections/pretty-code-options";
 
 interface ComponentSourceProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
@@ -22,7 +22,7 @@ async function formatCode(code: string, language = "tsx") {
   const file = await unified()
     .use(remarkParse)
     .use(remarkRehype)
-    .use(rehypePrettyCode, rehypePrettyCodeConfig)
+    .use(rehypePrettyCode, prettyCodeOptions)
     .use(rehypeStringify)
     .process(`\`\`\`${language}\n${code}\n\`\`\``);
 
