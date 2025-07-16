@@ -173,6 +173,9 @@ dependencies:
   react-tweet:
     specifier: ^3.2.1
     version: 3.2.1(react-dom@18.3.1)(react@18.3.1)
+  reading-time:
+    specifier: ^1.5.0
+    version: 1.5.0
   recharts:
     specifier: ^2.15.0
     version: 2.15.0(react-dom@18.3.1)(react@18.3.1)
@@ -8429,6 +8432,10 @@ packages:
   /readdirp@4.1.1:
     resolution: {integrity: sha512-h80JrZu/MHUZCyHu5ciuoI0+WxsCxzxJTILn6Fs8rxSnFPh+UVHYfeIxK1nVGugMqkfC4vJcBOYbkfkwYK0+gw==}
     engines: {node: '>= 14.18.0'}
+    dev: false
+
+  /reading-time@1.5.0:
+    resolution: {integrity: sha512-onYyVhBNr4CmAxFsKS7bz+uTLRakypIe4R+5A824vBSkQy/hB3fZepoVEf8OVAxzLvK+H/jm9TzpI3ETSm64Kg==}
     dev: false
 
   /recast@0.23.9:
