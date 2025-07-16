@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { 
@@ -8,14 +9,32 @@ import {
   Linkedin, 
   ArrowRight,
   Mail,
-  MapPin
+  MapPin,
+  Check
 } from "lucide-react";
+import EnhancedButton from "./enhanced-button";
 
 interface LinearFooterProps {
   className?: string;
 }
 
 export default function LinearFooter({ className }: LinearFooterProps) {
+  const [email, setEmail] = useState("");
+  const [subscribeStatus, setSubscribeStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setSubscribeStatus("loading");
+    // Simulate API call
+    setTimeout(() => {
+      setSubscribeStatus("success");
+      setEmail("");
+      setTimeout(() => setSubscribeStatus("idle"), 3000);
+    }, 1500);
+  };
+
   const footerSections = [
     {
       title: "Product",
@@ -86,23 +105,41 @@ export default function LinearFooter({ className }: LinearFooterProps) {
               Get the latest updates on new features, integrations, and product insights delivered to your inbox.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <div className="flex-1">
+            <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <div className="flex-1 relative">
                 <input
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200"
+                  required
                 />
+                {subscribeStatus === "success" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="absolute -bottom-6 left-0 flex items-center gap-2 text-sm text-green-600"
+                  >
+                    <Check className="w-4 h-4" />
+                    <span>Successfully subscribed!</span>
+                  </motion.div>
+                )}
               </div>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-6 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors flex items-center gap-2"
+              
+              <EnhancedButton
+                type="submit"
+                size="md"
+                variant="primary"
+                isLoading={subscribeStatus === "loading"}
+                loadingText="Subscribing..."
+                icon={subscribeStatus === "success" ? <Check className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
+                iconPosition="right"
+                className="min-w-[120px]"
               >
-                Subscribe
-                <ArrowRight className="w-4 h-4" />
-              </motion.button>
-            </div>
+                {subscribeStatus === "success" ? "Subscribed!" : "Subscribe"}
+              </EnhancedButton>
+            </form>
           </motion.div>
         </div>
       </div>

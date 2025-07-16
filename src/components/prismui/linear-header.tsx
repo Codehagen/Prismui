@@ -61,13 +61,13 @@ export default function LinearHeader({ className }: LinearHeaderProps) {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-2">
             {navigationItems.map((item) => (
               <div key={item.name} className="relative group">
-                <button className="flex items-center space-x-1 text-sm font-medium text-foreground hover:text-foreground/80 transition-colors py-2">
+                <button className="flex items-center space-x-1 text-sm font-medium text-foreground hover:text-foreground/80 transition-all duration-200 py-2 px-3 rounded-lg hover:bg-muted/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:bg-muted/50">
                   <span>{item.name}</span>
                   {item.hasDropdown && (
-                    <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                    <ChevronDown className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" />
                   )}
                 </button>
                 

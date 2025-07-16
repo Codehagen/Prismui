@@ -101,28 +101,45 @@ export default function LinearFeatures({
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -4 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
               className="group h-full"
             >
-              <div className="relative bg-muted/50 rounded-2xl p-6 border border-border hover:border-border/80 transition-all duration-300 h-full flex flex-col">
+              <div className="relative bg-muted/50 rounded-2xl p-6 border border-border hover:border-border/80 transition-all duration-300 h-full flex flex-col shadow-sm hover:shadow-lg overflow-hidden">
+                {/* Hover overlay */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  initial={false}
+                />
+                
                 {/* Visual */}
-                <div className="mb-6 flex-1">
-                  {feature.visual}
+                <div className="mb-6 flex-1 relative">
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
+                    className="relative overflow-hidden rounded-lg group-hover:shadow-md transition-shadow duration-300"
+                  >
+                    {feature.visual}
+                  </motion.div>
                 </div>
 
                 {/* Title and Plus Icon */}
-                <div className="flex items-center justify-between">
-                  <h3 className="text-xl font-semibold text-foreground group-hover:text-foreground/80 transition-colors">
+                <div className="flex items-center justify-between relative z-10">
+                  <h3 className="text-xl font-semibold text-foreground group-hover:text-foreground/90 transition-colors duration-200">
                     {feature.title}
                   </h3>
-                  <div className="w-8 h-8 rounded-full border border-border flex items-center justify-center group-hover:border-border/80 transition-colors">
-                    <Plus className="w-4 h-4 text-muted-foreground group-hover:text-muted-foreground/80" />
-                  </div>
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 90 }}
+                    transition={{ duration: 0.2 }}
+                    className="w-8 h-8 rounded-full border border-border flex items-center justify-center group-hover:border-border/80 group-hover:bg-muted/50 transition-all duration-200"
+                  >
+                    <Plus className="w-4 h-4 text-muted-foreground group-hover:text-foreground/80 transition-colors duration-200" />
+                  </motion.div>
                 </div>
 
                 {feature.description && (
-                  <p className="mt-4 text-muted-foreground text-sm">
+                  <p className="mt-4 text-muted-foreground text-sm relative z-10">
                     {feature.description}
                   </p>
                 )}
