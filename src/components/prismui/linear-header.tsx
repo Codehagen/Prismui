@@ -70,17 +70,26 @@ export default function LinearHeader({ className }: LinearHeaderProps) {
                     <ChevronDown className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" />
                   )}
                 </button>
-                
+
                 {item.hasDropdown && (
                   <div className="absolute top-full left-0 mt-2 w-48 bg-background/95 backdrop-blur-sm border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                     <div className="py-2">
-                      <a href="#" className="block px-4 py-2 text-sm hover:bg-muted transition-colors">
+                      <a
+                        href="#"
+                        className="block px-4 py-2 text-sm hover:bg-muted transition-colors"
+                      >
                         Overview
                       </a>
-                      <a href="#" className="block px-4 py-2 text-sm hover:bg-muted transition-colors">
+                      <a
+                        href="#"
+                        className="block px-4 py-2 text-sm hover:bg-muted transition-colors"
+                      >
                         Features
                       </a>
-                      <a href="#" className="block px-4 py-2 text-sm hover:bg-muted transition-colors">
+                      <a
+                        href="#"
+                        className="block px-4 py-2 text-sm hover:bg-muted transition-colors"
+                      >
                         Integrations
                       </a>
                     </div>
@@ -95,9 +104,7 @@ export default function LinearHeader({ className }: LinearHeaderProps) {
             <Button variant="ghost" size="sm">
               Log in
             </Button>
-            <Button size="sm">
-              Get started
-            </Button>
+            <Button size="sm">Get started</Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -132,7 +139,11 @@ export default function LinearHeader({ className }: LinearHeaderProps) {
                 </a>
               ))}
               <div className="pt-4 border-t border-border space-y-2">
-                <Button variant="ghost" size="sm" className="w-full justify-start">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start"
+                >
                   Log in
                 </Button>
                 <Button size="sm" className="w-full">
