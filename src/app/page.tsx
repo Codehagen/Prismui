@@ -4,13 +4,13 @@ import { MainFeatures } from "@/components/sections/main-features";
 import { GitHubStats } from "@/components/sections/github-stats";
 import { RepoActivity } from "@/components/sections/repo-activity";
 import { ShippingVelocity } from "@/components/sections/shipping-velocity";
-import Header from "@/components/sections/header";
+import { SiteHeader } from "@/components/site-header";
 import Footer from "@/components/sections/footer";
 
 export default function Home() {
   return (
     <main>
-      <Header />
+      <SiteHeader />
       <Hero />
       <Features />
       <MainFeatures />
