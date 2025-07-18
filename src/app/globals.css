@@ -126,4 +126,13 @@
   .docs-sidebar-nav-mobile {
     @apply py-2;
   }
+
+  .docs-sidebar-scroll {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .docs-sidebar-scroll::-webkit-scrollbar {
+    display: none;
+  }
 }
