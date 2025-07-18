@@ -125,6 +125,9 @@ dependencies:
   framer-motion:
     specifier: ^11.18.1
     version: 11.18.1(react-dom@18.3.1)(react@18.3.1)
+  geist:
+    specifier: ^1.4.2
+    version: 1.4.2(next@15.4.1)
   github-slugger:
     specifier: ^2.0.0
     version: 2.0.0
@@ -5800,6 +5803,14 @@ packages:
   /functions-have-names@1.2.3:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
     dev: true
+
+  /geist@1.4.2(next@15.4.1):
+    resolution: {integrity: sha512-OQUga/KUc8ueijck6EbtT07L4tZ5+TZgjw8PyWfxo16sL5FWk7gNViPNU8hgCFjy6bJi9yuTP+CRpywzaGN8zw==}
+    peerDependencies:
+      next: '>=13.2.0'
+    dependencies:
+      next: 15.4.1(@babel/core@7.26.0)(react-dom@18.3.1)(react@18.3.1)
+    dev: false
 
   /generic-pool@3.4.2:
     resolution: {integrity: sha512-H7cUpwCQSiJmAHM4c/aFu6fUfrhWXW1ncyh8ftxEPMu6AiYkHw9K8br720TGPZJbk5eOH2bynjZD1yPvdDAmag==}
