@@ -110,6 +110,18 @@ import PricingBasic, {
 import TimelineBasic from "./example/timeline-basic";
 import TimelineModern from "./example/timeline-modern";
 import TimelineMinimal from "./example/timeline-minimal";
+import EnhancedButtonBasic, {
+  demoSource as EnhancedButtonBasicSource,
+} from "./example/enhanced-button-basic";
+import EnhancedButtonDemo, {
+  demoSource as EnhancedButtonDemoSource,
+} from "./example/enhanced-button-demo";
+import StatusBadgeBasic, {
+  demoSource as StatusBadgeBasicSource,
+} from "./example/status-badge-basic";
+import StatusBadgeDemo, {
+  demoSource as StatusBadgeDemoSource,
+} from "./example/status-badge-demo";
 
 export const examples: RegistryItem[] = [
   {
@@ -417,5 +429,51 @@ export const examples: RegistryItem[] = [
     name: "timeline-minimal",
     type: "examples",
     component: TimelineMinimal,
+  },
+  {
+    name: "enhanced-button-basic",
+    type: "examples",
+    component: EnhancedButtonBasic,
+    code: EnhancedButtonBasicSource,
+    dependencies: [
+      "@/components/prismui/enhanced-button",
+      "framer-motion",
+      "lucide-react",
+    ],
+  },
+  {
+    name: "enhanced-button-demo",
+    type: "examples",
+    component: EnhancedButtonDemo,
+    code: EnhancedButtonDemoSource,
+    dependencies: [
+      "@/components/prismui/enhanced-button",
+      "@/components/ui/card",
+      "framer-motion",
+      "lucide-react",
+    ],
+  },
+  {
+    name: "status-badge-basic",
+    type: "examples",
+    component: StatusBadgeBasic,
+    code: StatusBadgeBasicSource,
+    dependencies: [
+      "@/components/prismui/status-badge",
+      "framer-motion",
+      "lucide-react",
+    ],
+  },
+  {
+    name: "status-badge-demo",
+    type: "examples",
+    component: StatusBadgeDemo,
+    code: StatusBadgeDemoSource,
+    dependencies: [
+      "@/components/prismui/status-badge",
+      "@/components/ui/card",
+      "framer-motion",
+      "lucide-react",
+    ],
   },
 ];

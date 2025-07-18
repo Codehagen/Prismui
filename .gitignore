@@ -63,4 +63,7 @@ auth.config.ts
 
 # Pro build artifacts
 /pro-build/
-/pro-dist/ 
+/pro-dist/
+
+# Claude Code configuration
+CLAUDE.md 

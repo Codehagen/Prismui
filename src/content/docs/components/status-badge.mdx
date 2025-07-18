@@ -1,0 +1,130 @@
+---
+title: Status Badge
+publishedAt: 2025-01-18
+summary: A badge component for displaying status with icons, colors, and optional animations.
+author: codehagen
+slug: components/status-badge
+category: display
+related: ["introduction"]
+---
+
+<ComponentPreview name="status-badge-basic" />
+
+<Note variant="info">
+  Ideal for displaying status information, progress indicators, and workflow states with visual feedback.
+</Note>
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+    <ComponentSource name="status-badge" isCli />
+  </TabsContent>
+  <TabsContent value="manual">
+    <Steps>
+      <Step>Copy and paste the following code into your project.</Step>
+      <ComponentSource name="status-badge" />
+      <Step>Update the import paths to match your project setup.</Step>
+    </Steps>
+  </TabsContent>
+</Tabs>
+
+## Dependencies
+
+This component requires the following dependencies:
+
+```bash
+pnpm add framer-motion lucide-react
+```
+
+
+
+## Examples
+
+<ComponentPreview name="status-badge-demo" />
+
+## Usage
+
+### Basic Usage
+
+```tsx
+import StatusBadge from "@/components/ui/status-badge"
+
+export default function Example() {
+  return (
+    <StatusBadge status="completed" label="Task Complete" />
+  )
+}
+```
+
+### All Status Types
+
+```tsx
+import StatusBadge from "@/components/ui/status-badge"
+
+export default function Example() {
+  return (
+    <div className="flex flex-wrap gap-2">
+      <StatusBadge status="completed" label="Completed" />
+      <StatusBadge status="in-progress" label="In Progress" />
+      <StatusBadge status="pending" label="Pending" />
+      <StatusBadge status="delayed" label="Delayed" />
+    </div>
+  )
+}
+```
+
+### With Animation Control
+
+```tsx
+import StatusBadge from "@/components/ui/status-badge"
+
+export default function Example() {
+  return (
+    <div className="flex flex-wrap gap-2">
+      <StatusBadge status="in-progress" label="Animated" animated={true} />
+      <StatusBadge status="in-progress" label="Static" animated={false} />
+    </div>
+  )
+}
+```
+
+## Features
+
+- Four predefined status types (completed, in-progress, pending, delayed)
+- Animated icons with customizable timing
+- Color-coded styling for each status
+- Dark mode support
+- Optional animation control
+- Hover effects
+- Customizable styling
+
+## Props
+
+| Prop | Type | Description | Required | Default |
+|------|------|-------------|----------|---------|
+| status | `'completed' | 'in-progress' | 'pending' | 'delayed'` | The status type to display | ✓ |  |
+| label | `string` | The text label for the status | ✓ |  |
+| className | `string` | Additional CSS classes |  |  |
+| animated | `boolean` | Enable or disable animations |  | true |
+
+## Notes
+
+- Built with Framer Motion for smooth animations
+- Uses Lucide React icons for consistency
+- Supports both light and dark themes
+- In-progress status includes pulsing animation
+- Responsive design with consistent sizing
+- Accessible with proper color contrast
+
+## Customization
+
+The component can be customized using the `className` prop and supports all standard HTML attributes.
+
+```tsx
+<StatusBadge className="custom-class" />
+```

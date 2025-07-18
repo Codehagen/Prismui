@@ -9,16 +9,30 @@ export const siteConfig = {
     email: "support@prism.ui",
     twitter: "https://twitter.com/prismui",
     discord: "https://discord.gg/",
-    github: "https://github.com/prismui",
+    github: "https://github.com/prismui/prismui",
     instagram: "https://instagram.com/prismui/",
   },
+  navItems: [
+    {
+      href: "/docs",
+      title: "Docs",
+    },
+    {
+      href: "/components",
+      title: "Components",
+    },
+    {
+      href: "/blog",
+      title: "Blog",
+    },
+  ],
   header: [
     {
       href: "/docs",
       label: "Docs",
     },
     {
-      href: "/docs/components/expandable-card",
+      href: "/components",
       label: "Components",
     },
     {

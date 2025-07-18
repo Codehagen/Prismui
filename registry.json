@@ -189,6 +189,32 @@
       ],
       "dependencies": ["framer-motion", "lucide-react", "react-tweet"],
       "registryDependencies": ["button", "card", "skeleton", "tooltip"]
+    },
+    {
+      "name": "enhanced-button",
+      "type": "registry:ui",
+      "title": "Enhanced Button",
+      "description": "A button component with enhanced animations, loading states, and flexible icon positioning.",
+      "files": [
+        {
+          "path": "registry/default/ui/enhanced-button.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["framer-motion", "lucide-react"]
+    },
+    {
+      "name": "status-badge",
+      "type": "registry:ui",
+      "title": "Status Badge",
+      "description": "A badge component for displaying status with icons, colors, and optional animations.",
+      "files": [
+        {
+          "path": "registry/default/ui/status-badge.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["framer-motion", "lucide-react"]
     }
   ]
 } 

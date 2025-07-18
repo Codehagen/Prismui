@@ -40,6 +40,10 @@ export const docsConfig: DocsConfig = {
       title: "Components",
       items: [
         {
+          title: "Display Cards",
+          href: "/docs/components/display-cards",
+        },
+        {
           title: "Expandable Card",
           href: "/docs/components/expandable-card",
         },
@@ -52,12 +56,13 @@ export const docsConfig: DocsConfig = {
           href: "/docs/components/hero-badge",
         },
         {
-          title: "Display Cards",
-          href: "/docs/components/display-cards",
-        },
-        {
           title: "Popover",
           href: "/docs/components/popover",
+          isNew: true,
+        },
+        {
+          title: "Status Badge",
+          href: "/docs/components/status-badge",
           isNew: true,
         },
         {
@@ -103,6 +108,11 @@ export const docsConfig: DocsConfig = {
         {
           title: "Button Group",
           href: "/docs/components/button-group",
+        },
+        {
+          title: "Enhanced Button",
+          href: "/docs/components/enhanced-button",
+          isNew: true,
         },
       ],
     },

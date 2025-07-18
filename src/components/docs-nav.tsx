@@ -17,7 +17,7 @@ export function DocsNav({ config }: { config: DocsConfig }) {
     <div className="flex flex-col gap-6">
       {items.map((item, index) => (
         <div key={index} className="flex flex-col gap-1">
-          <h4 className="rounded-md px-2 py-1 text-sm font-semibold">
+          <h4 className="rounded-md px-1 py-1 text-sm font-semibold">
             {item.title}
           </h4>
           {item?.items?.length && (
@@ -44,7 +44,7 @@ function DocsNavItems({
             key={index}
             href={item.href}
             className={cn(
-              "group flex h-8 w-full items-center justify-between rounded-lg px-2 font-normal text-foreground underline-offset-2 hover:bg-accent hover:text-accent-foreground",
+              "group flex h-8 w-full items-center justify-between rounded-lg px-1 font-normal text-foreground underline-offset-2 hover:bg-accent hover:text-accent-foreground",
               item.disabled && "cursor-not-allowed opacity-60",
               pathname === item.href &&
                 "bg-accent font-medium text-accent-foreground"
@@ -62,7 +62,7 @@ function DocsNavItems({
           <span
             key={index}
             className={cn(
-              "flex w-full cursor-not-allowed items-center rounded-md p-2 text-muted-foreground hover:underline",
+              "flex w-full cursor-not-allowed items-center rounded-md px-1 py-2 text-muted-foreground hover:underline",
               item.disabled && "cursor-not-allowed opacity-60"
             )}
           >

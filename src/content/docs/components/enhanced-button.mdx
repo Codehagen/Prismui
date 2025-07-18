@@ -1,0 +1,147 @@
+---
+title: Enhanced Button
+publishedAt: 2025-01-18
+summary: A button component with enhanced animations, loading states, and flexible icon positioning.
+author: codehagen
+slug: components/enhanced-button
+category: input
+related: ["introduction"]
+---
+
+<ComponentPreview name="enhanced-button-basic" />
+
+<Note variant="info">
+  Perfect for interactive elements that require loading states, enhanced animations, and flexible icon positioning.
+</Note>
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+    <ComponentSource name="enhanced-button" isCli />
+  </TabsContent>
+  <TabsContent value="manual">
+    <Steps>
+      <Step>Copy and paste the following code into your project.</Step>
+      <ComponentSource name="enhanced-button" />
+      <Step>Update the import paths to match your project setup.</Step>
+    </Steps>
+  </TabsContent>
+</Tabs>
+
+## Dependencies
+
+This component requires the following dependencies:
+
+```bash
+pnpm add framer-motion lucide-react
+```
+
+
+
+## Examples
+
+<ComponentPreview name="enhanced-button-demo" />
+
+## Usage
+
+### Basic Usage
+
+```tsx
+import EnhancedButton from "@/components/ui/enhanced-button"
+import { Heart } from "lucide-react"
+
+export default function Example() {
+  return (
+    <EnhancedButton
+      variant="primary"
+      size="md"
+      icon={<Heart className="w-4 h-4" />}
+      iconPosition="left"
+      onClick={() => console.log("clicked")}
+    >
+      Click Me
+    </EnhancedButton>
+  )
+}
+```
+
+### With Loading State
+
+```tsx
+import { useState } from "react"
+import EnhancedButton from "@/components/ui/enhanced-button"
+
+export default function Example() {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleClick = () => {
+    setIsLoading(true)
+    setTimeout(() => setIsLoading(false), 2000)
+  }
+
+  return (
+    <EnhancedButton
+      onClick={handleClick}
+      isLoading={isLoading}
+      loadingText="Processing..."
+    >
+      Submit
+    </EnhancedButton>
+  )
+}
+```
+
+### Variants
+
+```tsx
+<EnhancedButton variant="primary">Primary</EnhancedButton>
+<EnhancedButton variant="secondary">Secondary</EnhancedButton>
+<EnhancedButton variant="outline">Outline</EnhancedButton>
+<EnhancedButton variant="ghost">Ghost</EnhancedButton>
+```
+
+## Features
+
+- Smooth hover and tap animations
+- Loading states with custom text
+- Flexible icon positioning (left/right)
+- Multiple variants (primary, secondary, outline, ghost)
+- Multiple sizes (sm, md, lg)
+- Enhanced shadow effects
+- TypeScript support with proper types
+- Accessible focus states
+
+## Props
+
+| Prop | Type | Description | Required | Default |
+|------|------|-------------|----------|---------|
+| variant | `'primary' | 'secondary' | 'outline' | 'ghost'` | Button visual variant |  | 'primary' |
+| size | `'sm' | 'md' | 'lg'` | Button size |  | 'md' |
+| isLoading | `boolean` | Shows loading state with spinner |  | false |
+| loadingText | `string` | Custom text to show during loading state |  |  |
+| icon | `React.ReactNode` | Icon element to display |  |  |
+| iconPosition | `'left' | 'right'` | Position of the icon relative to text |  | 'left' |
+| children | `React.ReactNode` | Button content | ✓ |  |
+| className | `string` | Additional CSS classes |  |  |
+
+## Notes
+
+- Built with Framer Motion for smooth animations
+- Uses Lucide React for consistent iconography
+- Supports all standard button HTML attributes
+- Loading state automatically disables interactions
+- Responsive design with mobile-first approach
+- Includes proper accessibility features
+
+## Customization
+
+The component can be customized using the `className` prop and supports all standard HTML attributes.
+
+```tsx
+<EnhancedButton className="custom-class" />
+```

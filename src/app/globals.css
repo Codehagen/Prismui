@@ -82,7 +82,7 @@
     --chart-3: 0 0 83;
     --chart-4: 0 0 64;
     --chart-5: 27 87% 67%;
-    font-family: Inter, sans-serif;
+    font-family: var(--font-geist-sans), sans-serif;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11", "salt";
   }
 
@@ -100,7 +100,7 @@
 
   @supports (font-variation-settings: normal) {
     :root {
-      font-family: InterVariable, sans-serif;
+      font-family: var(--font-geist-sans), sans-serif;
       font-feature-settings: "cv02", "cv03", "cv04", "cv11", "salt";
     }
   }
@@ -125,5 +125,14 @@
 
   .docs-sidebar-nav-mobile {
     @apply py-2;
+  }
+
+  .docs-sidebar-scroll {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .docs-sidebar-scroll::-webkit-scrollbar {
+    display: none;
   }
 }
