@@ -1,36 +1,47 @@
 "use client";
 
 import * as React from "react";
-import { Menu } from "lucide-react";
+import { Book } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { DocsNav } from "@/components/docs-nav";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { docsConfig } from "@/config/docs";
+import { cn } from "@/lib/utils";
 
 export function DocsSidebar() {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
         <Button
           variant="ghost"
-          className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
+          size="icon"
+          className="h-8 w-8 md:hidden"
         >
-          <Menu className="h-6 w-6" />
-          <span className="sr-only">Toggle Menu</span>
+          <Book className="h-4 w-4" />
+          <span className="sr-only">Toggle Documentation Menu</span>
         </Button>
-      </SheetTrigger>
-      <SheetContent side="left" className="w-[300px] pr-0">
-        <ScrollArea className="h-[calc(100dvh-3.5rem)]">
-          <div className="flex flex-col space-y-4">
-            <div className="flex-1 py-2">
-              <DocsNav config={docsConfig} />
+      </PopoverTrigger>
+      <PopoverContent
+        className="bg-background/90 h-[calc(100vh-4rem)] w-[calc(100vw-2rem)] overflow-y-auto rounded-none border-none p-0 shadow-none backdrop-blur duration-100"
+        align="end"
+        side="bottom"
+        alignOffset={-16}
+        sideOffset={14}
+      >
+        <div className="flex flex-col gap-6 overflow-auto px-6 py-6">
+          <div className="flex flex-col gap-4">
+            <div className="text-lg font-semibold">Documentation</div>
+            <div className="text-muted-foreground text-sm">
+              Browse components and guides
             </div>
           </div>
-        </ScrollArea>
-      </SheetContent>
-    </Sheet>
+          <div className="docs-sidebar-scroll overflow-y-auto">
+            <DocsNav config={docsConfig} />
+          </div>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 }
