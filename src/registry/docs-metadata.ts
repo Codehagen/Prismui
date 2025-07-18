@@ -480,6 +480,149 @@ export const docsMetadata: Record<string, DocsMetadata> = {
     publishedAt: "2025-01-16",
     author: "PrismUI Team",
     category: "display"
+  },
+  "enhanced-button": {
+    usage: "Perfect for interactive elements that require loading states, enhanced animations, and flexible icon positioning.",
+    features: [
+      "Smooth hover and tap animations",
+      "Loading states with custom text",
+      "Flexible icon positioning (left/right)",
+      "Multiple variants (primary, secondary, outline, ghost)",
+      "Multiple sizes (sm, md, lg)",
+      "Enhanced shadow effects",
+      "TypeScript support with proper types",
+      "Accessible focus states"
+    ],
+    notes: [
+      "Built with Framer Motion for smooth animations",
+      "Uses Lucide React for consistent iconography",
+      "Supports all standard button HTML attributes",
+      "Loading state automatically disables interactions",
+      "Responsive design with mobile-first approach",
+      "Includes proper accessibility features"
+    ],
+    props: [
+      {
+        name: "variant",
+        type: "'primary' | 'secondary' | 'outline' | 'ghost'",
+        description: "Button visual variant",
+        default: "'primary'"
+      },
+      {
+        name: "size",
+        type: "'sm' | 'md' | 'lg'",
+        description: "Button size",
+        default: "'md'"
+      },
+      {
+        name: "isLoading",
+        type: "boolean",
+        description: "Shows loading state with spinner",
+        default: "false"
+      },
+      {
+        name: "loadingText",
+        type: "string",
+        description: "Custom text to show during loading state"
+      },
+      {
+        name: "icon",
+        type: "React.ReactNode",
+        description: "Icon element to display"
+      },
+      {
+        name: "iconPosition",
+        type: "'left' | 'right'",
+        description: "Position of the icon relative to text",
+        default: "'left'"
+      },
+      {
+        name: "children",
+        type: "React.ReactNode",
+        description: "Button content",
+        required: true
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Additional CSS classes"
+      }
+    ],
+    examples: [
+      {
+        name: "enhanced-button-basic",
+        title: "Basic Usage",
+        description: "Simple enhanced button with loading state"
+      },
+      {
+        name: "enhanced-button-demo",
+        title: "Full Demo",
+        description: "All variants, sizes, and icon positions"
+      }
+    ],
+    publishedAt: "2025-01-18",
+    author: "PrismUI Team",
+    category: "input"
+  },
+  "status-badge": {
+    usage: "Ideal for displaying status information, progress indicators, and workflow states with visual feedback.",
+    features: [
+      "Four predefined status types (completed, in-progress, pending, delayed)",
+      "Animated icons with customizable timing",
+      "Color-coded styling for each status",
+      "Dark mode support",
+      "Optional animation control",
+      "Hover effects",
+      "Customizable styling"
+    ],
+    notes: [
+      "Built with Framer Motion for smooth animations",
+      "Uses Lucide React icons for consistency",
+      "Supports both light and dark themes",
+      "In-progress status includes pulsing animation",
+      "Responsive design with consistent sizing",
+      "Accessible with proper color contrast"
+    ],
+    props: [
+      {
+        name: "status",
+        type: "'completed' | 'in-progress' | 'pending' | 'delayed'",
+        description: "The status type to display",
+        required: true
+      },
+      {
+        name: "label",
+        type: "string",
+        description: "The text label for the status",
+        required: true
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Additional CSS classes"
+      },
+      {
+        name: "animated",
+        type: "boolean",
+        description: "Enable or disable animations",
+        default: "true"
+      }
+    ],
+    examples: [
+      {
+        name: "status-badge-basic",
+        title: "Basic Usage",
+        description: "Simple status badge"
+      },
+      {
+        name: "status-badge-demo",
+        title: "All Status Types",
+        description: "Complete demonstration of all status types and features"
+      }
+    ],
+    publishedAt: "2025-01-18",
+    author: "PrismUI Team",
+    category: "display"
   }
 };
 
