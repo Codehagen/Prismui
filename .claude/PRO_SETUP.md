@@ -1,84 +1,112 @@
 # PrismUI Pro Setup Guide
 
-This guide explains how to set up the pro version of PrismUI while keeping the sensitive components excluded from the open source repository.
+## Overview
+This document outlines the setup process for PrismUI Pro - a premium version of the PrismUI component library with additional features, components, and documentation behind a paywall.
 
-## Directory Structure
+## Architecture Decisions
 
-The pro version uses the following directory structure (all excluded from git):
+### 1. Project Structure
+- All pro-related code is stored under `/src/*/pro/` directories
+- This ensures complete separation from the open-source codebase
+- The `.gitignore` file excludes all pro directories from the public repository
 
+### 2. Technology Stack
+- **Authentication**: Better Auth (already added to package.json)
+- **Database**: Prisma ORM (already added to package.json)
+- **Payments**: Stripe (to be configured)
+- **Hosting**: Separate domain at pro.prismui.tech (not wildcard)
+
+### 3. Domain Setup (Option 1 - Separate Domain)
+We're using a separate domain approach instead of wildcard domains:
+- Add `pro.prismui.tech` as a regular domain in Vercel
+- No complex middleware routing needed
+- Easier to manage separate deployments
+- Pro routes will be accessed directly at pro.prismui.tech/docs, pro.prismui.tech/components, etc.
+
+### 4. Directory Structure
 ```
-src/
-├── app/
-│   └── (pro)/              # Pro app routes
-│       ├── layout.tsx      # Pro layout (placeholder)
-│       └── pro/            # Pro pages
-├── components/
-│   └── pro/               # Pro components (placeholder)
-├── lib/
-│   ├── pro/               # Pro utilities (excluded)
-│   ├── payments/          # Payment integration (excluded)
-│   └── auth/
-│       └── premium/       # Premium auth logic (excluded)
-└── registry/
-    └── pro/               # Pro component registry (excluded)
+/src
+  /app
+    /pro                    # Pro version app routes
+      /(docs)              # Pro documentation (copied from regular docs)
+      /(auth)              # Authentication pages (login, signup, etc.)
+      /api                 # Pro-specific API routes
+  /lib
+    /pro                   # All pro library code
+      /auth               # Authentication logic
+      /payments           # Payment processing (Stripe)
+      /db                 # Database models and utilities
+  /components
+    /pro                  # Pro-only components
+  /registry
+    /pro                  # Pro component registry
 ```
 
-## Environment Configuration
+## Phase 1: Project Structure & Isolation ✅
 
-### Public Environment Variables (.env.example)
-- `PRO_ENABLED=false` - Toggle pro features
-- Standard Next.js and database configs
+### Completed:
+1. **Updated .gitignore** to consolidate pro exclusions:
+   - Removed redundant entries for `/src/lib/payments/` and `/src/lib/auth/premium/`
+   - Consolidated all pro code under `/src/lib/pro/`
+   - Removed separate config file exclusions (now under pro directories)
 
-### Pro Environment Variables (.env.pro - excluded from git)
-- Stripe configuration
-- Premium authentication secrets
-- Pro-specific database connections
+2. **Copied documentation structure**:
+   - Copied `/src/app/(docs)` → `/src/app/pro/(docs)`
+   - Updated layout component name to `ProDocsLayout`
 
-## Subdomain Routing
+3. **Created pro directory structure**:
+   - `/src/app/pro/` - Main pro app directory
+   - `/src/lib/pro/` - Pro library code
+   - `/src/lib/pro/auth/` - Authentication logic
+   - `/src/lib/pro/payments/` - Payment processing
+   - `/src/lib/pro/db/` - Database related code
+   - `/src/components/pro/` - Pro-only components
+   - `/src/registry/pro/` - Pro component registry
 
-The middleware.ts handles routing for pro.prismui.tech:
-- Rewrites pro.prismui.tech requests to `/pro/*` routes
-- Main site (prismui.tech) remains unchanged
-- Single codebase serves both versions
+## Next Phases
 
-## Deployment Strategy
+### Phase 2: Authentication Setup (Better Auth)
+- Configure Better Auth with email/password and OAuth providers
+- Create authentication pages (login, signup, forgot password)
+- Implement auth middleware for route protection
 
-### Development
-1. Set `PRO_ENABLED=true` in local environment
-2. Create actual pro components in excluded directories
-3. Test both subdomains locally
+### Phase 3: Database Setup (Prisma)
+- Define database schema for users, subscriptions, and payments
+- Set up database connections
+- Create database utilities
 
-### Production
-1. Use different environment configs for pro vs open source
-2. Deploy same codebase with different environment variables
-3. Pro features only activate when `PRO_ENABLED=true`
+### Phase 4: Payment Integration
+- Configure Stripe for subscription management
+- Implement webhook handlers
+- Create paywall components
 
-## Security Considerations
+### Phase 5: Pro Content Migration
+- Enhance pro documentation with exclusive content
+- Create pro-only components
+- Set up pro component registry
 
-### Git Exclusions
-All sensitive pro content is excluded via .gitignore:
-- Pro components and pages
-- Payment integration code
-- Premium authentication logic
-- Pro environment variables
-- Pro build artifacts
+### Phase 6: Environment Configuration
+- Set up environment variables for pro version
+- Configure pro.prismui.tech domain in Vercel
+- Update build and deployment scripts
 
-### Access Control
-- Pro routes check `PRO_ENABLED` environment variable
-- Redirect to main site if pro features disabled
-- Authentication middleware for premium features
+## Vercel Deployment Setup
+1. In Vercel project settings, go to "Domains" tab
+2. Add `pro.prismui.tech` as a domain
+3. Configure DNS records to point to Vercel
+4. The pro routes at `/src/app/pro/*` will be accessible at `pro.prismui.tech/*`
 
-## Getting Started
+## Environment Variables Required
+- `DATABASE_URL` - Prisma database connection
+- `BETTER_AUTH_SECRET` - Authentication secret
+- `STRIPE_SECRET_KEY` - Stripe API key
+- `STRIPE_WEBHOOK_SECRET` - Stripe webhook secret
+- `NEXT_PUBLIC_APP_URL` - Pro app URL (pro.prismui.tech)
+- `NEXT_PUBLIC_IS_PRO` - Flag to identify pro version
 
-1. Copy .env.example to .env.pro
-2. Set PRO_ENABLED=true in .env.pro
-3. Add your pro-specific environment variables
-4. Create actual components in the excluded directories
-5. Replace placeholder components with real implementations
-
-## Important Notes
-
-- Never commit pro-specific code to the open source repository
-- Use separate deployment configs for pro vs open source
-- Test thoroughly with both PRO_ENABLED=true and false
-- Consider using feature flags for gradual rollout
+## Development Workflow
+1. All pro development happens in `/src/*/pro/` directories
+2. Pro code is automatically excluded from git
+3. Use `.env.pro.local` for pro-specific environment variables
+4. Access pro routes locally at `localhost:3000/pro/*`
+5. In production, these will be at `pro.prismui.tech/*`

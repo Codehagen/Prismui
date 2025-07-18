@@ -51,12 +51,6 @@ next-env.d.ts
 pro.config.ts
 /scripts/pro/
 
-# Payment and authentication secrets
-stripe.config.ts
-auth.config.ts
-/src/lib/payments/
-/src/lib/auth/premium/
-
 # Pro environment variables
 .env.pro
 .env.pro.local
@@ -67,3 +61,5 @@ auth.config.ts
 
 # Claude Code configuration
 CLAUDE.md 
+
+/app/pro/generated/prisma
