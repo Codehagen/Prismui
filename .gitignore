@@ -62,4 +62,4 @@ pro.config.ts
 # Claude Code configuration
 CLAUDE.md 
 
-/app/pro/generated/prisma
+src/app/generated/prisma
