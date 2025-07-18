@@ -1,15 +1,13 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Menu } from "lucide-react"
+import Link, { LinkProps } from "next/link"
+import { useRouter, usePathname } from "next/navigation"
 
 import { siteConfig } from "@/lib/config"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Icons } from "@/components/icons"
 
 interface MobileNavProps {
@@ -17,47 +15,96 @@ interface MobileNavProps {
 }
 
 export function MobileNav({ className }: MobileNavProps) {
-  const pathname = usePathname()
   const [open, setOpen] = React.useState(false)
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
         <Button
           variant="ghost"
-          className={cn("mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 lg:hidden", className)}
+          className={cn(
+            "h-8 touch-manipulation items-center justify-start gap-2.5 !p-0 hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 active:bg-transparent dark:hover:bg-transparent",
+            className
+          )}
         >
-          <Menu className="h-5 w-5" />
-          <span className="sr-only">Toggle Menu</span>
-        </Button>
-      </SheetTrigger>
-      <SheetContent side="left" className="pr-0">
-        <Link
-          href="/"
-          className="flex items-center space-x-2"
-          onClick={() => setOpen(false)}
-        >
-          <Icons.logo className="h-6 w-6" />
-          <span className="font-bold">{siteConfig.name}</span>
-        </Link>
-        <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
-          <div className="flex flex-col space-y-3">
-            {siteConfig.navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
+          <div className="relative flex h-8 w-4 items-center justify-center">
+            <div className="relative size-4">
+              <span
                 className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary",
-                  pathname === item.href ? "text-primary" : "text-muted-foreground"
+                  "bg-foreground absolute left-0 block h-0.5 w-4 transition-all duration-100",
+                  open ? "top-[0.4rem] -rotate-45" : "top-1"
                 )}
-                onClick={() => setOpen(false)}
-              >
-                {item.title}
-              </Link>
-            ))}
+              />
+              <span
+                className={cn(
+                  "bg-foreground absolute left-0 block h-0.5 w-4 transition-all duration-100",
+                  open ? "top-[0.4rem] rotate-45" : "top-2.5"
+                )}
+              />
+            </div>
+            <span className="sr-only">Toggle Menu</span>
           </div>
-        </ScrollArea>
-      </SheetContent>
-    </Sheet>
+          <span className="flex h-8 items-center text-lg leading-none font-medium">
+            Menu
+          </span>
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent
+        className="bg-background/90 h-[calc(100vh-4rem)] w-[calc(100vw-2rem)] overflow-y-auto rounded-none border-none p-0 shadow-none backdrop-blur duration-100"
+        align="start"
+        side="bottom"
+        alignOffset={-16}
+        sideOffset={14}
+      >
+        <div className="flex flex-col gap-8 overflow-auto px-6 py-6">
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center space-x-1.5">
+              <Icons.logo className="h-6 w-6" />
+              <span className="font-semibold text-lg">{siteConfig.name}</span>
+            </div>
+            <div className="text-muted-foreground text-sm font-medium">
+              Navigation
+            </div>
+            <div className="flex flex-col gap-3">
+              <MobileLink href="/" onOpenChange={setOpen}>
+                Home
+              </MobileLink>
+              {siteConfig.navItems.map((item) => (
+                <MobileLink key={item.href} href={item.href} onOpenChange={setOpen}>
+                  {item.title}
+                </MobileLink>
+              ))}
+            </div>
+          </div>
+        </div>
+      </PopoverContent>
+    </Popover>
+  )
+}
+
+function MobileLink({
+  href,
+  onOpenChange,
+  className,
+  children,
+  ...props
+}: LinkProps & {
+  onOpenChange?: (open: boolean) => void
+  children: React.ReactNode
+  className?: string
+}) {
+  const router = useRouter()
+  return (
+    <Link
+      href={href}
+      onClick={() => {
+        router.push(href.toString())
+        onOpenChange?.(false)
+      }}
+      className={cn("text-2xl font-medium", className)}
+      {...props}
+    >
+      {children}
+    </Link>
   )
 }
