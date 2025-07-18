@@ -15,16 +15,21 @@ datasource db {
 }
 
 model User {
-  id            Int      @id @default(autoincrement())
+  id            String   @id
   email         String   @unique
   name          String?
-  emailVerified Boolean
+  emailVerified Boolean  @default(false)
   image         String?
-  createdAt     DateTime
-  updatedAt     DateTime
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
-  sessions Session[]
-  accounts Account[]
+  sessions         Session[]
+  accounts         Account[]
+  proMembership    ProMembership?
+  userPreferences  UserPreferences?
+  waitlistEntry    WaitlistEntry?
+  accessLogs       AccessLog[]
+  paymentHistory   PaymentHistory[]
 
   @@map("user")
 }
@@ -33,8 +38,8 @@ model Session {
   id        String   @id
   expiresAt DateTime
   token     String
-  createdAt DateTime
-  updatedAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   ipAddress String?
   userAgent String?
   userId    String
@@ -57,9 +62,10 @@ model Account {
   refreshTokenExpiresAt DateTime?
   scope                 String?
   password              String?
-  createdAt             DateTime
-  updatedAt             DateTime
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
 
+  @@unique([providerId, accountId])
   @@map("account")
 }
 
@@ -68,8 +74,131 @@ model Verification {
   identifier String
   value      String
   expiresAt  DateTime
-  createdAt  DateTime?
-  updatedAt  DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 
   @@map("verification")
+}
+
+// Enums
+enum MembershipTier {
+  FREE
+  PRO_LIFETIME
+  ENTERPRISE_LIFETIME
+}
+
+enum MembershipStatus {
+  ACTIVE
+  INACTIVE
+  REFUNDED
+  EXPIRED
+}
+
+enum WaitlistStatus {
+  PENDING
+  APPROVED
+  INVITED
+  CONVERTED
+  REJECTED
+}
+
+enum PaymentStatus {
+  SUCCEEDED
+  FAILED
+  PENDING
+  REFUNDED
+  PARTIALLY_REFUNDED
+}
+
+// Pro Membership Models
+model ProMembership {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  tier              MembershipTier @default(FREE)
+  status            MembershipStatus @default(INACTIVE)
+  purchaseDate      DateTime?
+  stripeCustomerId  String?  @unique
+  stripePaymentId   String?  @unique
+  licenseKey        String?  @unique
+  isActive          Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([status])
+  @@index([tier])
+  @@map("pro_membership")
+}
+
+model UserPreferences {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  preferences  Json     @default("{}")
+  theme        String   @default("system")
+  language     String   @default("en")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("user_preferences")
+}
+
+model WaitlistEntry {
+  id              String   @id @default(cuid())
+  email           String   @unique
+  userId          String?  @unique
+  name            String?
+  company         String?
+  useCase         String?
+  referralSource  String?
+  status          WaitlistStatus @default(PENDING)
+  approvedAt      DateTime?
+  inviteSentAt    DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+  
+  @@index([status])
+  @@index([createdAt])
+  @@map("waitlist_entry")
+}
+
+model PaymentHistory {
+  id                   String   @id @default(cuid())
+  userId               String
+  stripePaymentId      String   @unique
+  amount               Int      // Amount in cents
+  currency             String   @default("usd")
+  status               PaymentStatus
+  description          String?
+  productType          String?  // "PRO_LIFETIME", "ENTERPRISE_LIFETIME"
+  invoiceId            String?
+  refundedAmount       Int?     @default(0)
+  createdAt            DateTime @default(now())
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+  @@index([createdAt])
+  @@map("payment_history")
+}
+
+model AccessLog {
+  id           String   @id @default(cuid())
+  userId       String
+  action       String   // e.g., "component_download", "docs_view"
+  resource     String?  // e.g., component name, doc page
+  metadata     Json?    // Additional context
+  ipAddress    String?
+  userAgent    String?
+  createdAt    DateTime @default(now())
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId, createdAt])
+  @@index([action])
+  @@map("access_log")
 }
