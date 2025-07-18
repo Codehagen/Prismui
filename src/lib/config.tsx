@@ -18,7 +18,7 @@ export const siteConfig = {
       title: "Docs",
     },
     {
-      href: "/docs/components/expandable-card",
+      href: "/components",
       title: "Components",
     },
     {
@@ -32,7 +32,7 @@ export const siteConfig = {
       label: "Docs",
     },
     {
-      href: "/docs/components/expandable-card",
+      href: "/components",
       label: "Components",
     },
     {
