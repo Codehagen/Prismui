@@ -90,7 +90,6 @@ const whyChooseLifetime = [
 
 export default async function UpgradePage() {
   const user = await requireUser();
-  console.log("🔄 User:", user);
 
   return (
     <div className="min-h-screen">
@@ -100,13 +99,20 @@ export default async function UpgradePage() {
           <div className="mx-auto max-w-7xl flex items-center justify-between">
             <div className="flex items-center gap-3">
               <p className="text-sm font-medium text-primary">
-                👋 Welcome, <span className="font-bold">{user.name}</span>! 
+                👋 Welcome, <span className="font-bold">{user.name}</span>!
                 <span className="ml-2 text-xs opacity-75">({user.email})</span>
-                <span className="ml-2 text-xs bg-primary/20 px-2 py-1 rounded">FREE TIER</span>
+                <span className="ml-2 text-xs bg-primary/20 px-2 py-1 rounded">
+                  FREE TIER
+                </span>
               </p>
             </div>
             <form action={signOut}>
-              <Button variant="outline" size="sm" type="submit" className="gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                type="submit"
+                className="gap-2"
+              >
                 <LogOut className="h-4 w-4" />
                 Sign Out
               </Button>
@@ -114,7 +120,7 @@ export default async function UpgradePage() {
           </div>
         </div>
       )}
-      
+
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20 sm:py-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

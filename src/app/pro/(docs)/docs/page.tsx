@@ -4,13 +4,11 @@ import { MDX } from "@/components/blog/mdx";
 import MaxWidthWrapper from "@/components/blog/max-width-wrapper";
 import { getBlurDataURL } from "@/lib/blog/images";
 import { TableOfContents } from "@/components/docs/table-of-contents";
-import { getCurrentUser, requireProAccess } from "@/lib/pro/auth/user-actions";
+import { getCurrentUser } from "@/lib/pro/auth/user-actions";
 
 export default async function DocsPage() {
   // Require pro access to view docs
-  const userProfile = await requireProAccess();
   const user = await getCurrentUser();
-  console.log("🔄 User:", user);
 
   const data = allDocsPosts.find((post) => post.slug === "introduction");
   if (!data) {
@@ -33,7 +31,8 @@ export default async function DocsPage() {
           <div className="bg-primary/10 border-b border-primary/20 px-4 py-3 md:px-10">
             <div className="flex items-center justify-center text-center">
               <p className="text-sm font-medium text-primary">
-                🎉 Welcome to PrismUI Pro, <span className="font-bold">{user.name}</span>! 
+                🎉 Welcome to PrismUI Pro,{" "}
+                <span className="font-bold">{user.name}</span>!
                 <span className="ml-2 text-xs opacity-75">({user.email})</span>
               </p>
             </div>
