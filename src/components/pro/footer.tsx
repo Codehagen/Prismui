@@ -49,7 +49,7 @@ const footerSections = {
 export function ProFooter() {
   return (
     <footer className="border-t bg-background">
-      <div className="container mx-auto px-4 py-12">
+      <div className="container py-12">
         {/* Main Footer Content */}
         <div className="grid grid-cols-2 gap-8 lg:grid-cols-6">
           {/* Brand Section */}

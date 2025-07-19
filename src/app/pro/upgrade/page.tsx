@@ -93,33 +93,6 @@ export default async function UpgradePage() {
 
   return (
     <div className="min-h-screen">
-      {/* User Info Banner */}
-      {user && (
-        <div className="bg-primary/10 border-b border-primary/20 px-4 py-3">
-          <div className="mx-auto max-w-7xl flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <p className="text-sm font-medium text-primary">
-                👋 Welcome, <span className="font-bold">{user.name}</span>!
-                <span className="ml-2 text-xs opacity-75">({user.email})</span>
-                <span className="ml-2 text-xs bg-primary/20 px-2 py-1 rounded">
-                  FREE TIER
-                </span>
-              </p>
-            </div>
-            <form action={signOut}>
-              <Button
-                variant="outline"
-                size="sm"
-                type="submit"
-                className="gap-2"
-              >
-                <LogOut className="h-4 w-4" />
-                Sign Out
-              </Button>
-            </form>
-          </div>
-        </div>
-      )}
 
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20 sm:py-32">
