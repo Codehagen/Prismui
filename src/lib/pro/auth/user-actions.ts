@@ -26,7 +26,6 @@ type UserProfile = User & {
     status: "ACTIVE" | "INACTIVE" | "REFUNDED" | "EXPIRED";
     isActive: boolean;
     purchaseDate: Date | null;
-    stripeCustomerId: string | null;
   } | null;
   hasProAccess: boolean;
 };
@@ -91,7 +90,6 @@ export async function getUserProfile(): Promise<UserProfile | null> {
         status: true,
         isActive: true,
         purchaseDate: true,
-        stripeCustomerId: true,
       },
     });
 

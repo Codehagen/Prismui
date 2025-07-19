@@ -21,6 +21,14 @@ export async function upgradeUserMembership(
   subscriptionId?: string
 ) {
   try {
+    // Update User with stripeCustomerId if provided
+    if (stripeCustomerId) {
+      await prisma.user.update({
+        where: { id: userId },
+        data: { stripeCustomerId },
+      });
+    }
+
     // Upsert ProMembership record
     const proMembership = await prisma.proMembership.upsert({
       where: { userId },
@@ -29,7 +37,6 @@ export async function upgradeUserMembership(
         status: MembershipStatus.ACTIVE,
         isActive: true,
         purchaseDate: new Date(),
-        stripeCustomerId,
         stripePaymentId,
         updatedAt: new Date(),
       },
@@ -39,7 +46,6 @@ export async function upgradeUserMembership(
         status: MembershipStatus.ACTIVE,
         isActive: true,
         purchaseDate: new Date(),
-        stripeCustomerId,
         stripePaymentId,
       },
     });

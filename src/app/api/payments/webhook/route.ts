@@ -137,12 +137,13 @@ async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
     const { PrismaClient } = await import("@/app/generated/prisma");
     const prisma = new PrismaClient();
     
-    const proMembership = await prisma.proMembership.findUnique({
+    const user = await prisma.user.findUnique({
       where: { stripeCustomerId: customerId },
+      include: { proMembership: true },
     });
     
-    if (!proMembership) {
-      console.error("No user found for customer:", customerId);
+    if (!user?.proMembership) {
+      console.error("No user or membership found for customer:", customerId);
       return;
     }
     
@@ -150,7 +151,7 @@ async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
     const isActive = subscription.status === "active" || subscription.status === "trialing";
     
     await prisma.proMembership.update({
-      where: { stripeCustomerId: customerId },
+      where: { userId: user.id },
       data: {
         isActive,
         status: isActive ? "ACTIVE" : "INACTIVE",
@@ -158,7 +159,7 @@ async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
       },
     });
     
-    console.log(`Updated subscription for user ${proMembership.userId}: ${subscription.status}`);
+    console.log(`Updated subscription for user ${user.id}: ${subscription.status}`);
   } catch (error) {
     console.error("Failed to update subscription:", error);
     throw error;
@@ -172,18 +173,19 @@ async function handleSubscriptionCancellation(subscription: Stripe.Subscription)
     const { PrismaClient } = await import("@/app/generated/prisma");
     const prisma = new PrismaClient();
     
-    const proMembership = await prisma.proMembership.findUnique({
+    const user = await prisma.user.findUnique({
       where: { stripeCustomerId: customerId },
+      include: { proMembership: true },
     });
     
-    if (!proMembership) {
-      console.error("No user found for customer:", customerId);
+    if (!user?.proMembership) {
+      console.error("No user or membership found for customer:", customerId);
       return;
     }
     
     // Deactivate membership
     await prisma.proMembership.update({
-      where: { stripeCustomerId: customerId },
+      where: { userId: user.id },
       data: {
         isActive: false,
         status: "INACTIVE",
@@ -191,7 +193,7 @@ async function handleSubscriptionCancellation(subscription: Stripe.Subscription)
       },
     });
     
-    console.log(`Cancelled subscription for user ${proMembership.userId}`);
+    console.log(`Cancelled subscription for user ${user.id}`);
   } catch (error) {
     console.error("Failed to cancel subscription:", error);
     throw error;
