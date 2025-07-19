@@ -51,7 +51,7 @@ export default function SignIn() {
           setError(result.error || "Authentication failed");
         }
       } catch (err) {
-        console.error("💥 Error calling signInOrCreateUser:", err);
+        console.error("💥 Error during sign-in:", err);
         setError("An unexpected error occurred");
       }
     });

@@ -42,14 +42,14 @@ next-env.d.ts
 .content-collections/generated/
 
 # Pro version - exclude from open source repo
-/src/app/pro/
-/src/components/pro/
-/src/lib/pro/
-/src/registry/pro/
-/content/pro/
-/public/pro-assets/
-pro.config.ts
-/scripts/pro/
+# /src/app/pro/
+# /src/components/pro/
+# /src/lib/pro/
+# /src/registry/pro/
+# /content/pro/
+# /public/pro-assets/
+# pro.config.ts
+# /scripts/pro/
 
 # Pro environment variables
 .env.pro
