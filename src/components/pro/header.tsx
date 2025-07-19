@@ -3,10 +3,12 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { Suspense } from "react"
 
 import { Icons } from "@/components/icons"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
+import { Skeleton } from "@/components/ui/skeleton"
 import { ModeSwitcher } from "@/components/mode-switcher"
 import { cn } from "@/lib/utils"
 import {
@@ -18,8 +20,9 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { User, Settings, CreditCard, LogOut, Menu, X } from "lucide-react"
+import { User, Settings, CreditCard, LogOut, Menu } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { useSession, signOut } from "@/lib/pro/auth/auth-client"
 
 const proNavItems = [
   {
@@ -103,12 +106,37 @@ function ProMobileNav() {
 }
 
 function ProAccountMenu() {
-  // In a real app, this would come from auth context
-  const user = {
-    name: "John Doe",
-    email: "john@example.com",
-    avatar: "",
-    plan: "Pro"
+  const { data: session, isPending } = useSession()
+  const user = session?.user
+
+  const handleSignOut = async () => {
+    try {
+      await signOut()
+    } catch (error) {
+      console.error("Sign out error:", error)
+    }
+  }
+
+  if (isPending) {
+    return <Skeleton className="h-8 w-8 rounded-full" />
+  }
+
+  if (!user) {
+    return (
+      <Button asChild size="sm">
+        <Link href="/pro/login">Sign In</Link>
+      </Button>
+    )
+  }
+
+  // Get user initials for fallback
+  const getInitials = (name: string) => {
+    return name
+      .split(" ")
+      .map((part) => part.charAt(0))
+      .join("")
+      .toUpperCase()
+      .slice(0, 2)
   }
 
   return (
@@ -116,15 +144,15 @@ function ProAccountMenu() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src={user.avatar} alt={user.name} />
-            <AvatarFallback>{user.name?.charAt(0)}</AvatarFallback>
+            <AvatarImage src={user.image || ""} alt={user.name || ""} />
+            <AvatarFallback>{getInitials(user.name || user.email || "U")}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <div className="flex items-center justify-start gap-2 p-2">
           <div className="flex flex-col space-y-1 leading-none">
-            <p className="font-medium">{user.name}</p>
+            <p className="font-medium">{user.name || "User"}</p>
             <p className="w-[200px] truncate text-sm text-muted-foreground">
               {user.email}
             </p>
@@ -150,7 +178,7 @@ function ProAccountMenu() {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleSignOut}>
           <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
         </DropdownMenuItem>
@@ -177,16 +205,6 @@ export function ProHeader() {
 
         {/* Right Side Items */}
         <div className="ml-auto flex items-center gap-2">
-          {/* Search - placeholder for now */}
-          <Button variant="outline" size="sm" className="hidden md:flex">
-            <span className="text-sm text-muted-foreground">Search...</span>
-            <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100 ml-2">
-              <span className="text-xs">⌘</span>K
-            </kbd>
-          </Button>
-          
-          <Separator orientation="vertical" className="h-4 hidden lg:block" />
-          
           {/* Back to Main Site */}
           <Button variant="ghost" size="sm" asChild className="hidden lg:flex">
             <Link href="/">
@@ -194,10 +212,12 @@ export function ProHeader() {
             </Link>
           </Button>
           
-          <Separator orientation="vertical" className="h-4" />
+          <Separator orientation="vertical" className="h-4 hidden lg:block" />
           
           {/* Theme Switcher */}
           <ModeSwitcher />
+          
+          <Separator orientation="vertical" className="h-4" />
           
           {/* Account Menu */}
           <ProAccountMenu />
