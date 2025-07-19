@@ -177,7 +177,7 @@ export async function requireProAccess(): Promise<UserProfile> {
   const profile = await getUserProfile();
 
   if (!profile) {
-    redirect("/pro/signup");
+    redirect("/pro/login");
   }
 
   if (!profile.hasProAccess) {

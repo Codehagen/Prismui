@@ -127,10 +127,10 @@ export default async function ProLandingPage() {
               ) : (
                 <>
                   <Button asChild size="lg">
-                    <Link href="/pro/auth/signup">Start Free Trial</Link>
+                    <Link href="/pro/login">Start Free Trial</Link>
                   </Button>
                   <Button asChild variant="outline" size="lg">
-                    <Link href="/pro/auth/login">Sign In</Link>
+                    <Link href="/pro/login">Sign In</Link>
                   </Button>
                 </>
               )}
@@ -245,7 +245,7 @@ export default async function ProLandingPage() {
             </p>
             <div className="mt-10">
               <Button asChild size="lg">
-                <Link href="/pro/auth/signup">Start your free trial</Link>
+                <Link href="/pro/login">Start your free trial</Link>
               </Button>
             </div>
           </div>

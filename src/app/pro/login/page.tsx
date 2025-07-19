@@ -1,4 +1,4 @@
-import SignIn from "@/components/auth/sign-in";
+import UnifiedAuth from "@/components/auth/unified-auth";
 
 export default function LoginPage() {
   return (
@@ -7,9 +7,9 @@ export default function LoginPage() {
         Sign in to PrismUI Pro
       </h1>
       <p className="text-muted-foreground mb-8 text-center max-w-md">
-        Welcome back! Please enter your email and password to continue.
+        Enter your email and password. We'll create an account for you if you don't have one.
       </p>
-      <SignIn />
+      <UnifiedAuth />
     </main>
   );
 }
