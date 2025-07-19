@@ -6,7 +6,7 @@ export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export const STRIPE_PRICE_IDS = {
   INDIVIDUAL_LIFETIME: process.env.STRIPE_INDIVIDUAL_LIFETIME_PRICE_ID!,
-  INDIVIDUAL_PREMIUM: process.env.STRIPE_INDIVIDUAL_PREMIUM_PRICE_ID!,
+  INDIVIDUAL_ANNUAL: process.env.STRIPE_INDIVIDUAL_ANNUAL_PRICE_ID!,
 } as const;
 
 export const PLANS = {
@@ -27,16 +27,16 @@ export const PLANS = {
       "Custom components on request",
     ],
   },
-  INDIVIDUAL_PREMIUM: {
-    name: "Individual License - Premium Access",
+  INDIVIDUAL_ANNUAL: {
+    name: "Individual License - Annual Access",
     price: 149,
-    priceId: STRIPE_PRICE_IDS.INDIVIDUAL_PREMIUM,
+    priceId: STRIPE_PRICE_IDS.INDIVIDUAL_ANNUAL,
     features: [
       "30+ Premium components",
       "Advanced animations & effects", 
       "TypeScript support",
       "Email support",
-      "Lifetime updates",
+      "Annual updates",
       "Commercial license",
       "Component source code",
       "Design system tokens",

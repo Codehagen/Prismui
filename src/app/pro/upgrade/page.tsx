@@ -22,7 +22,7 @@ export const metadata = constructMetadata({
 
 const plans = [
   {
-    name: "Individual License - Premium Access",
+    name: "Individual License - Annual Access",
     price: "$149",
     originalPrice: "$199",
     description: "Perfect for individual developers",
@@ -31,15 +31,16 @@ const plans = [
       "Advanced animations & effects",
       "TypeScript support",
       "Email support",
-      "Lifetime updates",
+      "Annual updates",
       "Commercial license",
       "Component source code",
       "Design system tokens",
     ],
-    cta: "Get Premium Access",
+    cta: "Get Annual Access",
     popular: false,
     savings: "Save $50",
-    planType: "INDIVIDUAL_PREMIUM" as const,
+    planType: "INDIVIDUAL_ANNUAL" as const,
+    billing: "per year",
   },
   {
     name: "Individual License - Lifetime Access",
@@ -62,6 +63,7 @@ const plans = [
     popular: true,
     savings: "Save $100",
     planType: "INDIVIDUAL_LIFETIME" as const,
+    billing: "one-time",
   },
 ];
 
@@ -211,7 +213,7 @@ export default async function UpgradePage() {
                       {plan.originalPrice}
                     </span>
                     <span className="text-sm text-muted-foreground">
-                      one-time
+                      {plan.billing}
                     </span>
                   </div>
                 </CardHeader>

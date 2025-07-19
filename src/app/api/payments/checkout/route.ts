@@ -28,6 +28,10 @@ export async function POST(request: NextRequest) {
     const plan = PLANS[planType];
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
+    // Determine payment mode based on plan type
+    const isSubscription = planType === "INDIVIDUAL_ANNUAL"; // Annual plan
+    const mode = isSubscription ? "subscription" : "payment";
+    
     // Create Stripe checkout session
     const checkoutSession = await stripe.checkout.sessions.create({
       customer_email: session.user.email,
@@ -38,7 +42,7 @@ export async function POST(request: NextRequest) {
           quantity: 1,
         },
       ],
-      mode: "payment", // One-time payment
+      mode,
       success_url: `${baseUrl}/pro/upgrade/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/pro/upgrade/cancel`,
       metadata: {
@@ -47,6 +51,15 @@ export async function POST(request: NextRequest) {
       },
       // Allow promotion codes
       allow_promotion_codes: true,
+      // For subscriptions, allow customer to manage their subscription
+      ...(isSubscription && {
+        subscription_data: {
+          metadata: {
+            userId: session.user.id,
+            planType,
+          },
+        },
+      }),
     });
 
     return NextResponse.json({ url: checkoutSession.url });

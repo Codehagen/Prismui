@@ -1,8 +1,6 @@
-import { PrismaClient } from "@/app/generated/prisma";
+import { PrismaClient, MembershipTier, MembershipStatus } from "@/app/generated/prisma";
 
 const prisma = new PrismaClient();
-
-export type MembershipType = "FREE" | "PRO" | "ENTERPRISE";
 
 export interface PaymentRecord {
   userId: string;
@@ -17,20 +15,36 @@ export interface PaymentRecord {
 
 export async function upgradeUserMembership(
   userId: string,
-  membership: MembershipType,
-  stripeCustomerId?: string
+  tier: MembershipTier,
+  stripeCustomerId?: string,
+  stripePaymentId?: string,
+  subscriptionId?: string
 ) {
   try {
-    const updatedUser = await prisma.user.update({
-      where: { id: userId },
-      data: {
-        membership,
+    // Upsert ProMembership record
+    const proMembership = await prisma.proMembership.upsert({
+      where: { userId },
+      update: {
+        tier,
+        status: MembershipStatus.ACTIVE,
+        isActive: true,
+        purchaseDate: new Date(),
         stripeCustomerId,
+        stripePaymentId,
         updatedAt: new Date(),
+      },
+      create: {
+        userId,
+        tier,
+        status: MembershipStatus.ACTIVE,
+        isActive: true,
+        purchaseDate: new Date(),
+        stripeCustomerId,
+        stripePaymentId,
       },
     });
 
-    return updatedUser;
+    return proMembership;
   } catch (error) {
     console.error("Failed to upgrade user membership:", error);
     throw new Error("Failed to upgrade user membership");
@@ -39,28 +53,20 @@ export async function upgradeUserMembership(
 
 export async function createPaymentRecord(record: PaymentRecord) {
   try {
-    await prisma.$executeRaw`
-      INSERT INTO payment_history (
-        user_id, 
-        stripe_session_id, 
-        stripe_payment_intent_id,
-        amount, 
-        currency, 
-        plan_type, 
-        status, 
-        created_at
-      ) VALUES (
-        ${record.userId},
-        ${record.stripeSessionId},
-        ${record.stripePaymentIntentId},
-        ${record.amount},
-        ${record.currency},
-        ${record.planType},
-        ${record.status},
-        ${record.createdAt}
-      )
-      ON CONFLICT (stripe_session_id) DO NOTHING
-    `;
+    const paymentHistory = await prisma.paymentHistory.create({
+      data: {
+        userId: record.userId,
+        stripePaymentId: record.stripePaymentIntentId,
+        amount: record.amount,
+        currency: record.currency,
+        status: record.status === "completed" ? "SUCCEEDED" : "FAILED",
+        description: `${record.planType} purchase`,
+        productType: record.planType,
+        createdAt: record.createdAt,
+      },
+    });
+    
+    return paymentHistory;
   } catch (error) {
     console.error("Failed to create payment record:", error);
     throw new Error("Failed to create payment record");
@@ -84,26 +90,29 @@ export async function getUserPaymentHistory(userId: string) {
 
 export async function hasUserPaid(userId: string): Promise<boolean> {
   try {
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-      select: { membership: true },
+    const proMembership = await prisma.proMembership.findUnique({
+      where: { userId },
+      select: { 
+        isActive: true,
+        tier: true,
+      },
     });
 
-    return user?.membership === "PRO" || user?.membership === "ENTERPRISE";
+    return proMembership?.isActive && proMembership.tier !== "FREE";
   } catch (error) {
     console.error("Failed to check user payment status:", error);
     return false;
   }
 }
 
-export function getMembershipFeatures(membership: MembershipType) {
+export function getMembershipFeatures(tier: MembershipTier) {
   const features = {
     FREE: [
       "Basic components",
       "Community support",
       "MIT license",
     ],
-    PRO: [
+    PRO_LIFETIME: [
       "50+ Premium components",
       "Advanced animations & effects", 
       "TypeScript support",
@@ -112,8 +121,10 @@ export function getMembershipFeatures(membership: MembershipType) {
       "Commercial license",
       "Component source code",
       "Design system tokens",
+      "White-label license",
+      "Custom components on request",
     ],
-    ENTERPRISE: [
+    ENTERPRISE_LIFETIME: [
       "Everything in Pro",
       "Custom components on request",
       "White-label license", 
@@ -125,5 +136,5 @@ export function getMembershipFeatures(membership: MembershipType) {
     ],
   };
 
-  return features[membership] || features.FREE;
+  return features[tier] || features.FREE;
 }

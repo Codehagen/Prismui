@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe, getPlanByPriceId } from "@/lib/payments/stripe";
-import { upgradeUserMembership, createPaymentRecord, type MembershipType } from "@/lib/payments/user-management";
+import { upgradeUserMembership, createPaymentRecord } from "@/lib/payments/user-management";
+import { MembershipTier } from "@/app/generated/prisma";
 import Stripe from "stripe";
 
 export async function POST(request: NextRequest) {
@@ -42,6 +43,24 @@ export async function POST(request: NextRequest) {
         console.log("Payment succeeded:", paymentIntent.id);
         break;
       }
+      case "customer.subscription.created":
+      case "customer.subscription.updated": {
+        const subscription = event.data.object as Stripe.Subscription;
+        await handleSubscriptionUpdate(subscription);
+        break;
+      }
+      case "customer.subscription.deleted": {
+        const subscription = event.data.object as Stripe.Subscription;
+        await handleSubscriptionCancellation(subscription);
+        break;
+      }
+      case "invoice.payment_succeeded": {
+        const invoice = event.data.object as Stripe.Invoice;
+        if (invoice.subscription) {
+          console.log("Subscription invoice paid:", invoice.id);
+        }
+        break;
+      }
       default:
         console.log(`Unhandled event type: ${event.type}`);
     }
@@ -80,12 +99,15 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       return;
     }
 
-    // Update user's membership status
-    const membership: MembershipType = planType === "INDIVIDUAL_LIFETIME" ? "PRO" : "PRO";
+    // Map plan types to membership tiers
+    // Both Individual plans map to PRO_LIFETIME tier
+    const tier: MembershipTier = "PRO_LIFETIME";
+    
     await upgradeUserMembership(
       userId,
-      membership,
-      session.customer as string
+      tier,
+      session.customer as string,
+      session.payment_intent as string
     );
 
     // Store payment record
@@ -103,6 +125,75 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
     console.log(`Successfully upgraded user ${userId} to ${planType}`);
   } catch (error) {
     console.error("Failed to upgrade user:", error);
+    throw error;
+  }
+}
+
+async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
+  const customerId = subscription.customer as string;
+  
+  try {
+    // Find user by Stripe customer ID
+    const { PrismaClient } = await import("@/app/generated/prisma");
+    const prisma = new PrismaClient();
+    
+    const proMembership = await prisma.proMembership.findUnique({
+      where: { stripeCustomerId: customerId },
+    });
+    
+    if (!proMembership) {
+      console.error("No user found for customer:", customerId);
+      return;
+    }
+    
+    // Update subscription status
+    const isActive = subscription.status === "active" || subscription.status === "trialing";
+    
+    await prisma.proMembership.update({
+      where: { stripeCustomerId: customerId },
+      data: {
+        isActive,
+        status: isActive ? "ACTIVE" : "INACTIVE",
+        updatedAt: new Date(),
+      },
+    });
+    
+    console.log(`Updated subscription for user ${proMembership.userId}: ${subscription.status}`);
+  } catch (error) {
+    console.error("Failed to update subscription:", error);
+    throw error;
+  }
+}
+
+async function handleSubscriptionCancellation(subscription: Stripe.Subscription) {
+  const customerId = subscription.customer as string;
+  
+  try {
+    const { PrismaClient } = await import("@/app/generated/prisma");
+    const prisma = new PrismaClient();
+    
+    const proMembership = await prisma.proMembership.findUnique({
+      where: { stripeCustomerId: customerId },
+    });
+    
+    if (!proMembership) {
+      console.error("No user found for customer:", customerId);
+      return;
+    }
+    
+    // Deactivate membership
+    await prisma.proMembership.update({
+      where: { stripeCustomerId: customerId },
+      data: {
+        isActive: false,
+        status: "INACTIVE",
+        updatedAt: new Date(),
+      },
+    });
+    
+    console.log(`Cancelled subscription for user ${proMembership.userId}`);
+  } catch (error) {
+    console.error("Failed to cancel subscription:", error);
     throw error;
   }
 }

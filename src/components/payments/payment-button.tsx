@@ -6,7 +6,7 @@ import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface PaymentButtonProps {
-  planType: "INDIVIDUAL_LIFETIME" | "INDIVIDUAL_PREMIUM";
+  planType: "INDIVIDUAL_LIFETIME" | "INDIVIDUAL_ANNUAL";
   className?: string;
   variant?: "default" | "outline";
   children: React.ReactNode;
