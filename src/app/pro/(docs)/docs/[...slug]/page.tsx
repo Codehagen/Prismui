@@ -1,5 +1,5 @@
 import MaxWidthWrapper from "@/components/blog/max-width-wrapper";
-import { allDocsPosts } from "content-collections";
+import { allProDocsPosts } from "content-collections";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { MDX } from "@/components/blog/mdx";
@@ -7,9 +7,10 @@ import { getBlurDataURL } from "@/lib/blog/images";
 import { TableOfContents } from "@/components/docs/table-of-contents";
 import { ChevronRight } from "lucide-react";
 import Author from "@/components/blog/author";
+import { requireProAccess } from "@/lib/pro/auth/user-actions";
 
 export async function generateStaticParams() {
-  return allDocsPosts.map((post) => ({
+  return allProDocsPosts.map((post) => ({
     slug: post.slug.split("/"),
   }));
 }
@@ -19,9 +20,12 @@ export default async function DocsPage({
 }: {
   params: Promise<{ slug: string[] }>;
 }) {
+  // Require pro access to view docs
+  await requireProAccess();
+  
   const { slug: slugArray } = await params;
   const slug = slugArray.join("/");
-  const data = allDocsPosts.find((post) => post.slug === slug);
+  const data = allProDocsPosts.find((post) => post.slug === slug);
 
   if (!data) {
     notFound();
@@ -36,16 +40,16 @@ export default async function DocsPage({
 
   const relatedArticles = data.related
     ? data.related
-        .map((slug) => allDocsPosts.find((post) => post.slug === slug))
+        .map((slug) => allProDocsPosts.find((post) => post.slug === slug))
         .filter((post): post is NonNullable<typeof post> => post !== undefined)
     : [];
 
   // Create breadcrumb segments
   const segments = [
-    { name: "Documentation", href: "/docs" },
+    { name: "Pro Documentation", href: "/pro/docs" },
     ...slugArray.map((segment, index) => ({
       name: segment.charAt(0).toUpperCase() + segment.slice(1),
-      href: `/docs/${slugArray.slice(0, index + 1).join("/")}`,
+      href: `/pro/docs/${slugArray.slice(0, index + 1).join("/")}`,
     })),
   ];
 
@@ -90,7 +94,7 @@ export default async function DocsPage({
                   {relatedArticles.map((article) => (
                     <Link
                       key={article.slug}
-                      href={`/docs/${article.slug}`}
+                      href={`/pro/docs/${article.slug}`}
                       className="group flex flex-col space-y-2 rounded-lg p-3 transition-colors hover:bg-muted"
                     >
                       <p className="font-medium text-foreground group-hover:text-foreground">
@@ -108,7 +112,7 @@ export default async function DocsPage({
           <div className="sticky top-20 col-span-1 hidden flex-col space-y-10 divide-y divide-border self-start md:flex">
             <TableOfContents
               items={data.tableOfContents}
-              currentPageSlug={`/docs/${slugArray.join("/")}`}
+              currentPageSlug={`/pro/docs/${slugArray.join("/")}`}
             />
           </div>
         </div>

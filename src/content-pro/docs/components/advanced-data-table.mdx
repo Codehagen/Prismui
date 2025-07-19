@@ -1,0 +1,199 @@
+---
+title: Advanced Data Table
+publishedAt: "2025-01-19"
+summary: Feature-rich data table with sorting, filtering, pagination, and export functionality
+author: prismui
+categories: ["pro", "components"]
+---
+
+The Advanced Data Table is a powerful component for displaying and managing large datasets with built-in features for sorting, filtering, searching, and exporting data.
+
+## Features
+
+- **Column Sorting** - Sort by any column with multi-column support
+- **Advanced Filtering** - Filter by column with various filter types
+- **Global Search** - Search across all columns
+- **Pagination** - Client and server-side pagination
+- **Row Selection** - Single and multi-row selection
+- **Export** - Export to CSV, Excel, and PDF
+- **Column Visibility** - Show/hide columns dynamically
+- **Row Actions** - Custom actions per row
+- **Virtualization** - Handle large datasets efficiently
+
+## Installation
+
+```bash
+npx prismui add advanced-data-table --pro
+```
+
+## Basic Usage
+
+```tsx
+import { AdvancedDataTable } from "@/components/pro/advanced-data-table"
+
+const columns = [
+  {
+    accessorKey: "name",
+    header: "Name",
+    cell: ({ row }) => row.getValue("name"),
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
+    cell: ({ row }) => row.getValue("email"),
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => (
+      <Badge variant={row.getValue("status") === "active" ? "default" : "secondary"}>
+        {row.getValue("status")}
+      </Badge>
+    ),
+  },
+]
+
+export default function Example() {
+  return (
+    <AdvancedDataTable
+      columns={columns}
+      data={data}
+      searchable
+      exportable
+      selectable
+    />
+  )
+}
+```
+
+## Advanced Configuration
+
+### Server-Side Data
+
+```tsx
+<AdvancedDataTable
+  columns={columns}
+  data={data}
+  pagination={{
+    pageIndex: 0,
+    pageSize: 10,
+    pageCount: 100,
+    onPaginationChange: (pagination) => {
+      // Fetch new data
+    },
+  }}
+  sorting={{
+    onSortingChange: (sorting) => {
+      // Apply server-side sorting
+    },
+  }}
+/>
+```
+
+### Custom Filters
+
+```tsx
+const columns = [
+  {
+    accessorKey: "price",
+    header: "Price",
+    filterFn: "inNumberRange",
+    meta: {
+      filterComponent: ({ column }) => (
+        <NumberRangeFilter column={column} />
+      ),
+    },
+  },
+]
+```
+
+### Row Actions
+
+```tsx
+<AdvancedDataTable
+  columns={columns}
+  data={data}
+  rowActions={[
+    {
+      label: "Edit",
+      onClick: (row) => handleEdit(row.original),
+    },
+    {
+      label: "Delete",
+      onClick: (row) => handleDelete(row.original),
+      variant: "destructive",
+    },
+  ]}
+/>
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| columns | `ColumnDef[]` | required | Column definitions |
+| data | `T[]` | required | Table data |
+| searchable | `boolean` | `false` | Enable global search |
+| exportable | `boolean` | `false` | Enable export functionality |
+| selectable | `boolean` | `false` | Enable row selection |
+| pagination | `PaginationConfig` | - | Pagination configuration |
+| sorting | `SortingConfig` | - | Sorting configuration |
+| rowActions | `RowAction[]` | - | Actions to display per row |
+
+### Column Definition
+
+```tsx
+interface ColumnDef<T> {
+  accessorKey: keyof T
+  header: string | ((props: HeaderContext<T>) => ReactNode)
+  cell: (props: CellContext<T>) => ReactNode
+  enableSorting?: boolean
+  enableFiltering?: boolean
+  filterFn?: FilterFn<T>
+  meta?: {
+    filterComponent?: (props: FilterComponentProps<T>) => ReactNode
+  }
+}
+```
+
+## Examples
+
+### With Export Options
+
+```tsx
+<AdvancedDataTable
+  columns={columns}
+  data={data}
+  exportable
+  exportOptions={{
+    formats: ["csv", "excel", "pdf"],
+    filename: "users-export",
+    onExport: (format, data) => {
+      console.log(`Exporting ${data.length} rows as ${format}`)
+    },
+  }}
+/>
+```
+
+### With Custom Toolbar
+
+```tsx
+<AdvancedDataTable
+  columns={columns}
+  data={data}
+  toolbar={(table) => (
+    <div className="flex items-center gap-2">
+      <Input
+        placeholder="Search..."
+        value={table.getState().globalFilter ?? ""}
+        onChange={(e) => table.setGlobalFilter(e.target.value)}
+      />
+      <Button onClick={() => handleBulkAction(table.getSelectedRowModel().rows)}>
+        Bulk Action
+      </Button>
+    </div>
+  )}
+/>
+```

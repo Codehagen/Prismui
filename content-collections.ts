@@ -69,6 +69,22 @@ export const LegalPost = defineCollection({
   transform: createMDXTransform({ collectionType: "legal", computeRelated: false }),
 });
 
+export const ProDocsPost = defineCollection({
+  name: "ProDocsPost",
+  directory: "src/content-pro/docs",
+  include: "**/*.mdx",
+  schema: (z) => ({
+    title: z.string(),
+    publishedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    summary: z.string(),
+    author: z.string(),
+    categories: z.array(z.string()).default(["pro"]),
+    related: z.array(z.string()).optional(),
+    slug: z.string().optional(),
+  }),
+  transform: createMDXTransform({ collectionType: "docs" }),
+});
+
 export default defineConfig({
-  collections: [BlogPost, ChangelogPost, DocsPost, LegalPost],
+  collections: [BlogPost, ChangelogPost, DocsPost, LegalPost, ProDocsPost],
 });

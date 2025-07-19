@@ -51,6 +51,9 @@ next-env.d.ts
 # pro.config.ts
 # /scripts/pro/
 
+# Pro content - separate content system
+# /src/content-pro/
+
 # Pro environment variables
 .env.pro
 .env.pro.local

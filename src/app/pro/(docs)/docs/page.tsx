@@ -1,16 +1,16 @@
-import { allDocsPosts } from "content-collections";
+import { allProDocsPosts } from "content-collections";
 import { notFound } from "next/navigation";
 import { MDX } from "@/components/blog/mdx";
 import MaxWidthWrapper from "@/components/blog/max-width-wrapper";
 import { getBlurDataURL } from "@/lib/blog/images";
 import { TableOfContents } from "@/components/docs/table-of-contents";
-import { getCurrentUser } from "@/lib/pro/auth/user-actions";
+import { requireProAccess } from "@/lib/pro/auth/user-actions";
 
 export default async function DocsPage() {
   // Require pro access to view docs
-  const user = await getCurrentUser();
+  const user = await requireProAccess();
 
-  const data = allDocsPosts.find((post) => post.slug === "introduction");
+  const data = allProDocsPosts.find((post) => post.slug === "welcome-to-prismui-pro");
   if (!data) {
     notFound();
   }
@@ -53,7 +53,7 @@ export default async function DocsPage() {
           <div className="sticky top-20 col-span-1 hidden flex-col space-y-10 divide-y divide-border self-start md:flex">
             <TableOfContents
               items={data.tableOfContents}
-              currentPageSlug={data.slug ? `/docs/${data.slug}` : "/docs"}
+              currentPageSlug={data.slug ? `/pro/docs/${data.slug}` : "/pro/docs"}
             />
           </div>
         </div>

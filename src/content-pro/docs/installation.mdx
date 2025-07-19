@@ -1,0 +1,105 @@
+---
+title: Installation
+publishedAt: "2025-01-19"
+summary: Learn how to install and configure PrismUI Pro components in your project
+author: prismui
+categories: ["pro"]
+---
+
+## Prerequisites
+
+Before installing PrismUI Pro components, ensure you have:
+
+1. A valid PrismUI Pro license
+2. An existing Next.js or React project
+3. The base PrismUI components installed
+
+## Authentication
+
+First, authenticate with your PrismUI Pro account:
+
+```bash
+npx prismui auth
+```
+
+Enter your license key when prompted. This will be stored securely for future use.
+
+## Installing Pro Components
+
+### Using the CLI
+
+Install individual pro components:
+
+```bash
+npx prismui add data-table --pro
+npx prismui add rich-text-editor --pro
+```
+
+Or install multiple components at once:
+
+```bash
+npx prismui add data-table rich-text-editor form-builder --pro
+```
+
+### Manual Installation
+
+If you prefer manual installation, pro components can be downloaded from your account dashboard and placed in your project's `components/pro` directory.
+
+## Configuration
+
+### TypeScript Configuration
+
+Pro components include full TypeScript support. Ensure your `tsconfig.json` includes:
+
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/components/pro/*": ["./components/pro/*"]
+    }
+  }
+}
+```
+
+### Tailwind Configuration
+
+Some pro components require additional Tailwind plugins. Add these to your `tailwind.config.js`:
+
+```js
+module.exports = {
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
+  ],
+}
+```
+
+## Updating Components
+
+To update pro components to the latest version:
+
+```bash
+npx prismui update --pro
+```
+
+This will check for updates to all installed pro components and update them if newer versions are available.
+
+## Troubleshooting
+
+### License Key Issues
+
+If you encounter license key errors:
+
+1. Verify your license is active in your account dashboard
+2. Re-authenticate using `npx prismui auth --reset`
+3. Ensure you're not exceeding your license limits
+
+### Component Conflicts
+
+If you experience conflicts with existing components:
+
+1. Pro components are namespaced under `/components/pro`
+2. Check for naming conflicts with your existing components
+3. Use the `--force` flag to overwrite existing files if needed
+
+Need more help? Contact support@prismui.com
