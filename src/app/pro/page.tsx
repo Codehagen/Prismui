@@ -95,8 +95,7 @@ const plans = [
 
 export default async function ProLandingPage() {
   const isAuth = await isAuthenticated();
-  const user = await getCurrentUser();
-  console.log("🔄 User:", user);
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}

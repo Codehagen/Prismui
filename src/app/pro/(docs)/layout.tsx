@@ -13,7 +13,7 @@ export default async function ProDocsLayout({
   const user = await getCurrentUser();
   
   if (!user) {
-    redirect("/pro/auth/login");
+    redirect("/pro/signup");
   }
 
   return (

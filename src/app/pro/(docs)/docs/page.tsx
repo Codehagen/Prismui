@@ -8,9 +8,9 @@ import { getCurrentUser, requireProAccess } from "@/lib/pro/auth/user-actions";
 
 export default async function DocsPage() {
   // Require pro access to view docs
-  const user = await requireProAccess();
-  const x = await getCurrentUser();
-  console.log("🔄 User:", x);
+  const userProfile = await requireProAccess();
+  const user = await getCurrentUser();
+  console.log("🔄 User:", user);
 
   const data = allDocsPosts.find((post) => post.slug === "introduction");
   if (!data) {
@@ -28,6 +28,17 @@ export default async function DocsPage() {
     <div className="relative">
       <div className="absolute inset-0 bg-gradient-to-b from-background to-background/50" />
       <div className="relative">
+        {/* Welcome Banner */}
+        {user && (
+          <div className="bg-primary/10 border-b border-primary/20 px-4 py-3 md:px-10">
+            <div className="flex items-center justify-center text-center">
+              <p className="text-sm font-medium text-primary">
+                🎉 Welcome to PrismUI Pro, <span className="font-bold">{user.name}</span>! 
+                <span className="ml-2 text-xs opacity-75">({user.email})</span>
+              </p>
+            </div>
+          </div>
+        )}
         <div className="grid grid-cols-4 gap-10 py-10 px-4 md:px-10">
           <div className="col-span-4 flex flex-col space-y-8 md:col-span-3 md:pr-10">
             <div className="flex flex-col space-y-4">

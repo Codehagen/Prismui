@@ -142,13 +142,13 @@ export async function isAuthenticated(): Promise<boolean> {
 }
 
 /**
- * Get authenticated user or redirect to sign-in
+ * Get authenticated user or redirect to sign-up
  * Use this when you need to ensure user is authenticated
  */
 export async function requireAuth() {
   const user = await getUser();
   if (!user) {
-    redirect("/pro/auth/login");
+    redirect("/pro/signup");
   }
   return user;
 }

@@ -7,17 +7,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check, Sparkles, Zap, Shield } from "lucide-react";
+import { Check, Sparkles, Zap, Shield, LogOut } from "lucide-react";
 import { constructMetadata } from "@/lib/utils";
 import { getCurrentUser, requireUser } from "@/lib/pro/auth/user-actions";
+import { signOut } from "@/actions/auth-actions";
+import Link from "next/link";
 
 export const metadata = constructMetadata({
   title: "Upgrade to PrismUI Pro",
   description:
     "Unlock premium React components and exclusive features with PrismUI Pro lifetime membership.",
 });
-const user = await getCurrentUser();
-console.log("🔄 User:", user);
 
 const plans = [
   {
@@ -83,9 +83,31 @@ const whyChooseLifetime = [
 
 export default async function UpgradePage() {
   const user = await requireUser();
+  console.log("🔄 User:", user);
 
   return (
     <div className="min-h-screen">
+      {/* User Info Banner */}
+      {user && (
+        <div className="bg-primary/10 border-b border-primary/20 px-4 py-3">
+          <div className="mx-auto max-w-7xl flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <p className="text-sm font-medium text-primary">
+                👋 Welcome, <span className="font-bold">{user.name}</span>! 
+                <span className="ml-2 text-xs opacity-75">({user.email})</span>
+                <span className="ml-2 text-xs bg-primary/20 px-2 py-1 rounded">FREE TIER</span>
+              </p>
+            </div>
+            <form action={signOut}>
+              <Button variant="outline" size="sm" type="submit" className="gap-2">
+                <LogOut className="h-4 w-4" />
+                Sign Out
+              </Button>
+            </form>
+          </div>
+        </div>
+      )}
+      
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20 sm:py-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -223,7 +245,7 @@ export default async function UpgradePage() {
           <div className="mx-auto mt-16 max-w-2xl space-y-8">
             <div>
               <h3 className="text-lg font-semibold">
-                What does "lifetime" mean?
+                What does lifetime mean?
               </h3>
               <p className="mt-2 text-muted-foreground">
                 Lifetime means you pay once and get access forever. No recurring
