@@ -11,20 +11,41 @@ import { Check, Sparkles, Zap, Shield, LogOut } from "lucide-react";
 import { constructMetadata } from "@/lib/utils";
 import { getCurrentUser, requireUser } from "@/lib/pro/auth/user-actions";
 import { signOut } from "@/actions/auth-actions";
+import { PaymentButton } from "@/components/payments/payment-button";
 import Link from "next/link";
 
 export const metadata = constructMetadata({
-  title: "Upgrade to PrismUI Pro",
+  title: "Upgrade to PrismUI Individual License",
   description:
-    "Unlock premium React components and exclusive features with PrismUI Pro lifetime membership.",
+    "Unlock premium React components and exclusive features with PrismUI Individual License.",
 });
 
 const plans = [
   {
-    name: "Pro Lifetime",
-    price: "$99",
-    originalPrice: "$149",
-    description: "Perfect for developers and small teams",
+    name: "Individual License - Premium Access",
+    price: "$149",
+    originalPrice: "$199",
+    description: "Perfect for individual developers",
+    features: [
+      "30+ Premium components",
+      "Advanced animations & effects",
+      "TypeScript support",
+      "Email support",
+      "Lifetime updates",
+      "Commercial license",
+      "Component source code",
+      "Design system tokens",
+    ],
+    cta: "Get Premium Access",
+    popular: false,
+    savings: "Save $50",
+    planType: "INDIVIDUAL_PREMIUM" as const,
+  },
+  {
+    name: "Individual License - Lifetime Access",
+    price: "$199",
+    originalPrice: "$299",
+    description: "Complete access with premium features",
     features: [
       "50+ Premium components",
       "Advanced animations & effects",
@@ -34,29 +55,13 @@ const plans = [
       "Commercial license",
       "Component source code",
       "Design system tokens",
-    ],
-    cta: "Get Pro Lifetime",
-    popular: true,
-    savings: "Save $50",
-  },
-  {
-    name: "Enterprise Lifetime",
-    price: "$299",
-    originalPrice: "$399",
-    description: "For large teams and organizations",
-    features: [
-      "Everything in Pro",
-      "Custom components on request",
       "White-label license",
-      "Priority support & SLA",
-      "Team onboarding",
-      "Custom design tokens",
-      "Dedicated support channel",
-      "Architecture consultation",
+      "Custom components on request",
     ],
-    cta: "Get Enterprise Lifetime",
-    popular: false,
+    cta: "Get Lifetime Access",
+    popular: true,
     savings: "Save $100",
+    planType: "INDIVIDUAL_LIFETIME" as const,
   },
 ];
 
@@ -117,12 +122,12 @@ export default async function UpgradePage() {
               Limited Time Offer
             </Badge>
             <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-              Upgrade to <span className="text-primary">PrismUI Pro</span>
+              Get Your <span className="text-primary">Individual License</span>
             </h1>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
               Hi {user.name || user.email}! 👋 Ready to unlock the full
-              potential of PrismUI? Get lifetime access to premium components
-              and exclusive features.
+              potential of PrismUI? Choose your individual license for lifetime
+              access to premium components and exclusive features.
             </p>
           </div>
         </div>
@@ -165,7 +170,7 @@ export default async function UpgradePage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Choose your lifetime plan
+              Choose your individual license
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
               One-time payment. Lifetime access. No recurring fees.
@@ -219,14 +224,13 @@ export default async function UpgradePage() {
                       </li>
                     ))}
                   </ul>
-                  <Button
-                    className="w-full"
-                    size="lg"
+                  <PaymentButton
+                    planType={plan.planType}
                     variant={plan.popular ? "default" : "outline"}
-                    disabled
+                    className="w-full"
                   >
-                    {plan.cta} (Coming Soon)
-                  </Button>
+                    {plan.cta}
+                  </PaymentButton>
                 </CardContent>
               </Card>
             ))}
