@@ -61,8 +61,8 @@ export async function createPaymentRecord(record: PaymentRecord) {
   try {
     const paymentHistory = await prisma.paymentHistory.create({
       data: {
-        userId: record.userId,
-        stripePaymentId: record.stripePaymentIntentId,
+        user: { connect: { id: record.userId } },
+        stripePaymentId: record.stripePaymentIntentId || `session_${Date.now()}`, // Fallback for subscriptions
         amount: record.amount,
         currency: record.currency,
         status: record.status === "completed" ? "SUCCEEDED" : "FAILED",

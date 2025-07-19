@@ -110,11 +110,15 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       session.payment_intent as string
     );
 
-    // Store payment record
+    // Store payment record - handle both Lifetime (payment) and Annual (subscription) flows
+    const paymentId = planType === "INDIVIDUAL_LIFETIME" 
+      ? session.payment_intent as string  // Keep Lifetime flow exactly as before
+      : session.subscription as string;   // Use subscription ID for Annual plans
+    
     await createPaymentRecord({
       userId,
       stripeSessionId: session.id,
-      stripePaymentIntentId: session.payment_intent as string,
+      stripePaymentIntentId: paymentId,
       amount: session.amount_total || 0,
       currency: session.currency?.toUpperCase() || "USD",
       planType,
