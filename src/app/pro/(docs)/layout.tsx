@@ -1,4 +1,3 @@
-import Footer from "@/components/sections/footer";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/pro/auth/user-actions";
 
@@ -18,8 +17,7 @@ export default async function ProDocsLayout({
 
   return (
     <>
-      <main className="flex-1">{children}</main>
-      <Footer />
+      {children}
     </>
   );
 }

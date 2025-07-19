@@ -1,7 +1,6 @@
 import { DocsNav } from "@/components/docs-nav";
 import { docsConfig } from "@/config/docs";
 import { DocsSidebar } from "@/components/docs-sidebar";
-import { SiteHeader } from "@/components/site-header";
 
 interface DocsLayoutProps {
   children: React.ReactNode;
@@ -10,8 +9,6 @@ interface DocsLayoutProps {
 export default function DocsLayout({ children }: DocsLayoutProps) {
   return (
     <div>
-      <SiteHeader />
-      
       {/* Mobile docs header - only visible on mobile */}
       <div className="md:hidden border-b bg-background/95 backdrop-blur sticky top-14 z-20">
         <div className="container flex h-12 items-center gap-2">
