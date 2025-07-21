@@ -90,38 +90,6 @@ export function ProFAQ() {
           ))}
         </Accordion>
       </div>
-
-      {/* Final CTA */}
-      <div className="mx-auto mt-20 max-w-2xl text-center">
-        <Card className="border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10">
-          <div className="p-8">
-            <div className="flex items-center justify-center mb-4">
-              <Sparkles className="h-6 w-6 text-primary fill-primary/20" />
-            </div>
-            <h3 className="text-2xl font-bold mb-2">Ready to get started?</h3>
-            <p className="text-muted-foreground mb-6">
-              Join thousands of developers building better UIs with PrismUI Pro.
-              Start your free trial today.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="sm:w-auto">
-                <Link href="/pro/login">
-                  Start Free Trial
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="sm:w-auto">
-                <Link href="/pro/login">
-                  Sign In
-                </Link>
-              </Button>
-            </div>
-            <p className="text-xs text-muted-foreground mt-4">
-              No credit card required • 7-day free trial • Cancel anytime
-            </p>
-          </div>
-        </Card>
-      </div>
     </section>
   );
 }

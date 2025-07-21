@@ -1,110 +1,180 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check } from "lucide-react";
+import { Check, Sparkles } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const plans = [
   {
-    name: "Pro",
-    price: "$19",
-    period: "/month",
-    description: "Perfect for developers and small teams",
+    name: "Individual Annual",
+    price: "$149",
+    period: "/year",
+    description: "Perfect for individual developers",
     features: [
-      "All premium components",
-      "Private npm access",
-      "TypeScript support",
-      "Priority email support",
-      "Monthly updates",
-      "Commercial license",
+      "50+ Premium React components",
+      "TypeScript & Framer Motion",
+      "Commercial use license",
+      "Annual updates",
+      "Email support",
+      "Perpetual license",
     ],
-    cta: "Start Pro Trial",
-    href: "/pro/auth/signup",
-    popular: true,
+    cta: "Get Annual Access",
+    href: "/pro/auth/signup?plan=annual",
+    popular: false,
+    badge: null,
   },
   {
-    name: "Enterprise",
-    price: "Custom",
-    period: "",
-    description: "For large teams and organizations",
+    name: "Individual Lifetime",
+    price: "$199",
+    period: "one-time",
+    description: "Best value for serious developers",
     features: [
-      "Everything in Pro",
-      "Custom components",
-      "Dedicated support",
-      "SLA guarantee",
-      "Team training",
-      "White-label option",
+      "50+ Premium React components",
+      "TypeScript & Framer Motion",
+      "Commercial use license",
+      "Lifetime access & updates",
+      "5+ Premium templates",
+      "Priority email support",
     ],
-    cta: "Contact Sales",
-    href: "mailto:enterprise@prismui.tech",
-    popular: false,
+    cta: "Get Lifetime Access",
+    href: "/pro/auth/signup?plan=lifetime",
+    popular: true,
   },
 ];
 
 export function ProPricing() {
   return (
-    <section className="py-20 sm:py-32 bg-muted/50">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Simple, transparent pricing
+    <section className="relative isolate py-24 sm:py-32">
+      {/* Background decoration */}
+      <div 
+        aria-hidden="true" 
+        className="absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden px-36 blur-3xl"
+      >
+        <div 
+          className="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-primary/30 to-primary/10 opacity-30"
+          style={{
+            clipPath: 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)'
+          }}
+        />
+      </div>
+      
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* Header */}
+        <div className="mx-auto max-w-4xl text-center">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Sparkles className="h-5 w-5 text-primary" />
+            <span className="text-base font-semibold text-primary">Pricing</span>
+          </div>
+          <h2 className="text-5xl font-semibold tracking-tight text-balance sm:text-6xl">
+            Ship in Hours, <span className="text-muted-foreground">Not Weeks</span>
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Choose the plan that works best for you and your team.
+          <p className="mx-auto mt-6 max-w-2xl text-lg font-medium text-pretty text-muted-foreground sm:text-xl/8">
+            Skip 200+ hours of development with premium React components. Get TypeScript, 
+            Framer Motion animations, and production-ready templates that ship instantly.
           </p>
         </div>
 
-        <div className="mx-auto mt-16 grid max-w-4xl gap-8 lg:grid-cols-2">
-          {plans.map((plan) => (
-            <Card
-              key={plan.name}
-              className={
-                plan.popular
-                  ? "border-2 border-primary shadow-lg"
-                  : "border-2"
-              }
+        {/* Pricing Cards */}
+        <div className="mx-auto mt-16 grid max-w-lg grid-cols-1 items-center gap-y-6 sm:mt-20 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2">
+          {/* Pro Plan */}
+          <div className={cn(
+            "rounded-3xl p-8 ring-1 backdrop-blur-xl",
+            "bg-white/20 ring-white/20 border-2 border-primary/20",
+            "sm:mx-8 sm:rounded-b-none sm:p-10 lg:mx-0 lg:rounded-bl-3xl lg:rounded-tr-none",
+            "hover:bg-white/30 transition-all duration-300"
+          )}>
+            <h3 id="tier-pro" className="text-base font-semibold text-primary">
+              {plans[0].name}
+            </h3>
+            <p className="mt-4 flex items-baseline gap-x-2">
+              <span className="text-5xl font-semibold tracking-tight">{plans[0].price}</span>
+              <span className="text-base text-muted-foreground">{plans[0].period}</span>
+            </p>
+            <p className="mt-6 text-base text-muted-foreground">{plans[0].description}</p>
+            <ul role="list" className="mt-8 space-y-3 text-sm sm:mt-10">
+              {plans[0].features.map((feature) => (
+                <li key={feature} className="flex gap-x-3">
+                  <Check className="h-6 w-5 flex-none text-primary" />
+                  <span className="text-foreground">{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="mt-8 w-full sm:mt-10"
             >
-              {plan.popular && (
-                <div className="text-center">
-                  <Badge className="relative -top-3 bg-primary">
-                    Most Popular
-                  </Badge>
-                </div>
-              )}
-              <CardHeader className={plan.popular ? "pt-2" : ""}>
-                <CardTitle className="text-2xl">{plan.name}</CardTitle>
-                <CardDescription>{plan.description}</CardDescription>
-                <div className="mt-4">
-                  <span className="text-4xl font-bold">{plan.price}</span>
-                  <span className="text-muted-foreground">{plan.period}</span>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <ul className="space-y-3">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2">
-                      <Check className="h-5 w-5 shrink-0 text-primary" />
-                      <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Button
-                  asChild
-                  className="w-full"
-                  size="lg"
-                  variant={plan.popular ? "default" : "outline"}
-                >
-                  <Link href={plan.href}>{plan.cta}</Link>
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
+              <Link href={plans[0].href} aria-describedby="tier-pro">
+                {plans[0].cta}
+              </Link>
+            </Button>
+          </div>
+
+          {/* Lifetime Plan - Highlighted */}
+          <div className={cn(
+            "relative rounded-3xl p-8 shadow-2xl backdrop-blur-xl",
+            "bg-gradient-to-br from-gray-900/80 to-gray-800/80 text-white",
+            "border border-white/10 ring-2 ring-primary/30",
+            "sm:p-10 transform scale-105 transition-all duration-300",
+            "lg:-mt-4 shadow-primary/20" // Lift the card slightly on desktop
+          )}>
+            {/* Recommended Badge */}
+            <Badge className="absolute -top-3 left-4 bg-green-500 text-white border-0">
+              Recommended
+            </Badge>
+            
+            <h3 id="tier-lifetime" className="text-base font-semibold text-white">
+              {plans[1].name}
+            </h3>
+            <p className="mt-4 flex items-baseline gap-x-2">
+              <span className="text-5xl font-semibold tracking-tight text-white">
+                {plans[1].price}
+              </span>
+              <span className="text-base text-gray-300">{plans[1].period}</span>
+            </p>
+            <p className="mt-6 text-base text-gray-200">{plans[1].description}</p>
+            <ul role="list" className="mt-8 space-y-3 text-sm text-gray-100 sm:mt-10">
+              {plans[1].features.map((feature) => (
+                <li key={feature} className="flex gap-x-3">
+                  <Check className="h-6 w-5 flex-none text-green-400" />
+                  <span className="text-gray-100">{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <Button
+              asChild
+              size="lg"
+              className="mt-8 w-full bg-white text-gray-900 hover:bg-gray-100 font-semibold sm:mt-10"
+            >
+              <Link href={plans[1].href} aria-describedby="tier-lifetime">
+                {plans[1].cta}
+              </Link>
+            </Button>
+          </div>
+        </div>
+
+        {/* Social Proof Section */}
+        <div className="mx-auto mt-20 max-w-6xl">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 text-center">
+            <div className="flex flex-col items-center">
+              <div className="text-3xl font-bold text-foreground">2,340+</div>
+              <div className="text-sm text-muted-foreground mt-1">Active Developers</div>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="text-3xl font-bold text-foreground">50K+</div>
+              <div className="text-sm text-muted-foreground mt-1">Components Downloaded</div>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="text-3xl font-bold text-foreground">12K+</div>
+              <div className="text-sm text-muted-foreground mt-1">GitHub Stars</div>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="text-3xl font-bold text-foreground">98%</div>
+              <div className="text-sm text-muted-foreground mt-1">Developer Satisfaction</div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
