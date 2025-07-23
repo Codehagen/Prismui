@@ -4,6 +4,9 @@ import Link from "next/link";
 import { allBlogPosts, allChangelogPosts } from "content-collections";
 import { ListChecks } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { cn, formatDate } from "@/lib/utils";
 import BlurImage from "@/lib/blog/blur-image";
 import CopyBox from "./copy-box";
@@ -305,6 +308,13 @@ const components = {
   Note,
   SectionPreview,
   DownloadButton,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Badge,
+  Button,
 };
 
 interface MDXProps {
