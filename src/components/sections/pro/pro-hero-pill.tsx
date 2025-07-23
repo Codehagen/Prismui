@@ -12,7 +12,7 @@ export function ProHeroPill() {
   return (
     <Link href="/pro/docs" className="group">
       <motion.div
-        className="inline-flex items-center gap-2 rounded-full bg-purple-50 text-purple-700 ring-1 ring-purple-600/20 dark:bg-purple-400/10 dark:text-purple-400 dark:ring-purple-400/20 px-4 py-1.5 text-sm font-medium transition-all hover:bg-purple-100 dark:hover:bg-purple-400/20"
+        className="inline-flex items-center gap-2 rounded-full border bg-background px-4 py-1.5 text-sm transition-colors hover:bg-muted"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease }}
@@ -20,7 +20,7 @@ export function ProHeroPill() {
         onHoverEnd={() => controls.start({ rotate: 0 })}
       >
         <motion.div
-          className="text-purple-600 dark:text-purple-400 transition-colors"
+          className="text-foreground/60 transition-colors group-hover:text-primary"
           animate={controls}
           transition={{ type: "spring", stiffness: 300, damping: 10 }}
         >

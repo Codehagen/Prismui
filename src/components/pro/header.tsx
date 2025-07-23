@@ -26,20 +26,12 @@ import { useSession, signOut } from "@/lib/pro/auth/auth-client"
 
 const proNavItems = [
   {
-    href: "/pro/docs",
-    title: "Documentation",
-  },
-  {
     href: "/pro/components",
     title: "Components",
   },
   {
     href: "/pro/templates",
     title: "Templates",
-  },
-  {
-    href: "/pro/examples",
-    title: "Examples",
   },
 ]
 
