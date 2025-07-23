@@ -1,6 +1,6 @@
 "use client";
 
-import { Quote, Star } from "lucide-react";
+import { Quote, Star, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { TweetCard } from "@/components/prismui/tweet-card";
 
@@ -41,17 +41,15 @@ export function ProTestimonials() {
       <div className="py-24">
         <div className="mx-auto w-full max-w-6xl px-6">
           {/* Section Header */}
-          <div className="mx-auto max-w-2xl text-center">
-            {/* Icon with gradient background */}
-            <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-primary/20 to-primary/10 ring-1 ring-primary/20">
-              <Quote className="h-7 w-7 text-primary" />
+          <div className="mx-auto max-w-4xl text-center">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Quote className="h-5 w-5 text-primary" />
+              <span className="text-base font-semibold text-primary">Testimonials</span>
             </div>
-            
-            <h2 className="text-foreground mt-6 text-4xl font-semibold">
-              What Developers Are Saying
+            <h2 className="text-5xl font-semibold tracking-tight text-balance sm:text-6xl">
+              Developers Love, <span className="text-muted-foreground">We Deliver</span>
             </h2>
-            
-            <p className="text-muted-foreground mb-16 mt-4 text-xl">
+            <p className="mx-auto mt-6 max-w-2xl text-lg font-medium text-pretty text-muted-foreground sm:text-xl/8">
               Join thousands of developers who are shipping faster with PrismUI Pro.
               Real stories from real developers building production applications.
             </p>
@@ -59,7 +57,7 @@ export function ProTestimonials() {
 
           {/* Testimonials Grid */}
           <motion.div 
-            className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+            className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3 sm:mt-20"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -75,7 +73,7 @@ export function ProTestimonials() {
                   id={tweetId}
                   compact={false}
                   hideMedia={true}
-                  iconVariant="twitter"
+                  iconVariant="x"
                 />
               </motion.div>
             ))}
