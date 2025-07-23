@@ -29,49 +29,18 @@ export const proDocsConfig: ProDocsConfig = {
       ],
     },
     {
-      title: "Pro Components",
+      title: "Pro Templates",
       items: [
         {
-          title: "Advanced Data Table",
-          href: "/pro/docs/components/advanced-data-table",
+          title: "Portfolio",
+          href: "/pro/docs/templates/portfolio",
           isPro: true,
           isNew: true,
         },
-        {
-          title: "Data Grid",
-          href: "/pro/docs/components/data-grid",
-          isPro: true,
-        },
-        {
-          title: "Rich Text Editor",
-          href: "/pro/docs/components/rich-text-editor",
-          isPro: true,
-        },
-        {
-          title: "Form Builder",
-          href: "/pro/docs/components/form-builder",
-          isPro: true,
-        },
-        {
-          title: "File Upload",
-          href: "/pro/docs/components/file-upload",
-          isPro: true,
-        },
-        {
-          title: "Date Range Picker",
-          href: "/pro/docs/components/date-range-picker",
-          isPro: true,
-        },
-      ],
-    },
-    {
-      title: "Pro Templates",
-      items: [
         {
           title: "Admin Dashboard",
           href: "/pro/docs/templates/admin-dashboard",
           isPro: true,
-          isNew: true,
         },
         {
           title: "Analytics Platform",
@@ -91,26 +60,11 @@ export const proDocsConfig: ProDocsConfig = {
       ],
     },
     {
-      title: "Advanced Features",
+      title: "Pro Components",
       items: [
         {
-          title: "Real-time Sync",
-          href: "/pro/docs/features/realtime-sync",
-          isPro: true,
-        },
-        {
-          title: "Export & Import",
-          href: "/pro/docs/features/export-import",
-          isPro: true,
-        },
-        {
-          title: "Advanced Theming",
-          href: "/pro/docs/features/advanced-theming",
-          isPro: true,
-        },
-        {
-          title: "Performance Optimization",
-          href: "/pro/docs/features/performance-optimization",
+          title: "Advanced Data Table",
+          href: "/pro/docs/components/advanced-data-table",
           isPro: true,
         },
       ],
