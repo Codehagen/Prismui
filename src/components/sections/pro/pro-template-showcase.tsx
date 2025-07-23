@@ -119,11 +119,21 @@ export function ProTemplateShowcase() {
   return (
     <section>
       <div className="py-24">
-        <div className="mx-auto w-full max-w-3xl px-6">
-          <h2 className="text-foreground text-balance text-3xl font-semibold md:text-4xl">
-            <span className="text-muted-foreground">Empowering developers with</span> premium templates
-          </h2>
-          <div className="mt-12 grid gap-12 sm:grid-cols-2">
+        <div className="mx-auto w-full max-w-5xl px-6">
+          <div className="mx-auto max-w-4xl text-center">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Grid3X3 className="h-5 w-5 text-primary" />
+              <span className="text-base font-semibold text-primary">Templates</span>
+            </div>
+            <h2 className="text-5xl font-semibold tracking-tight text-balance sm:text-6xl">
+              Empowering Developers with <span className="text-muted-foreground">Premium Templates</span>
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-lg font-medium text-pretty text-muted-foreground sm:text-xl/8">
+              Production-ready templates and layouts that accelerate your development workflow. 
+              From dashboards to e-commerce, start with proven designs that scale.
+            </p>
+          </div>
+          <div className="mt-16 grid gap-12 sm:grid-cols-2 sm:mt-20">
             {/* Dashboard Template - Featured */}
             <div className="col-span-full space-y-4">
               <Card className="overflow-hidden bg-muted/30 px-6 sm:col-span-2">

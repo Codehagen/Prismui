@@ -14,23 +14,22 @@ export function ProShowcase() {
     <section>
       <div className="py-24">
         <div className="mx-auto w-full max-w-5xl px-6">
-          <div className="mx-auto max-w-2xl">
-            <div>
-              {/* Icon with gradient background */}
-              <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-primary/20 to-primary/10 ring-1 ring-primary/20">
-                <Rocket className="h-7 w-7 text-primary" />
-              </div>
-              <h2 className="text-foreground mt-6 text-4xl font-semibold">
-                Ship Professional Apps in Record Time
-              </h2>
-              <p className="text-muted-foreground mb-12 mt-4 text-xl">
-                PrismUI Pro gives you battle-tested components and templates to build 
-                production-ready applications. Focus on your business logic, not UI implementation.
-              </p>
+          <div className="mx-auto max-w-4xl text-center">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Rocket className="h-5 w-5 text-primary" />
+              <span className="text-base font-semibold text-primary">Features</span>
             </div>
+            <h2 className="text-5xl font-semibold tracking-tight text-balance sm:text-6xl">
+              Ship Professional Apps in <span className="text-muted-foreground">Record Time</span>
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-lg font-medium text-pretty text-muted-foreground sm:text-xl/8">
+              PrismUI Pro gives you battle-tested components and templates to build 
+              production-ready applications. Focus on your business logic, not UI implementation.
+            </p>
+          </div>
 
-            {/* Visual showcase */}
-            <div className="relative mt-12 md:mt-16">
+          {/* Visual showcase */}
+          <div className="relative mt-16 md:mt-20">
               {/* Background pattern */}
               <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 rounded-3xl" />
               
@@ -108,7 +107,6 @@ export function ProShowcase() {
                 </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </section>

@@ -9,7 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, HelpCircle } from "lucide-react";
 
 const faqs = [
   {
@@ -53,12 +53,16 @@ export function ProFAQ() {
       className="flex flex-col items-center justify-center gap-10 pb-10 w-full relative py-20 sm:py-32 bg-muted/30"
     >
       {/* Section Header */}
-      <div className="border-b w-full h-full p-10 md:p-14">
-        <div className="max-w-xl mx-auto flex flex-col items-center justify-center gap-2">
-          <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-center text-balance">
-            Frequently asked questions
+      <div className="w-full p-10 md:p-14">
+        <div className="mx-auto max-w-4xl text-center">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <HelpCircle className="h-5 w-5 text-primary" />
+            <span className="text-base font-semibold text-primary">FAQ</span>
+          </div>
+          <h2 className="text-5xl font-semibold tracking-tight text-balance sm:text-6xl">
+            Questions Answered, <span className="text-muted-foreground">Confidence Built</span>
           </h2>
-          <p className="text-muted-foreground text-center text-balance font-medium">
+          <p className="mx-auto mt-6 max-w-2xl text-lg font-medium text-pretty text-muted-foreground sm:text-xl/8">
             Everything you need to know about PrismUI Pro.
             Can't find what you're looking for? Contact our support team.
           </p>
