@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { downloadTemplate } from "@/app/actions/download-template";
 import { useState, useEffect } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Download } from "lucide-react";
 
 interface DownloadButtonProps {
   fileName: string;
@@ -82,7 +82,10 @@ export function DownloadButton({ fileName }: DownloadButtonProps) {
           {loadingMessage}
         </>
       ) : (
-        "Free Download"
+        <>
+          <Download className="h-4 w-4" />
+          Download
+        </>
       )}
     </Button>
   );

@@ -7,6 +7,8 @@ slug: templates/portfolio
 related: ["introduction"]
 ---
 
+import { ExternalLink } from "lucide-react"
+
 <div className="flex max-w-[800px] flex-col gap-6 mb-12">
   <div className="relative overflow-hidden rounded-xl border shadow-2xl bg-card">
     <div className="flex items-center gap-2 bg-muted px-4 py-2 text-sm text-muted-foreground">
@@ -28,26 +30,12 @@ related: ["introduction"]
       className="w-full"
     />
   </div>
-  
-  <div className="grid grid-cols-3 gap-4 text-center">
-    <div className="flex flex-col items-center gap-1">
-      <div className="text-2xl font-bold text-primary">500+</div>
-      <div className="text-sm text-muted-foreground">Hours Saved</div>
-    </div>
-    <div className="flex flex-col items-center gap-1">
-      <div className="text-2xl font-bold text-primary">15+</div>
-      <div className="text-sm text-muted-foreground">Page Templates</div>
-    </div>
-    <div className="flex flex-col items-center gap-1">
-      <div className="text-2xl font-bold text-primary">4.9/5</div>
-      <div className="text-sm text-muted-foreground">User Rating</div>
-    </div>
-  </div>
 
   <div className="flex w-full flex-col gap-3 sm:flex-row">
     <DownloadButton fileName="portfolio-pro.zip" className="flex-1" />
     <Button variant="outline" asChild className="flex-1">
-      <Link href="https://portfolio-pro.prismui.dev/">
+      <Link href="https://portfolio-pro.prismui.dev/" className="inline-flex items-center gap-2">
+        <ExternalLink className="h-4 w-4" />
         Live Preview
       </Link>
     </Button>
@@ -85,7 +73,7 @@ This isn't just another portfolio template - it's a complete professional brand 
   </div>
 </div>
 
-## What's included?
+## Everything you need
 
 This portfolio template is specifically designed for professionals and agencies, packed with essential features and components to showcase your work effectively. Create a stunning, high-converting portfolio that builds trust and attracts premium clients.
 
