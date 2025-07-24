@@ -28,7 +28,7 @@ export function TableOfContents({
   return (
     <div className="sticky top-20 col-span-1 hidden flex-col space-y-10 divide-y divide-border self-start md:flex bg-background/50 backdrop-blur-lg p-4 rounded-lg">
       <div>
-        <h4 className="mb-4 text-sm font-medium">On This Page</h4>
+        <h4 className="mb-4 text-sm font-medium">Page Contents</h4>
         <div className="relative grid gap-2 border-l-2 border-border">
           {items.map((item) => {
             const isActive = currentAnchor === item.slug;
@@ -62,7 +62,7 @@ export function TableOfContents({
         </div>
       </div>
       <div className="pt-6 space-y-4">
-        <h4 className="text-sm font-medium">Contribute</h4>
+        <h4 className="text-sm font-medium">Help & Resources</h4>
         <div className="flex flex-col gap-2">
           <Link
             href={getDocsIssueUrl(
@@ -74,7 +74,7 @@ export function TableOfContents({
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
           >
             <Bug className="h-4 w-4" />
-            Report an issue
+            Found a bug?
           </Link>
           <Link
             href={getDocsFeatureRequestUrl(
@@ -86,7 +86,7 @@ export function TableOfContents({
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
           >
             <Sparkles className="h-4 w-4" />
-            Request a component
+            Suggest a component
           </Link>
           <Link
             href={getDocsGitHubUrl(currentPageSlug)}
@@ -95,7 +95,7 @@ export function TableOfContents({
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
           >
             <Pencil className="h-4 w-4" />
-            Edit this page
+            Improve this page
           </Link>
           <Link
             href="https://github.com/codehagen/prismui"
@@ -104,7 +104,7 @@ export function TableOfContents({
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
           >
             <Github className="h-4 w-4" />
-            View on GitHub
+            Source code
           </Link>
         </div>
       </div>
