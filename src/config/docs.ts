@@ -34,6 +34,12 @@ export const docsConfig: DocsConfig = {
           href: "/docs/templates/prismui-homepage",
           isNew: true,
         },
+        {
+          title: "SaaS Starter",
+          href: "/docs/templates/saas-starter",
+          isNew: true,
+          isPro: true,
+        },
       ],
     },
     {
