@@ -9,39 +9,20 @@ const footerSections = {
     links: [
       { href: "/pro/docs", label: "Documentation" },
       { href: "/pro/components", label: "Components" },
-      { href: "/pro/templates", label: "Templates" },
-      { href: "/pro/examples", label: "Examples" },
-      { href: "/pro/changelog", label: "Changelog" },
     ],
   },
   support: {
     title: "Support",
     links: [
-      { href: "/pro/help", label: "Help Center" },
-      { href: "/pro/contact", label: "Contact Us" },
-      { href: "/pro/status", label: "System Status" },
       { href: "mailto:support@prismui.pro", label: "Email Support" },
-      { href: "/pro/roadmap", label: "Roadmap" },
-    ],
-  },
-  account: {
-    title: "Account",
-    links: [
-      { href: "/pro/billing", label: "Billing" },
-      { href: "/pro/settings", label: "Settings" },
-      { href: "/pro/usage", label: "Usage" },
-      { href: "/pro/downloads", label: "Downloads" },
-      { href: "/pro/api-keys", label: "API Keys" },
+      { href: "https://github.com/prismui/prismui/issues", label: "GitHub Issues" },
     ],
   },
   legal: {
     title: "Legal",
     links: [
-      { href: "/pro/privacy", label: "Privacy Policy" },
-      { href: "/pro/terms", label: "Terms of Service" },
-      { href: "/pro/license", label: "License" },
-      { href: "/pro/security", label: "Security" },
-      { href: "/pro/compliance", label: "Compliance" },
+      { href: "/privacy", label: "Privacy Policy" },
+      { href: "/terms", label: "Terms of Service" },
     ],
   },
 }
@@ -51,9 +32,9 @@ export function ProFooter() {
     <footer className="border-t bg-background">
       <div className="container py-12">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-2 gap-8 lg:grid-cols-6">
+        <div className="grid grid-cols-2 gap-8 lg:grid-cols-5">
           {/* Brand Section */}
-          <div className="col-span-2 lg:col-span-2">
+          <div className="col-span-2">
             <Link href="/pro" className="flex items-center space-x-2 mb-4">
               <Icons.logo className="h-6 w-6" />
               <span className="font-bold text-lg">PrismUI</span>
@@ -63,19 +44,17 @@ export function ProFooter() {
               Professional React components and templates for building exceptional user interfaces faster.
             </p>
             
-            {/* Newsletter Signup */}
-            <div className="space-y-2">
-              <p className="text-sm font-medium">Stay updated</p>
-              <div className="flex space-x-2">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-                />
-                <Button size="sm" className="shrink-0">
-                  Subscribe
-                </Button>
-              </div>
+            <div className="flex items-center gap-4 mt-6">
+              <Button asChild size="sm">
+                <Link href="/pro/upgrade">
+                  Upgrade to Pro
+                </Link>
+              </Button>
+              <Button asChild size="sm" variant="outline">
+                <Link href="/pro/docs">
+                  View Docs
+                </Link>
+              </Button>
             </div>
           </div>
 
@@ -137,11 +116,11 @@ export function ProFooter() {
                 <span className="sr-only">Twitter</span>
               </Link>
               <Link
-                href="/pro/help"
+                href="/pro/docs"
                 className="text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Icons.book className="h-5 w-5" />
-                <span className="sr-only">Help</span>
+                <span className="sr-only">Documentation</span>
               </Link>
             </div>
           </div>
