@@ -20,7 +20,7 @@ export const siteConfig = {
     email: "support@prism.ui",
     twitter: "https://twitter.com/prismui",
     discord: "https://discord.gg/",
-    github: "https://github.com/prismui/prismui",
+    github: "https://github.com/Codehagen/Prismui",
     instagram: "https://instagram.com/prismui/",
   },
   navItems: [
