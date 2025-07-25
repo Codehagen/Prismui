@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Block access to API routes and internal paths
+Disallow: /api/
+Disallow: /_next/
+Disallow: /_vercel/
+Disallow: /generated/
+
+# Allow specific API routes that should be crawled
+Allow: /api/og/
+
+# Sitemap
+Sitemap: https://prismui.tech/sitemap.xml
+
+# Crawl delay (optional - helps reduce server load)
+Crawl-delay: 1

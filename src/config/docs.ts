@@ -40,6 +40,12 @@ export const docsConfig: DocsConfig = {
           isNew: true,
           isPro: true,
         },
+        {
+          title: "SaaS Landing Page",
+          href: "/docs/templates/saas-landing",
+          isNew: true,
+          isPro: true,
+        },
       ],
     },
     {

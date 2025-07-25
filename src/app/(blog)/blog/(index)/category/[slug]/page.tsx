@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { allBlogPosts } from "content-collections";
 
-import { constructMetadata } from "@/lib/blog/constructMetadata";
+import { constructMetadata } from "@/lib/utils";
 import { BLOG_CATEGORIES } from "@/lib/blog/content";
 import { getBlurDataURL } from "@/lib/blog/images";
 import BlogCard from "@/components/blog/blog-card";
@@ -55,6 +55,7 @@ export async function generateMetadata({
     image: `/api/og/blog?title=${encodeURIComponent(
       title
     )}&summary=${encodeURIComponent(description)}`,
+    canonical: `https://prismui.tech/blog/category/${slug}`,
   });
 }
 
