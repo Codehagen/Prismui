@@ -42,17 +42,37 @@ next-env.d.ts
 .content-collections/generated/
 
 # Pro version - exclude from open source repo
-# /src/app/pro/
-# /src/components/pro/
-# /src/lib/pro/
-# /src/registry/pro/
-# /content/pro/
-# /public/pro-assets/
-# pro.config.ts
-# /scripts/pro/
+/src/app/pro/
+/src/components/pro/
+/src/lib/pro/
+/src/registry/pro/
+/content/pro/
+/public/pro-assets/
+pro.config.ts
+/scripts/pro/
 
 # Pro content - separate content system
-# /src/content-pro/
+/src/content-pro/
+
+# Pro sections and components
+/src/components/sections/pro/
+
+# Pro configuration files
+/src/config/pro-docs.ts
+
+# Authentication system (pro feature)
+/src/actions/auth-actions.ts
+/src/components/auth/
+/src/lib/auth/
+/middleware.ts
+
+# Payment system (pro feature)
+/src/components/payments/
+/src/lib/payments/
+/src/app/api/payments/
+
+# Database (pro feature)
+/prisma/
 
 # Pro environment variables
 .env.pro
