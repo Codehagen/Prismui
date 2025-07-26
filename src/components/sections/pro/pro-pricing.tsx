@@ -154,28 +154,6 @@ export function ProPricing() {
           </div>
         </div>
 
-        {/* Social Proof Section */}
-        <div className="mx-auto mt-20 max-w-6xl">
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 text-center">
-            <div className="flex flex-col items-center">
-              <div className="text-3xl font-bold text-foreground">2,340+</div>
-              <div className="text-sm text-muted-foreground mt-1">Active Developers</div>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="text-3xl font-bold text-foreground">50K+</div>
-              <div className="text-sm text-muted-foreground mt-1">Components Downloaded</div>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="text-3xl font-bold text-foreground">12K+</div>
-              <div className="text-sm text-muted-foreground mt-1">GitHub Stars</div>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="text-3xl font-bold text-foreground">98%</div>
-              <div className="text-sm text-muted-foreground mt-1">Developer Satisfaction</div>
-            </div>
-          </div>
-
-        </div>
       </div>
     </section>
   );
