@@ -8,42 +8,50 @@ categories: ["pro"]
 
 ## Prerequisites
 
-Before installing PrismUI Pro components, ensure you have:
+Before setting up PrismUI Pro, ensure you have:
 
 1. A valid PrismUI Pro license
-2. An existing Next.js or React project
-3. The base PrismUI components installed
+2. Node.js 18+ installed
+3. pnpm package manager installed
 
-## Authentication
+## Installation
 
-First, authenticate with your PrismUI Pro account:
+### Step 1: Extract the Project
 
-```bash
-npx prismui auth
-```
-
-Enter your license key when prompted. This will be stored securely for future use.
-
-## Installing Pro Components
-
-### Using the CLI
-
-Install individual pro components:
+After purchasing PrismUI Pro, you'll receive a zip file containing the complete project. Extract this file to your desired location:
 
 ```bash
-npx prismui add data-table --pro
-npx prismui add rich-text-editor --pro
+unzip prismui-pro.zip
+cd prismui-pro
 ```
 
-Or install multiple components at once:
+### Step 2: Install Dependencies
+
+Install all required dependencies using pnpm:
 
 ```bash
-npx prismui add data-table rich-text-editor form-builder --pro
+pnpm install
 ```
 
-### Manual Installation
+### Step 3: Environment Setup
 
-If you prefer manual installation, pro components can be downloaded from your account dashboard and placed in your project's `components/pro` directory.
+Copy the example environment file and configure your settings:
+
+```bash
+cp .env.example .env.local
+```
+
+Edit `.env.local` with your specific configuration values.
+
+### Step 4: Start Development Server
+
+Run the development server:
+
+```bash
+pnpm dev
+```
+
+Your Pro application will be available at `http://localhost:3000`.
 
 ## Configuration
 
@@ -74,32 +82,36 @@ module.exports = {
 }
 ```
 
-## Updating Components
+## Building for Production
 
-To update pro components to the latest version:
+To build your Pro application for production:
 
 ```bash
-npx prismui update --pro
+pnpm build
 ```
 
-This will check for updates to all installed pro components and update them if newer versions are available.
+To start the production server:
+
+```bash
+pnpm start
+```
 
 ## Troubleshooting
 
-### License Key Issues
+### Installation Issues
 
-If you encounter license key errors:
+If you encounter installation errors:
 
-1. Verify your license is active in your account dashboard
-2. Re-authenticate using `npx prismui auth --reset`
-3. Ensure you're not exceeding your license limits
+1. Ensure you have Node.js 18+ installed
+2. Clear your package manager cache: `pnpm store prune`
+3. Delete `node_modules` and `package-lock.json`, then run `pnpm install` again
 
-### Component Conflicts
+### Development Server Issues
 
-If you experience conflicts with existing components:
+If the development server won't start:
 
-1. Pro components are namespaced under `/components/pro`
-2. Check for naming conflicts with your existing components
-3. Use the `--force` flag to overwrite existing files if needed
+1. Check that port 3000 is available
+2. Verify your environment variables in `.env.local`
+3. Ensure all dependencies are installed correctly
 
 Need more help? Contact support@prismui.com

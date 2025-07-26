@@ -1,7 +1,7 @@
-import Link from "next/link"
-import { Icons } from "@/components/icons"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import Link from "next/link";
+import { Icons } from "@/components/icons";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 const footerSections = {
   resources: {
@@ -15,7 +15,10 @@ const footerSections = {
     title: "Support",
     links: [
       { href: "mailto:support@prismui.pro", label: "Email Support" },
-      { href: "https://github.com/prismui/prismui/issues", label: "GitHub Issues" },
+      {
+        href: "https://github.com/prismui/prismui/issues",
+        label: "GitHub Issues",
+      },
     ],
   },
   legal: {
@@ -25,7 +28,7 @@ const footerSections = {
       { href: "/terms", label: "Terms of Service" },
     ],
   },
-}
+};
 
 export function ProFooter() {
   return (
@@ -38,22 +41,21 @@ export function ProFooter() {
             <Link href="/pro" className="flex items-center space-x-2 mb-4">
               <Icons.logo className="h-6 w-6" />
               <span className="font-bold text-lg">PrismUI</span>
-              <Badge variant="default" className="text-xs">Pro</Badge>
+              <Badge variant="default" className="text-xs">
+                Pro
+              </Badge>
             </Link>
             <p className="text-sm text-muted-foreground mb-4 max-w-xs">
-              Professional React components and templates for building exceptional user interfaces faster.
+              Professional React components and templates for building
+              exceptional user interfaces faster.
             </p>
-            
+
             <div className="flex items-center gap-4 mt-6">
               <Button asChild size="sm">
-                <Link href="/pro/upgrade">
-                  Upgrade to Pro
-                </Link>
+                <Link href="/pro/upgrade">Upgrade to Pro</Link>
               </Button>
               <Button asChild size="sm" variant="outline">
-                <Link href="/pro/docs">
-                  View Docs
-                </Link>
+                <Link href="/pro/docs">View Docs</Link>
               </Button>
             </div>
           </div>
@@ -83,7 +85,7 @@ export function ProFooter() {
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <div className="flex flex-col items-center gap-2 md:flex-row md:gap-4">
               <p className="text-sm text-muted-foreground">
-                © 2024 PrismUI Pro. All rights reserved.
+                © 2025 PrismUI Pro. All rights reserved.
               </p>
               <div className="flex items-center gap-4">
                 <Link
@@ -98,7 +100,7 @@ export function ProFooter() {
             {/* Social Links */}
             <div className="flex items-center gap-4">
               <Link
-                href="https://github.com/prismui/prismui"
+                href="https://github.com/Codehagen/Prismui"
                 target="_blank"
                 rel="noreferrer"
                 className="text-muted-foreground hover:text-foreground transition-colors"
@@ -107,7 +109,7 @@ export function ProFooter() {
                 <span className="sr-only">GitHub</span>
               </Link>
               <Link
-                href="https://twitter.com/prismui"
+                href="https://twitter.com/codehagen"
                 target="_blank"
                 rel="noreferrer"
                 className="text-muted-foreground hover:text-foreground transition-colors"

@@ -37,26 +37,6 @@ export const proDocsConfig: ProDocsConfig = {
           isPro: true,
           isNew: true,
         },
-        {
-          title: "Admin Dashboard",
-          href: "/pro/docs/templates/admin-dashboard",
-          isPro: true,
-        },
-        {
-          title: "Analytics Platform",
-          href: "/pro/docs/templates/analytics-platform",
-          isPro: true,
-        },
-        {
-          title: "E-commerce Backend",
-          href: "/pro/docs/templates/ecommerce-backend",
-          isPro: true,
-        },
-        {
-          title: "SaaS Application",
-          href: "/pro/docs/templates/saas-application",
-          isPro: true,
-        },
       ],
     },
     {
