@@ -10,7 +10,8 @@
     "lint": "next lint",
     "build:registry": "shadcn build",
     "registry:build": "shadcn build",
-    "docs:generate": "tsx src/lib/scripts/generate-docs.mts"
+    "docs:generate": "tsx src/lib/scripts/generate-docs.mts",
+    "postinstall": "prisma generate --no-engine"
   },
   "dependencies": {
     "@better-auth/stripe": "^1.2.12",
