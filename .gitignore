@@ -41,22 +41,6 @@ next-env.d.ts
 .content-collections/cache/
 .content-collections/generated/
 
-# Pro version - exclude from open source repo
-/src/app/pro/
-/src/components/pro/
-/src/lib/pro/
-/src/registry/pro/
-/content/pro/
-/public/pro-assets/
-pro.config.ts
-/scripts/pro/
-
-# Payment and authentication secrets
-stripe.config.ts
-auth.config.ts
-/src/lib/payments/
-/src/lib/auth/premium/
-
 # Pro environment variables
 .env.pro
 .env.pro.local
@@ -67,3 +51,6 @@ auth.config.ts
 
 # Claude Code configuration
 CLAUDE.md 
+.claude
+
+src/app/generated/prisma

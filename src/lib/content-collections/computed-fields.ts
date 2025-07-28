@@ -20,6 +20,20 @@ export interface ComputedFields {
 export const createComputedFields = (type: "blog" | "changelog" | "docs" | "legal"): ComputedFields => ({
   slug: (document) => {
     if (document.slug) return document.slug;
+    
+    // For content with file paths, use the path structure (excluding .mdx extension)
+    if (document._meta?.filePath) {
+      const filePath = document._meta.filePath;
+      // Remove .mdx extension and convert to slug format
+      const pathWithoutExt = filePath.replace(/\.mdx$/, '');
+      
+      // If it's a nested file (contains slash), use the full path
+      if (pathWithoutExt.includes('/')) {
+        return pathWithoutExt;
+      }
+    }
+    
+    // Fallback to title-based slug for root-level files
     const slugger = new GithubSlugger();
     return slugger.slug(document.title);
   },

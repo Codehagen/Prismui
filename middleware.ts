@@ -1,23 +1,16 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { authMiddleware } from "@/lib/pro/auth/middleware";
 
-export function middleware(request: NextRequest) {
-  const host = request.headers.get("host");
-  const url = request.nextUrl.clone();
+export async function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
 
-  // Handle pro.prismui.tech subdomain
-  if (host?.includes("pro.prismui.tech")) {
-    // Rewrite to /pro routes
-    if (url.pathname === "/") {
-      url.pathname = "/pro";
-    } else if (!url.pathname.startsWith("/pro")) {
-      url.pathname = `/pro${url.pathname}`;
-    }
-    return NextResponse.rewrite(url);
+  // Apply authentication middleware for pro routes
+  if (pathname.startsWith("/pro")) {
+    return authMiddleware(request);
   }
 
-  // Handle www.prismui.tech or prismui.tech (main site)
-  // No rewriting needed for main site
+  // For non-pro routes, continue normally
   return NextResponse.next();
 }
 

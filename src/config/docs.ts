@@ -30,9 +30,14 @@ export const docsConfig: DocsConfig = {
       title: "Templates",
       items: [
         {
+          title: "SaaS Landing Page",
+          href: "/docs/templates/saas-landing",
+          isNew: true,
+          isPro: true,
+        },
+        {
           title: "Prism Homepage",
           href: "/docs/templates/prismui-homepage",
-          isNew: true,
         },
       ],
     },
@@ -58,17 +63,14 @@ export const docsConfig: DocsConfig = {
         {
           title: "Popover",
           href: "/docs/components/popover",
-          isNew: true,
         },
         {
           title: "Status Badge",
           href: "/docs/components/status-badge",
-          isNew: true,
         },
         {
           title: "Tweet Card",
           href: "/docs/components/tweet-card",
-          isNew: true,
         },
       ],
     },
@@ -94,7 +96,6 @@ export const docsConfig: DocsConfig = {
         {
           title: "Timeline",
           href: "/docs/components/timeline",
-          isNew: true,
         },
       ],
     },
@@ -112,7 +113,6 @@ export const docsConfig: DocsConfig = {
         {
           title: "Enhanced Button",
           href: "/docs/components/enhanced-button",
-          isNew: true,
         },
       ],
     },

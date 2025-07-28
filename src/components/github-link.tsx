@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import Link from "next/link"
 
@@ -23,7 +21,9 @@ export function GitHubLink() {
 
 async function StarsCount() {
   try {
-    const data = await fetch("https://api.github.com/repos/prismui/prismui", {
+    // Extract repository owner/name from GitHub URL
+    const repoPath = siteConfig.links.github.replace("https://github.com/", "")
+    const data = await fetch(`https://api.github.com/repos/${repoPath}`, {
       next: { revalidate: 86400 }, // Cache for 1 day (86400 seconds)
     })
     

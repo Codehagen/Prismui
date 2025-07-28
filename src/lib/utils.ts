@@ -17,11 +17,15 @@ export function constructMetadata({
   title = siteConfig.name,
   description = siteConfig.description,
   image = absoluteUrl("/og"),
+  canonical,
+  noIndex = false,
   ...props
 }: {
   title?: string;
   description?: string;
   image?: string;
+  canonical?: string;
+  noIndex?: boolean;
   [key: string]: Metadata[keyof Metadata];
 }): Metadata {
   return {
@@ -34,7 +38,7 @@ export function constructMetadata({
     openGraph: {
       title,
       description,
-      url: siteConfig.url,
+      url: canonical || siteConfig.url,
       siteName: siteConfig.name,
       images: [
         {
@@ -47,8 +51,30 @@ export function constructMetadata({
       type: "website",
       locale: "en_US",
     },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+      creator: "@codehagen",
+      site: "@prismui",
+    },
+    robots: {
+      index: !noIndex,
+      follow: !noIndex,
+      googleBot: {
+        index: !noIndex,
+        follow: !noIndex,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
     icons: "/favicon.ico",
     metadataBase: new URL(siteConfig.url),
+    alternates: {
+      canonical: canonical || siteConfig.url,
+    },
     authors: [
       {
         name: siteConfig.name,

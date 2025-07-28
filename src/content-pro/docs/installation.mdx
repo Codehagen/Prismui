@@ -1,0 +1,117 @@
+---
+title: Installation
+publishedAt: "2025-01-19"
+summary: Learn how to install and configure PrismUI Pro components in your project
+author: prismui
+categories: ["pro"]
+---
+
+## Prerequisites
+
+Before setting up PrismUI Pro, ensure you have:
+
+1. A valid PrismUI Pro license
+2. Node.js 18+ installed
+3. pnpm package manager installed
+
+## Installation
+
+### Step 1: Extract the Project
+
+After purchasing PrismUI Pro, you'll receive a zip file containing the complete project. Extract this file to your desired location:
+
+```bash
+unzip prismui-pro.zip
+cd prismui-pro
+```
+
+### Step 2: Install Dependencies
+
+Install all required dependencies using pnpm:
+
+```bash
+pnpm install
+```
+
+### Step 3: Environment Setup
+
+Copy the example environment file and configure your settings:
+
+```bash
+cp .env.example .env.local
+```
+
+Edit `.env.local` with your specific configuration values.
+
+### Step 4: Start Development Server
+
+Run the development server:
+
+```bash
+pnpm dev
+```
+
+Your Pro application will be available at `http://localhost:3000`.
+
+## Configuration
+
+### TypeScript Configuration
+
+Pro components include full TypeScript support. Ensure your `tsconfig.json` includes:
+
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/components/pro/*": ["./components/pro/*"]
+    }
+  }
+}
+```
+
+### Tailwind Configuration
+
+Some pro components require additional Tailwind plugins. Add these to your `tailwind.config.js`:
+
+```js
+module.exports = {
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
+  ],
+}
+```
+
+## Building for Production
+
+To build your Pro application for production:
+
+```bash
+pnpm build
+```
+
+To start the production server:
+
+```bash
+pnpm start
+```
+
+## Troubleshooting
+
+### Installation Issues
+
+If you encounter installation errors:
+
+1. Ensure you have Node.js 18+ installed
+2. Clear your package manager cache: `pnpm store prune`
+3. Delete `node_modules` and `package-lock.json`, then run `pnpm install` again
+
+### Development Server Issues
+
+If the development server won't start:
+
+1. Check that port 3000 is available
+2. Verify your environment variables in `.env.local`
+3. Ensure all dependencies are installed correctly
+
+Need more help? Contact support@prismui.com
