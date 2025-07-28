@@ -23,6 +23,11 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     },
   },
+  trustedOrigins: [
+    "https://prismui.tech",
+    "https://www.prismui.tech",
+    "http://localhost:3000",
+  ],
   plugins: [
     nextCookies(),
     stripe({
