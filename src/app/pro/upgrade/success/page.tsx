@@ -9,7 +9,7 @@ import {
 import { CheckCircle, Sparkles, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { constructMetadata } from "@/lib/utils";
-import { getCurrentUser } from "@/lib/pro/auth/user-actions";
+import { getCurrentUser, getUserProfile } from "@/lib/pro/auth/user-actions";
 import { stripe } from "@/lib/payments/stripe";
 import { redirect } from "next/navigation";
 
@@ -28,9 +28,12 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
   const user = await getCurrentUser();
   
   if (!user) {
-    redirect("/auth/signin");
+    redirect("/pro/login");
   }
 
+  // Get user profile with pro membership information
+  const userProfile = await getUserProfile();
+  
   let sessionDetails = null;
   
   if (searchParams.session_id) {
@@ -44,7 +47,21 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
     }
   }
 
-  const membershipType = user.membership === "PRO" ? "Individual License" : null;
+  // Check if user has pro access based on ProMembership table
+  const hasProMembership = userProfile?.hasProAccess || false;
+  const membershipTier = userProfile?.proMembership?.tier;
+  const membershipType = hasProMembership ? "Pro License" : "Free";
+
+  // Debug logging
+  console.log("Success page debug:", {
+    userId: user.id,
+    userEmail: user.email,
+    hasProMembership,
+    membershipTier,
+    membershipType,
+    sessionId: searchParams.session_id,
+    proMembership: userProfile?.proMembership
+  });
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-primary/10">
@@ -62,7 +79,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
                 <span className="text-lg font-semibold">Payment Successful!</span>
               </div>
               <CardTitle className="text-3xl font-bold">
-                Welcome to PrismUI {membershipType || "Pro"}! 🎉
+                Welcome to PrismUI {membershipType}! 🎉
               </CardTitle>
               <CardDescription className="text-lg">
                 Hi {user.name}! Your payment has been processed successfully.

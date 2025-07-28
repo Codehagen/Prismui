@@ -32,20 +32,14 @@ export const proDocsConfig: ProDocsConfig = {
       title: "Pro Templates",
       items: [
         {
-          title: "Portfolio",
-          href: "/pro/docs/templates/portfolio",
+          title: "SaaS Landing",
+          href: "/pro/docs/templates/saas-landing",
           isPro: true,
           isNew: true,
         },
-      ],
-    },
-    {
-      title: "Pro Components",
-      items: [
         {
-          title: "Advanced Data Table",
-          href: "/pro/docs/components/advanced-data-table",
-          isPro: true,
+          title: "PrismUI Homepage",
+          href: "/pro/docs/templates/prismui-homepage",
         },
       ],
     },

@@ -7,16 +7,10 @@ import {
   isAuthenticated,
   requireAuth,
 } from "@/actions/auth-actions";
-import { PrismaClient } from "@/app/generated/prisma";
+import prisma from "@/lib/pro/db/prisma";
 import { User, Session } from "better-auth";
 import { redirect } from "next/navigation";
-
-// Initialize Prisma client per request (best practice)
-function getPrismaClient() {
-  return new PrismaClient({
-    datasourceUrl: process.env.DATABASE_URL,
-  });
-}
+import { headers } from "next/headers";
 
 // Types for better TypeScript support
 type UserProfile = User & {
@@ -78,8 +72,6 @@ export async function getUserProfile(): Promise<UserProfile | null> {
   const user = await getCurrentUser();
   if (!user) return null;
 
-  const prisma = getPrismaClient();
-
   try {
     // Get ProMembership information
     const proMembership = await prisma.proMembership.findUnique({
@@ -105,8 +97,6 @@ export async function getUserProfile(): Promise<UserProfile | null> {
   } catch (error) {
     console.error("Error getting user profile:", error);
     return null;
-  } finally {
-    await prisma.$disconnect();
   }
 }
 
@@ -121,6 +111,7 @@ export async function updateUserProfile(input: UpdateProfileInput) {
   try {
     // Update user in Better Auth
     const updatedUser = await auth.api.updateUser({
+      headers: await headers(),
       userId: user.id,
       data: {
         name: input.name,
@@ -130,7 +121,6 @@ export async function updateUserProfile(input: UpdateProfileInput) {
 
     // If preferences need to be stored, use Prisma
     if (input.preferences) {
-      const prisma = getPrismaClient();
       try {
         await prisma.userPreferences.upsert({
           where: { userId: user.id },
@@ -143,8 +133,9 @@ export async function updateUserProfile(input: UpdateProfileInput) {
             preferences: input.preferences,
           },
         });
-      } finally {
-        await prisma.$disconnect();
+      } catch (preferencesError) {
+        console.error("Error updating user preferences:", preferencesError);
+        // Continue with successful user update, log preferences error
       }
     }
 
@@ -229,10 +220,14 @@ export async function getSubscriptionLimits() {
  */
 export async function deleteUserAccount() {
   const user = await requireUser();
-  const prisma = getPrismaClient();
 
   try {
-    // Use transaction to ensure data consistency
+    // First, delete from Better Auth (can be retried if fails)
+    await auth.api.deleteUser({
+      userId: user.id,
+    });
+    
+    // Use transaction to ensure database data consistency
     await prisma.$transaction(async (tx) => {
       // Delete user preferences
       await tx.userPreferences.deleteMany({
@@ -253,11 +248,6 @@ export async function deleteUserAccount() {
       await tx.accessLog.deleteMany({
         where: { userId: user.id },
       });
-
-      // Delete user from Better Auth
-      await auth.api.deleteUser({
-        userId: user.id,
-      });
     });
 
     return { success: true };
@@ -267,8 +257,6 @@ export async function deleteUserAccount() {
       success: false,
       error: error instanceof Error ? error.message : "Delete failed",
     };
-  } finally {
-    await prisma.$disconnect();
   }
 }
 
@@ -276,13 +264,16 @@ export async function deleteUserAccount() {
  * Sign out the current user
  */
 export async function signOut() {
-  const session = await getCurrentSession();
-
-  if (session) {
-    await auth.api.revokeSession({
-      sessionId: session.id,
+  try {
+    await auth.api.signOut({
+      headers: await headers(),
     });
+    redirect("/pro");
+  } catch (error) {
+    console.error("Error signing out:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Sign out failed",
+    };
   }
-
-  redirect("/pro");
 }

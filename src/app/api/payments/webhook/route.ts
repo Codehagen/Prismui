@@ -138,8 +138,7 @@ async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
   
   try {
     // Find user by Stripe customer ID
-    const { PrismaClient } = await import("@/app/generated/prisma");
-    const prisma = new PrismaClient();
+    const prisma = (await import("@/lib/pro/db/prisma")).default;
     
     const user = await prisma.user.findUnique({
       where: { stripeCustomerId: customerId },
@@ -174,8 +173,7 @@ async function handleSubscriptionCancellation(subscription: Stripe.Subscription)
   const customerId = subscription.customer as string;
   
   try {
-    const { PrismaClient } = await import("@/app/generated/prisma");
-    const prisma = new PrismaClient();
+    const prisma = (await import("@/lib/pro/db/prisma")).default;
     
     const user = await prisma.user.findUnique({
       where: { stripeCustomerId: customerId },

@@ -3,9 +3,55 @@
 import { auth } from "@/lib/auth/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { PrismaClient } from "@/app/generated/prisma";
+import prisma from "@/lib/pro/db/prisma";
 
-const prisma = new PrismaClient();
+// Helper functions for better error handling
+function isAuthenticationError(error: string): boolean {
+  const authErrors = [
+    "User not found",
+    "Invalid password", 
+    "Invalid email",
+    "Invalid credentials"
+  ];
+  return authErrors.some(errorType => error.includes(errorType));
+}
+
+function isUserExistsError(error: string): boolean {
+  const existsErrors = [
+    "already exists",
+    "already registered"
+  ];
+  return existsErrors.some(errorType => error.includes(errorType));
+}
+
+async function createUserWithProfile(email: string, password: string, name: string) {
+  console.log("🔄 Creating new user with profile:", email);
+  
+  const signUpResult = await auth.api.signUpEmail({
+    body: {
+      email,
+      password,
+      name,
+    },
+  });
+
+  console.log("✅ User created successfully:", {
+    userId: signUpResult.user?.id,
+  });
+
+  if (signUpResult.user) {
+    console.log("🎉 Creating free user profile for new user:", signUpResult.user.id);
+    try {
+      await createFreeUserProfile(signUpResult.user.id);
+      console.log("✅ Profile creation completed for new user:", signUpResult.user.id);
+    } catch (profileError) {
+      console.error("💥 Profile creation failed for new user:", profileError);
+      // Don't fail the signup if profile creation fails
+    }
+  }
+
+  return signUpResult;
+}
 
 export async function getSession() {
   return await auth.api.getSession({
@@ -25,8 +71,6 @@ export async function signInWithEmail(email: string, password: string) {
     if (result.user) {
       redirect("/pro/docs");
     }
-
-    return { success: true, user: result.user };
   } catch (error) {
     return {
       success: false,
@@ -65,8 +109,6 @@ export async function signUpWithEmailAndName(
       
       redirect("/pro/docs");
     }
-
-    return { success: true, user: result.user };
   } catch (error) {
     console.error("❌ Signup failed:", error);
     return {
@@ -106,37 +148,17 @@ export async function signInOrCreateUser(
     console.log("❌ Sign in failed:", { error: errorMessage });
 
     // If user doesn't exist, try to create them
-    if (
-      errorMessage.includes("User not found") ||
-      errorMessage.includes("Invalid password") ||
-      errorMessage.includes("Invalid email") ||
-      errorMessage.includes("Invalid credentials")
-    ) {
+    if (isAuthenticationError(errorMessage)) {
       console.log("🔄 User likely doesn't exist, attempting to create new user...");
 
       try {
-        const signUpResult = await auth.api.signUpEmail({
-          body: {
-            email,
-            password,
-            name: name || email.split("@")[0], // Use email prefix as default name
-          },
-        });
-
-        console.log("✅ User created successfully:", {
-          userId: signUpResult.user?.id,
-        });
+        const signUpResult = await createUserWithProfile(
+          email,
+          password,
+          name || email.split("@")[0] // Use email prefix as default name
+        );
 
         if (signUpResult.user) {
-          console.log("🎉 Creating free user profile for new user:", signUpResult.user.id);
-          try {
-            await createFreeUserProfile(signUpResult.user.id);
-            console.log("✅ Profile creation completed for new user:", signUpResult.user.id);
-          } catch (profileError) {
-            console.error("💥 Profile creation failed for new user:", profileError);
-            // Don't fail the signup if profile creation fails
-          }
-          
           return { success: true, user: signUpResult.user, wasCreated: true };
         }
 
@@ -153,10 +175,7 @@ export async function signInOrCreateUser(
           error: signUpErrorMessage,
         });
 
-        if (
-          signUpErrorMessage.includes("already exists") ||
-          signUpErrorMessage.includes("already registered")
-        ) {
+        if (isUserExistsError(signUpErrorMessage)) {
           return {
             success: false,
             error:
