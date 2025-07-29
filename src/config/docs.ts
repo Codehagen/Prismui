@@ -79,7 +79,7 @@ export const docsConfig: DocsConfig = {
       items: [
         {
           title: "Hero",
-          href: "/docs/components/hero",
+          href: "/docs/sections/hero",
         },
         {
           title: "Open Source",
