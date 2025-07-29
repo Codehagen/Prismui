@@ -44,6 +44,21 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      // Auth page redirects
+      {
+        source: '/pro/auth/signup',
+        destination: '/pro/upgrade',
+        permanent: true,
+      },
+      {
+        source: '/sign-up',
+        destination: '/pro/login',
+        permanent: true,
+      },
+    ];
+  },
   experimental: {
     optimizePackageImports: ["shiki"],
   },

@@ -12,7 +12,7 @@ import Image from "next/image";
 
 export const metadata = constructMetadata({
   title: "Templates - PrismUI Pro",
-  description: "Browse and download premium React templates built with PrismUI Pro components.",
+  description: "Browse and download premium React templates built with PrismUI Pro components. Access ready-to-use dashboard, landing page, and e-commerce templates with advanced animations and modern design patterns.",
   canonical: "https://www.prismui.tech/pro/templates",
 });
 

@@ -10,7 +10,7 @@ import { ProCTA } from "@/components/sections/pro/pro-cta";
 export const metadata = constructMetadata({
   title: "PrismUI Pro - Premium React Components",
   description:
-    "Get access to premium React components, exclusive content, and priority support with PrismUI Pro.",
+    "Get access to premium React components, exclusive content, and priority support with PrismUI Pro. Unlock advanced templates, premium animations, and pro-only features for building exceptional React applications.",
   canonical: "https://www.prismui.tech/pro",
 });
 

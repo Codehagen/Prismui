@@ -11,7 +11,7 @@ export const BLOG_CATEGORIES = [
     title: "Engineering",
     slug: "engineering",
     description:
-      "Technical deep dives, best practices, and engineering insights from the Prism UI team.",
+      "Technical deep dives, best practices, and engineering insights from the Prism UI team. Explore React development patterns, component architecture, and modern web development techniques with practical examples.",
   },
 ];
 

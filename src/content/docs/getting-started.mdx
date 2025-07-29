@@ -1,0 +1,197 @@
+---
+title: Getting Started
+publishedAt: 2025-01-29
+summary: Complete guide to getting started with PrismUI. Learn how to install, configure, and use our React component library in your projects with step-by-step instructions.
+author: codehagen
+slug: getting-started
+---
+
+# Getting Started with PrismUI
+
+Welcome to PrismUI! This guide will help you get up and running with our React component library in just a few minutes.
+
+## What is PrismUI?
+
+PrismUI is a modern React component library built on top of [shadcn/ui](https://ui.shadcn.com) and [Tailwind CSS](https://tailwindcss.com). We provide:
+
+- **Beautiful Components**: Pre-built, animated components ready to use
+- **Advanced Patterns**: Complex UI patterns like carousels, timelines, and hero sections  
+- **Developer Experience**: Easy installation with our CLI tool
+- **Customizable**: Built with CSS variables for easy theming
+- **Pro Features**: Premium components and templates with PrismUI Pro
+
+## Quick Start
+
+### Prerequisites
+
+Before you begin, make sure you have:
+
+- **Node.js** 18.17 or later
+- **React** 18 or later
+- **Next.js** 13.4 or later (recommended)
+- **Tailwind CSS** configured in your project
+
+### 1. Initialize your project
+
+If you're starting a new project, we recommend using Next.js with shadcn/ui:
+
+```bash
+pnpm dlx create-next-app@latest my-app --typescript --tailwind --eslint
+cd my-app
+pnpm dlx shadcn@latest init
+```
+
+### 2. Install your first component
+
+Use our CLI to add components to your project:
+
+```bash
+pnpm dlx prismui@latest add button
+```
+
+This will:
+- Download the component files
+- Install required dependencies
+- Add the component to your project
+
+### 3. Use the component
+
+Import and use the component in your React application:
+
+```tsx
+import { Button } from "@/components/ui/button"
+
+export default function App() {
+  return (
+    <div className="p-8">
+      <Button>Click me</Button>
+    </div>
+  )
+}
+```
+
+## Available Components
+
+PrismUI offers a wide range of components organized into categories:
+
+### Basic Components
+- **Buttons**: Enhanced buttons with animations and loading states
+- **Cards**: Display cards with hover effects and layouts
+- **Badges**: Status badges with icons and animations
+
+### Advanced Components  
+- **Hero Sections**: Landing page heroes with animations
+- **Timelines**: Interactive timeline components
+- **Carousels**: Logo and content carousels
+
+### Page Sections
+- **Pricing**: Dynamic pricing sections with toggles
+- **Features**: Feature showcase sections
+- **Testimonials**: Customer testimonial displays
+
+[Browse all components →](/components)
+
+## Project Structure
+
+After installing components, your project structure will look like this:
+
+```
+my-app/
+├── components/
+│   ├── ui/           # shadcn/ui base components
+│   └── prismui/      # PrismUI components
+├── lib/
+│   └── utils.ts      # Utility functions
+├── styles/
+│   └── globals.css   # Global styles
+└── app/              # Your application pages
+```
+
+## Configuration
+
+### Tailwind CSS Configuration
+
+Make sure your `tailwind.config.js` includes the PrismUI configuration:
+
+```js
+module.exports = {
+  content: [
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+  ],
+  theme: {
+    extend: {
+      // PrismUI theme extensions
+    },
+  },
+}
+```
+
+### CSS Variables
+
+PrismUI uses CSS variables for theming. Add these to your `globals.css`:
+
+```css
+@layer base {
+  :root {
+    /* Light theme variables */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    /* ... more variables */
+  }
+  
+  .dark {
+    /* Dark theme variables */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    /* ... more variables */
+  }
+}
+```
+
+## CLI Commands
+
+Our CLI tool provides several helpful commands:
+
+```bash
+# Add a specific component
+pnpm dlx prismui@latest add [component-name]
+
+# Add multiple components
+pnpm dlx prismui@latest add button card badge
+
+# List available components
+pnpm dlx prismui@latest list
+
+# Update components
+pnpm dlx prismui@latest update
+```
+
+## Next Steps
+
+Now that you have PrismUI set up, here are some recommended next steps:
+
+1. **[Browse Components](/components)** - Explore our component library
+2. **[Read the Documentation](/docs)** - Learn about specific components
+3. **[View Examples](https://github.com/Codehagen/Prismui/tree/main/examples)** - See components in action
+4. **[Join our Discord](https://discord.gg/SAy7T2zy)** - Get help from the community
+
+## Need Help?
+
+If you run into any issues or have questions:
+
+- **Documentation**: Check our [component docs](/docs)
+- **GitHub**: Report issues on [GitHub](https://github.com/Codehagen/Prismui)
+- **Discord**: Join our [community](https://discord.gg/SAy7T2zy)
+- **Email**: Contact us at [support@prismui.tech](mailto:support@prismui.tech)
+
+## PrismUI Pro
+
+Looking for more advanced components and features? Check out [PrismUI Pro](/pro) for:
+
+- Premium components and templates
+- Advanced animations and interactions
+- Priority support
+- Exclusive access to new features
+
+[Learn more about Pro →](/pro)

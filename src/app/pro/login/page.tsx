@@ -3,7 +3,7 @@ import { constructMetadata } from "@/lib/utils";
 
 export const metadata = constructMetadata({
   title: "Sign In - PrismUI Pro",
-  description: "Sign in to your PrismUI Pro account to access premium React components and exclusive content.",
+  description: "Sign in to your PrismUI Pro account to access premium React components and exclusive content. Get instant access to advanced templates, pro animations, and priority support after logging in.",
   canonical: "https://www.prismui.tech/pro/login",
 });
 

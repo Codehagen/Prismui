@@ -8,7 +8,7 @@ import { constructMetadata } from "@/lib/utils";
 
 export const metadata = constructMetadata({
   title: "Documentation - PrismUI",
-  description: "Complete documentation for PrismUI components, installation guides, and usage examples.",
+  description: "Complete documentation for PrismUI components, installation guides, and usage examples. Learn how to build modern React applications with our component library built on Tailwind CSS and shadcn/ui.",
   canonical: "https://www.prismui.tech/docs",
 });
 
