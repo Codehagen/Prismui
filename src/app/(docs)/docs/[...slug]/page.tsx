@@ -7,11 +7,36 @@ import { getBlurDataURL } from "@/lib/blog/images";
 import { TableOfContents } from "@/components/docs/table-of-contents";
 import { ChevronRight } from "lucide-react";
 import Author from "@/components/blog/author";
+import { constructMetadata } from "@/lib/utils";
+import type { Metadata } from "next";
 
 export async function generateStaticParams() {
   return allDocsPosts.map((post) => ({
     slug: post.slug.split("/"),
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string[] }>;
+}): Promise<Metadata> {
+  const { slug: slugArray } = await params;
+  const slug = slugArray.join("/");
+  const data = allDocsPosts.find((post) => post.slug === slug);
+
+  if (!data) {
+    return constructMetadata({
+      title: "Page Not Found",
+      description: "The page you are looking for does not exist.",
+    });
+  }
+
+  return constructMetadata({
+    title: data.seoTitle || data.title,
+    description: data.seoDescription || data.summary,
+    canonical: `https://www.prismui.tech/docs/${slug}`,
+  });
 }
 
 export default async function DocsPage({

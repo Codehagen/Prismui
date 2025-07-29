@@ -38,7 +38,7 @@ export function constructMetadata({
     openGraph: {
       title,
       description,
-      url: canonical || siteConfig.url,
+      url: canonical,
       siteName: siteConfig.name,
       images: [
         {
@@ -73,7 +73,7 @@ export function constructMetadata({
     icons: "/favicon.ico",
     metadataBase: new URL(siteConfig.url),
     alternates: {
-      canonical: canonical || siteConfig.url,
+      canonical: canonical,
     },
     authors: [
       {

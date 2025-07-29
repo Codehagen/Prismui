@@ -55,7 +55,7 @@ export async function generateMetadata({
     image: `/api/og/blog?title=${encodeURIComponent(
       title
     )}&summary=${encodeURIComponent(description)}`,
-    canonical: `https://prismui.tech/blog/category/${slug}`,
+    canonical: `https://www.prismui.tech/blog/category/${slug}`,
   });
 }
 

@@ -11,6 +11,7 @@ export const metadata = constructMetadata({
   title: "PrismUI Pro - Premium React Components",
   description:
     "Get access to premium React components, exclusive content, and priority support with PrismUI Pro.",
+  canonical: "https://www.prismui.tech/pro",
 });
 
 export default function ProLandingPage() {

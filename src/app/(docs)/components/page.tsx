@@ -10,6 +10,7 @@ export const metadata = constructMetadata({
   title: "Components - PrismUI",
   description: "Browse our collection of 13+ React components including buttons, cards, animations, and page sections. Copy and paste into your apps.",
   keywords: ["React components", "UI library", "PrismUI", "Tailwind CSS components", "shadcn/ui", "component library"],
+  canonical: "https://www.prismui.tech/components",
 })
 
 interface ComponentItem {

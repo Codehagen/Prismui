@@ -4,6 +4,13 @@ import { MDX } from "@/components/blog/mdx";
 import MaxWidthWrapper from "@/components/blog/max-width-wrapper";
 import { getBlurDataURL } from "@/lib/blog/images";
 import { TableOfContents } from "@/components/docs/table-of-contents";
+import { constructMetadata } from "@/lib/utils";
+
+export const metadata = constructMetadata({
+  title: "Documentation - PrismUI",
+  description: "Complete documentation for PrismUI components, installation guides, and usage examples.",
+  canonical: "https://www.prismui.tech/docs",
+});
 
 export default async function DocsPage() {
   const data = allDocsPosts.find((post) => post.slug === "introduction");

@@ -8,6 +8,7 @@ export const metadata = constructMetadata({
   title: "Upgrade to PrismUI Pro",
   description:
     "Unlock premium React components and exclusive features with PrismUI Pro.",
+  canonical: "https://www.prismui.tech/pro/upgrade",
 });
 
 export default async function UpgradePage() {

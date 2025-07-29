@@ -8,6 +8,7 @@ export const metadata = constructMetadata({
   title: "Blog – PrismUI",
   description:
     "Latest news and updates from PrismUI. Discover expert insights, industry trends, and success stories.",
+  canonical: "https://www.prismui.tech/blog",
 });
 
 export default async function Blog() {

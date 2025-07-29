@@ -39,7 +39,7 @@ export async function generateMetadata({
     title: `${seoTitle || title} – Prism UI`,
     description: seoDescription || summary,
     image,
-    canonical: `https://prismui.tech/blog/${slug}`,
+    canonical: `https://www.prismui.tech/blog/${slug}`,
   });
 }
 

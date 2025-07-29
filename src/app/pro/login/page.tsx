@@ -1,4 +1,11 @@
 import UnifiedAuth from "@/components/auth/unified-auth";
+import { constructMetadata } from "@/lib/utils";
+
+export const metadata = constructMetadata({
+  title: "Sign In - PrismUI Pro",
+  description: "Sign in to your PrismUI Pro account to access premium React components and exclusive content.",
+  canonical: "https://www.prismui.tech/pro/login",
+});
 
 export default function LoginPage() {
   return (

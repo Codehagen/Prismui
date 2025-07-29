@@ -6,12 +6,14 @@ export function constructMetadata({
   description = siteConfig.description,
   image = "https://prismui.tech/_static/static_og.png",
   icons = "/favicon.ico",
+  canonical,
   noIndex = false,
 }: {
   title?: string;
   description?: string;
   image?: string;
   icons?: string;
+  canonical?: string;
   noIndex?: boolean;
 } = {}): Metadata {
   return {
@@ -37,6 +39,9 @@ export function constructMetadata({
     },
     icons,
     metadataBase: new URL(HOME_DOMAIN),
+    alternates: {
+      canonical: canonical,
+    },
     ...(noIndex && {
       robots: {
         index: false,

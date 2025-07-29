@@ -20,7 +20,9 @@ export const viewport: Viewport = {
   themeColor: "black",
 };
 
-export const metadata: Metadata = constructMetadata({});
+export const metadata: Metadata = constructMetadata({
+  canonical: "https://www.prismui.tech",
+});
 
 export default function RootLayout({
   children,
